@@ -1,2 +1,2 @@
-# GameDev
-👾 Source code for my game dev YouTube videos.
+# 👾 GameDev
+Source code for my game dev YouTube videos.
