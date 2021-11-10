@@ -6,4 +6,4 @@
 
 ## Solar System
 
-<video src="/demos/01.mp4" controls/>
+<video src="demos/01.mp4" controls/>
