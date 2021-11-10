@@ -4,6 +4,6 @@
 
 #### Updates on Twitter 👉 [@SuboptimalEng](https://www.twitter.com/SuboptimalEng)
 
-## 01 Solar System
+## 1. 3D Solar System
 
 <img src="/demos/01.png" width=600>
