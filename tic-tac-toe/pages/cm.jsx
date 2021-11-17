@@ -5,89 +5,104 @@ import { javascript } from "@codemirror/lang-javascript";
 export default function CM() {
   const codeArray = [
     `
-// tic-tac-toe + javascript (three.js)
-
 // twitter 👉🏾 twitter.com/SuboptimalEng
 // code 👉🏾 github.com/SuboptimalEng/GameDev
 
-// demo
-// 1. create a board with "scaling" geometry
-// 2. set up ray casting with "hidden boxes"
-// 3. set up game with 'x' and 'o' players
-// 3. keep track of board in javascript
-// 4. check win conditions after every move
-// 5. draw strike when someone wins
-`,
-    `
-// index.jsx - return
-// <canvas id="myThreeJsCanvas" />
-
-// index.jsx - useEffect
-let test = new SceneInit();
+const test = new SceneInit("myThreeJsCanvas");
 test.initScene();
 test.animate();
+
 const ticTacToe = new TicTacToe();
 test.scene.add(ticTacToe.board);
 
-// TicTacToe.js
-export default class TicTacToe {
+class TicTacToe {
   constructor() {
-    this.board = {};
-    this.circles = {};
-    this.crosses = {};
-    this.boardLines = {};
-    this.hiddenTiles = {};
+    // ...
+    this.board = new THREE.Group();
+    this.boardLines = new THREE.Group();
+    this.board.add(this.boardLines);
+
     this.currentPlayer = "o";
     this.boardCopy = [
       ["1", "2", "3"],
       ["4", "5", "6"],
       ["7", "8", "9"],
     ];
+
     this._createBoard();
   }
-  // ...
+
+  _createBoard() {
+    // vertical board lines
+    const left = this._boardLine(4, 64, 4, -12, 0);
+    const right = this._boardLine(4, 64, 4, 12, 0);
+    this.boardLines.add(left);
+    this.boardLines.add(right);
+    // ...
+  }
+
+  _boardLine(x, y, z, xOffset, yOffset) {
+    const boardLineGeometry = new THREE.BoxGeometry(x, y, z);
+    const boardLineMaterial = new THREE.MeshNormalMaterial();
+    const boardLine = new THREE.Mesh(boardLineGeometry, boardLineMaterial);
+    boardLine.position.x = xOffset;
+    boardLine.position.y = yOffset;
+    boardLine.scale.x = 0;
+    boardLine.scale.y = 0;
+    boardLine.scale.z = 0;
+    return boardLine;
+  }
 }
 `,
     `
-_createBoard() {
-  this.board = new THREE.Group();
-  this.boardLines = new THREE.Group();
-  this.hiddenTiles = new THREE.Group();
-  // ...
+// twitter 👉🏾 twitter.com/SuboptimalEng
+// code 👉🏾 github.com/SuboptimalEng/GameDev
 
+const ticTacToe = new TicTacToe();
+test.scene.add(ticTacToe.board);
+
+const scaleUp = (obj) => {
+  if (obj.scale.x < 1) {
+    obj.scale.x += 0.04;
+  }
+  if (obj.scale.y < 1) {
+    obj.scale.y += 0.04;
+  }
+  if (obj.scale.z < 1) {
+    obj.scale.z += 0.04;
+  }
+};
+
+const animate = () => {
+  ticTacToe.boardLines.children.forEach(scaleUp);
+  requestAnimationFrame(animate);
+};
+animate();
+`,
+    `
+// twitter 👉🏾 twitter.com/SuboptimalEng
+// code 👉🏾 github.com/SuboptimalEng/GameDev
+
+_createBoard() {
   // vertical board lines
   this.boardLines.add(this._boardLine(4, 64, 4, -12, 0));
   this.boardLines.add(this._boardLine(4, 64, 4, 12, 0));
 
-  // _boardLine(x, y, z, xOffset, yOffset) {
-  //   const boardLineGeometry = new THREE.BoxGeometry(x, y, z);
-  //   const boardLineMaterial = new THREE.MeshNormalMaterial();
-  //   const boardLine = new THREE.Mesh(boardLineGeometry, boardLineMaterial);
-  //   boardLine.position.x = xOffset;
-  //   boardLine.position.y = yOffset;
-  //   boardLine.scale.x = 0;
-  //   boardLine.scale.y = 0;
-  //   boardLine.scale.z = 0;
-  //   return boardLine;
-  // }
-
-  // hidden tiles - top row
-  this.hiddenTiles.add(this._hiddenTile(-24, 24));
-  this.hiddenTiles.add(this._hiddenTile(0, 24));
-  this.hiddenTiles.add(this._hiddenTile(24, 24));
-
-  // add groups to the board
-  this.board.add(this.boardLines);
-  this.board.add(this.hiddenTiles);
+  // horizontal board lines
+  this.boardLines.add(this._boardLine(64, 4, 4, 0, -12));
+  this.boardLines.add(this._boardLine(64, 4, 4, 0, 12));
 }
 `,
     `
+// twitter 👉🏾 twitter.com/SuboptimalEng
+// code 👉🏾 github.com/SuboptimalEng/GameDev
+
 // hi there
 `,
     `
-// hi there
-`,
-    `
+// twitter 👉🏾 twitter.com/SuboptimalEng
+// code 👉🏾 github.com/SuboptimalEng/GameDev
+
 // hi there
 `,
     `
