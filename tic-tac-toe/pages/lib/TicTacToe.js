@@ -72,8 +72,8 @@ export default class TicTacToe {
   _hiddenTile(xOffset, yOffset) {
     const hiddenTileGeometry = new THREE.BoxGeometry(12, 12, 1);
     // NOTE: Create hidden mesh for ray casting.
-    const hiddenTileMaterial = new THREE.MeshNormalMaterial();
-    // const hiddenTileMaterial = new THREE.MeshBasicMaterial({ color: "black" });
+    // const hiddenTileMaterial = new THREE.MeshNormalMaterial();
+    const hiddenTileMaterial = new THREE.MeshBasicMaterial({ color: "black" });
     const hiddenTile = new THREE.Mesh(hiddenTileGeometry, hiddenTileMaterial);
     hiddenTile.position.x = xOffset;
     hiddenTile.position.y = yOffset;

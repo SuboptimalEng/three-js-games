@@ -13,19 +13,19 @@ export default class SceneInit {
   }
 
   initScene() {
-    this.hi = document.getElementById("hi");
-    this.camera = new THREE.PerspectiveCamera(
-      this.fov,
-      this.hi.clientWidth / this.hi.clientHeight,
-      1,
-      1000
-    );
+    // this.hi = document.getElementById("hi");
     // this.camera = new THREE.PerspectiveCamera(
     //   this.fov,
-    //   window.innerWidth / window.innerHeight,
+    //   this.hi.clientWidth / this.hi.clientHeight,
     //   1,
     //   1000
     // );
+    this.camera = new THREE.PerspectiveCamera(
+      this.fov,
+      window.innerWidth / window.innerHeight,
+      1,
+      1000
+    );
     this.camera.position.z = 128;
 
     this.scene = new THREE.Scene();
@@ -41,14 +41,14 @@ export default class SceneInit {
       antialias: true,
     });
 
-    // this.renderer.setSize(window.innerWidth, window.innerHeight);
-    this.renderer.setSize(this.hi.clientWidth, this.hi.clientHeight);
+    this.renderer.setSize(window.innerWidth, window.innerHeight);
+    // this.renderer.setSize(this.hi.clientWidth, this.hi.clientHeight);
     document.body.appendChild(this.renderer.domElement);
 
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
 
-    // this.stats = Stats();
-    // document.body.appendChild(this.stats.dom);
+    this.stats = Stats();
+    document.body.appendChild(this.stats.dom);
 
     // ambient light which is for the whole scene
     // let ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
@@ -70,7 +70,7 @@ export default class SceneInit {
     // requestAnimationFrame(this.animate.bind(this));
     window.requestAnimationFrame(this.animate.bind(this));
     this.render();
-    // this.stats.update();
+    this.stats.update();
     this.controls.update();
   }
 
@@ -79,10 +79,10 @@ export default class SceneInit {
   }
 
   onWindowResize() {
-    // this.camera.aspect = window.innerWidth / window.innerHeight;
-    this.camera.aspect = this.hi.clientWidth / this.hi.clientHeight;
+    this.camera.aspect = window.innerWidth / window.innerHeight;
+    // this.camera.aspect = this.hi.clientWidth / this.hi.clientHeight;
     this.camera.updateProjectionMatrix();
-    // this.renderer.setSize(window.innerWidth, window.innerHeight);
-    this.renderer.setSize(this.hi.clientWidth, this.hi.clientHeight);
+    this.renderer.setSize(window.innerWidth, window.innerHeight);
+    // this.renderer.setSize(this.hi.clientWidth, this.hi.clientHeight);
   }
 }
