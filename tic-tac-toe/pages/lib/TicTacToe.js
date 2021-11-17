@@ -33,24 +33,24 @@ export default class TicTacToe {
     this.boardLines.add(this._boardLine(4, 64, 4, -12, 0));
     this.boardLines.add(this._boardLine(4, 64, 4, 12, 0));
 
-    // // horizontal board lines
-    // this.boardLines.add(this._boardLine(64, 4, 4, 0, -12));
-    // this.boardLines.add(this._boardLine(64, 4, 4, 0, 12));
+    // horizontal board lines
+    this.boardLines.add(this._boardLine(64, 4, 4, 0, -12));
+    this.boardLines.add(this._boardLine(64, 4, 4, 0, 12));
 
-    // // hidden tiles - top row
-    // this.hiddenTiles.add(this._hiddenTile(-24, 24));
-    // this.hiddenTiles.add(this._hiddenTile(0, 24));
-    // this.hiddenTiles.add(this._hiddenTile(24, 24));
+    // hidden tiles - top row
+    this.hiddenTiles.add(this._hiddenTile(-24, 24));
+    this.hiddenTiles.add(this._hiddenTile(0, 24));
+    this.hiddenTiles.add(this._hiddenTile(24, 24));
 
-    // // hidden tiles - middle row
-    // this.hiddenTiles.add(this._hiddenTile(-24, 0));
-    // this.hiddenTiles.add(this._hiddenTile(0, 0));
-    // this.hiddenTiles.add(this._hiddenTile(24, 0));
+    // hidden tiles - middle row
+    this.hiddenTiles.add(this._hiddenTile(-24, 0));
+    this.hiddenTiles.add(this._hiddenTile(0, 0));
+    this.hiddenTiles.add(this._hiddenTile(24, 0));
 
-    // // hidden tiles - bottom row
-    // this.hiddenTiles.add(this._hiddenTile(-24, -24));
-    // this.hiddenTiles.add(this._hiddenTile(0, -24));
-    // this.hiddenTiles.add(this._hiddenTile(24, -24));
+    // hidden tiles - bottom row
+    this.hiddenTiles.add(this._hiddenTile(-24, -24));
+    this.hiddenTiles.add(this._hiddenTile(0, -24));
+    this.hiddenTiles.add(this._hiddenTile(24, -24));
 
     // NOTE: Rotate backward for thumbnail.
     // this.board.rotation.x = -Math.PI / 8;
@@ -71,8 +71,8 @@ export default class TicTacToe {
   _hiddenTile(xOffset, yOffset) {
     const hiddenTileGeometry = new THREE.BoxGeometry(12, 12, 1);
     // NOTE: Create hidden mesh for ray casting.
-    // const hiddenTileMaterial = new THREE.MeshNormalMaterial();
-    const hiddenTileMaterial = new THREE.MeshBasicMaterial({ color: "black" });
+    const hiddenTileMaterial = new THREE.MeshNormalMaterial();
+    // const hiddenTileMaterial = new THREE.MeshBasicMaterial({ color: "black" });
     const hiddenTile = new THREE.Mesh(hiddenTileGeometry, hiddenTileMaterial);
     hiddenTile.position.x = xOffset;
     hiddenTile.position.y = yOffset;

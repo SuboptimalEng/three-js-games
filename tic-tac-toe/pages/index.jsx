@@ -47,7 +47,7 @@ export default function Home() {
       // }
     }
 
-    // window.addEventListener("mousedown", onMouseDown, false);
+    window.addEventListener("mousedown", onMouseDown, false);
 
     const scaleUp = (obj) => {
       if (obj.scale.x < 1) {
@@ -67,7 +67,7 @@ export default function Home() {
       ticTacToe.circles.children.forEach(scaleUp);
       ticTacToe.crosses.children.forEach(scaleUp);
       ticTacToe.winLine.children.forEach(scaleUp);
-      ticTacToe.board.rotation.y += 0.002;
+      // ticTacToe.board.rotation.y += 0.002;
       requestAnimationFrame(animate);
     };
     animate();
