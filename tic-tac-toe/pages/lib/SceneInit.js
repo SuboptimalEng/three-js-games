@@ -3,13 +3,14 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import Stats from "three/examples/jsm/libs/stats.module";
 
 export default class SceneInit {
-  constructor(fov = 36, camera, scene, stats, controls, renderer) {
+  constructor(canvasID, camera, scene, stats, controls, renderer, fov = 36) {
     this.fov = fov;
     this.scene = scene;
     this.stats = stats;
     this.camera = camera;
     this.controls = controls;
     this.renderer = renderer;
+    this.canvasID = canvasID;
   }
 
   initScene() {
@@ -26,7 +27,7 @@ export default class SceneInit {
       1,
       1000
     );
-    this.camera.position.z = 128;
+    this.camera.position.z = 256;
 
     this.scene = new THREE.Scene();
 
@@ -35,7 +36,7 @@ export default class SceneInit {
 
     // specify a canvas which is already created in the HTML file and tagged by an id
     // aliasing enabled
-    const canvas = document.getElementById("myThreeJsCanvas");
+    const canvas = document.getElementById(this.canvasID);
     this.renderer = new THREE.WebGLRenderer({
       canvas,
       antialias: true,

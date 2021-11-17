@@ -7,12 +7,12 @@ import CM from "./cm";
 
 export default function Home() {
   useEffect(() => {
-    const scene = new SceneInit();
-    scene.initScene();
-    scene.animate();
+    const test = new SceneInit("myThreeJsCanvas");
+    test.initScene();
+    test.animate();
 
     const ticTacToe = new TicTacToe();
-    scene.scene.add(ticTacToe.board);
+    test.scene.add(ticTacToe.board);
 
     // const mouse = new THREE.Vector2();
     // const raycaster = new THREE.Raycaster();
@@ -25,7 +25,7 @@ export default function Home() {
     //   // Full-screen
     //   mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
     //   mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-    //   raycaster.setFromCamera(mouse, scene.camera);
+    //   raycaster.setFromCamera(mouse, test.camera);
     //   const intersects = raycaster.intersectObjects(
     //     ticTacToe.hiddenTiles.children
     //   );
@@ -75,19 +75,18 @@ export default function Home() {
 
   return (
     <div className="flex flex-col items-center justify-center ">
+      {/* Full-screen */}
+      <canvas id="myThreeJsCanvas" />
+
       {/* Half-screen */}
       {/* <div>
         <div className="absolute inset-y-0 left-0 right-1/2 text-2xl font-black z-10">
           <CM />
         </div>
       </div>
-
       <div id="hi" className="absolute h-full left-1/2 right-0">
         <canvas id="myThreeJsCanvas" className="absolute left-1/2" />
       </div> */}
-
-      {/* Full-screen */}
-      <canvas id="myThreeJsCanvas" />
     </div>
   );
 }

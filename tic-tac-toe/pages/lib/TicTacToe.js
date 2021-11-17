@@ -2,11 +2,12 @@ import * as THREE from "three";
 
 export default class TicTacToe {
   constructor() {
-    this.board = {};
-    this.circles = {};
-    this.crosses = {};
-    this.boardLines = {};
-    this.hiddenTiles = {};
+    this.board = new THREE.Group();
+    this.circles = new THREE.Group();
+    this.crosses = new THREE.Group();
+    this.winLine = new THREE.Group();
+    this.boardLines = new THREE.Group();
+    this.hiddenTiles = new THREE.Group();
     this.currentPlayer = "o";
     this.boardCopy = [
       ["1", "2", "3"],
@@ -17,13 +18,6 @@ export default class TicTacToe {
   }
 
   _createBoard() {
-    this.board = new THREE.Group();
-    this.circles = new THREE.Group();
-    this.crosses = new THREE.Group();
-    this.winLine = new THREE.Group();
-    this.boardLines = new THREE.Group();
-    this.hiddenTiles = new THREE.Group();
-
     // vertical board lines
     this.boardLines.add(this._boardLine(4, 64, 4, -12, 0));
     this.boardLines.add(this._boardLine(4, 64, 4, 12, 0));
@@ -32,20 +26,20 @@ export default class TicTacToe {
     this.boardLines.add(this._boardLine(64, 4, 4, 0, -12));
     this.boardLines.add(this._boardLine(64, 4, 4, 0, 12));
 
-    // hidden tiles - top row
-    this.hiddenTiles.add(this._hiddenTile(-24, 24));
-    this.hiddenTiles.add(this._hiddenTile(0, 24));
-    this.hiddenTiles.add(this._hiddenTile(24, 24));
+    // // hidden tiles - top row
+    // this.hiddenTiles.add(this._hiddenTile(-24, 24));
+    // this.hiddenTiles.add(this._hiddenTile(0, 24));
+    // this.hiddenTiles.add(this._hiddenTile(24, 24));
 
-    // hidden tiles - middle row
-    this.hiddenTiles.add(this._hiddenTile(-24, 0));
-    this.hiddenTiles.add(this._hiddenTile(0, 0));
-    this.hiddenTiles.add(this._hiddenTile(24, 0));
+    // // hidden tiles - middle row
+    // this.hiddenTiles.add(this._hiddenTile(-24, 0));
+    // this.hiddenTiles.add(this._hiddenTile(0, 0));
+    // this.hiddenTiles.add(this._hiddenTile(24, 0));
 
-    // hidden tiles - bottom row
-    this.hiddenTiles.add(this._hiddenTile(-24, -24));
-    this.hiddenTiles.add(this._hiddenTile(0, -24));
-    this.hiddenTiles.add(this._hiddenTile(24, -24));
+    // // hidden tiles - bottom row
+    // this.hiddenTiles.add(this._hiddenTile(-24, -24));
+    // this.hiddenTiles.add(this._hiddenTile(0, -24));
+    // this.hiddenTiles.add(this._hiddenTile(24, -24));
 
     // add groups to the board
     this.board.add(this.circles);
@@ -53,6 +47,7 @@ export default class TicTacToe {
     this.board.add(this.winLine);
     this.board.add(this.boardLines);
     this.board.add(this.hiddenTiles);
+
     // NOTE: Rotate backward for thumbnail.
     // this.board.rotation.x = -Math.PI / 8;
   }
