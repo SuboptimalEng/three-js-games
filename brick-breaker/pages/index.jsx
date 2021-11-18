@@ -16,13 +16,13 @@ export default function Home() {
     const c = new THREE.Mesh(bg, bm);
     const d = new THREE.Mesh(bg, bm);
     b.position.x = 0;
-    b.position.y = 24;
+    b.position.y = 32;
 
     c.position.x = -16;
-    c.position.y = 24;
+    c.position.y = 32;
 
     d.position.x = 16;
-    d.position.y = 24;
+    d.position.y = 32;
 
     test.scene.add(b);
     test.scene.add(c);
