@@ -46,39 +46,39 @@ export default function Home() {
     // window.addEventListener("mousemove", onMouseMove);
   }, []);
 
+  let xOffset = 9999;
+  let yOffset = 9999;
   const [x, setX] = useState(0);
   const [y, setY] = useState(0);
-  const [initialX, setinitialX] = useState(-1);
-  const [initialY, setinitialY] = useState(-1);
   const [showCustomEditor, setShowCustomEditor] = useState(false);
 
-  // useEffect(() => {
-  //   if (showCustomEditor) {
-  //     // NOTE: If the editor is currently displayed and the user closes
-  //     // it, then store the x,y coordinates of the editor to re-open in
-  //     // the same part of the screen where the user previously dragged it.
-  //     const el = document.getElementById("custom-editor");
-  //     const rect = el.getBoundingClientRect();
-  //     if (initialX === -1 && initialY === -1) {
-  //       setinitialX(rect.x);
-  //       setinitialY(rect.y);
-  //       setX(rect.x - rect.x);
-  //       setY(rect.y - rect.y);
-  //     }
-  //   } else {
-  //     const el = document.getElementById("custom-editor");
-  //     if (el) {
-  //       const rect = el.getBoundingClientRect();
-  //       setX(rect.x - initialX);
-  //       setY(rect.y - initialY);
-  //     }
-  //   }
-  // }, [showCustomEditor]);
+  useEffect(() => {
+    // NOTE: When the editor is first displayed on the screen, we want
+    // to instantly grab the x, y offsets and store them.
+    if (showCustomEditor && xOffset === 9999 && yOffset === 9999) {
+      const el = document.getElementById("custom-editor");
+      const rect = el.getBoundingClientRect();
+      xOffset = rect.x;
+      yOffset = rect.y;
+    }
+  }, [showCustomEditor]);
+
+  const toggleCustomEditor = () => {
+    if (showCustomEditor) {
+      // NOTE: This will run the second time that the editor is open.
+      const el = document.getElementById("custom-editor");
+      const rect = el.getBoundingClientRect();
+      setX(rect.x - xOffset);
+      setY(rect.y - yOffset);
+    }
+
+    setShowCustomEditor(!showCustomEditor);
+  };
 
   return (
     <div className="flex flex-col items-center justify-center ">
       <div className="absolute bg-white right-4 top-4 p-2 rounded-xl text-2xl">
-        <button onClick={() => setShowCustomEditor(!showCustomEditor)}>
+        <button onClick={toggleCustomEditor}>
           {showCustomEditor ? <div>➡️ 💻</div> : <div>⬅️ 💻</div>}
         </button>
       </div>
