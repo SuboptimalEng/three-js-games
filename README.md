@@ -6,6 +6,8 @@
 
 ## 2. Tic-Tac-Toe
 
+<img src="/_demos/02_extra.png" width="100%">
+
 <img src="/_demos/02.png" width="100%">
 
 ## 1. Solar System
