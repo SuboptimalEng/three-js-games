@@ -53,12 +53,17 @@ export default class TicTacToe {
     this.hiddenTiles.add(this._hiddenTile(24, -24));
 
     // NOTE: Rotate backward for thumbnail.
-    // this.board.rotation.x = -Math.PI / 8;
+    this.board.rotation.x = -Math.PI / 16;
+    this.board.rotation.y = Math.PI / 16;
   }
 
   _boardLine(x, y, z, xOffset, yOffset) {
     const boardLineGeometry = new THREE.BoxGeometry(x, y, z);
-    const boardLineMaterial = new THREE.MeshNormalMaterial();
+    // const boardLineMaterial = new THREE.MeshNormalMaterial();
+    const boardLineMaterial = new THREE.MeshPhongMaterial({
+      color: 0xf7df1e,
+      shininess: 100,
+    });
     const boardLine = new THREE.Mesh(boardLineGeometry, boardLineMaterial);
     boardLine.position.x = xOffset;
     boardLine.position.y = yOffset;
@@ -138,8 +143,13 @@ export default class TicTacToe {
 
   _getStrike(x, y, z) {
     const strikeGeometry = new THREE.BoxGeometry(x, y, z);
-    const strikeMaterial = new THREE.MeshNormalMaterial();
+    // const strikeMaterial = new THREE.MeshNormalMaterial();
+    const strikeMaterial = new THREE.MeshPhongMaterial({
+      color: 0xf7df1e,
+      shininess: 100,
+    });
     const strike = new THREE.Mesh(strikeGeometry, strikeMaterial);
+
     strike.scale.x = 0;
     strike.scale.y = 0;
     strike.scale.z = 0;
@@ -225,7 +235,11 @@ export default class TicTacToe {
   _addCross(xOffset, yOffset) {
     const cross = new THREE.Group();
     const crossGeometry = new THREE.BoxGeometry(12, 4, 4);
-    const crossMaterial = new THREE.MeshNormalMaterial();
+    // const crossMaterial = new THREE.MeshNormalMaterial();
+    const crossMaterial = new THREE.MeshPhongMaterial({
+      color: 0xf7df1e,
+      shininess: 100,
+    });
     const cross1 = new THREE.Mesh(crossGeometry, crossMaterial);
     const cross2 = new THREE.Mesh(crossGeometry, crossMaterial);
     cross1.rotation.z = Math.PI / 4;
@@ -243,7 +257,11 @@ export default class TicTacToe {
     const r = 6;
     const height = 4;
     const cylinderGeometry = new THREE.CylinderGeometry(r, r, height, 100);
-    const cylinderMaterial = new THREE.MeshNormalMaterial();
+    // const cylinderMaterial = new THREE.MeshNormalMaterial();
+    const cylinderMaterial = new THREE.MeshPhongMaterial({
+      color: 0xf7df1e,
+      shininess: 100,
+    });
     const cylinder = new THREE.Mesh(cylinderGeometry, cylinderMaterial);
     cylinder.position.x = xOffset;
     cylinder.position.y = yOffset;

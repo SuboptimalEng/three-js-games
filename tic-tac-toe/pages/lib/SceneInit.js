@@ -14,19 +14,19 @@ export default class SceneInit {
   }
 
   initScene() {
-    this.splitScreen = document.getElementById("splitScreen");
-    this.camera = new THREE.PerspectiveCamera(
-      this.fov,
-      this.splitScreen.clientWidth / this.splitScreen.clientHeight,
-      1,
-      1000
-    );
+    // this.splitScreen = document.getElementById("splitScreen");
     // this.camera = new THREE.PerspectiveCamera(
     //   this.fov,
-    //   window.innerWidth / window.innerHeight,
+    //   this.splitScreen.clientWidth / this.splitScreen.clientHeight,
     //   1,
     //   1000
     // );
+    this.camera = new THREE.PerspectiveCamera(
+      this.fov,
+      window.innerWidth / window.innerHeight,
+      1,
+      1000
+    );
     this.camera.position.z = 128;
 
     this.scene = new THREE.Scene();
@@ -42,11 +42,11 @@ export default class SceneInit {
       antialias: true,
     });
 
-    // this.renderer.setSize(window.innerWidth, window.innerHeight);
-    this.renderer.setSize(
-      this.splitScreen.clientWidth,
-      this.splitScreen.clientHeight
-    );
+    this.renderer.setSize(window.innerWidth, window.innerHeight);
+    // this.renderer.setSize(
+    //   this.splitScreen.clientWidth,
+    //   this.splitScreen.clientHeight
+    // );
     document.body.appendChild(this.renderer.domElement);
 
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
@@ -55,15 +55,15 @@ export default class SceneInit {
     // document.body.appendChild(this.stats.dom);
 
     // ambient light which is for the whole scene
-    // let ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
-    // ambientLight.castShadow = false;
-    // this.scene.add(ambientLight);
+    let ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
+    ambientLight.castShadow = false;
+    this.scene.add(ambientLight);
 
     // spot light which is illuminating the chart directly
-    // let spotLight = new THREE.SpotLight(0xffffff, 0.55);
-    // spotLight.castShadow = true;
-    // spotLight.position.set(0, 40, 10);
-    // this.scene.add(spotLight);
+    let spotLight = new THREE.SpotLight(0xffffff, 0.5);
+    spotLight.castShadow = true;
+    spotLight.position.set(25, 25, 50);
+    this.scene.add(spotLight);
 
     // if window resizes
     window.addEventListener("resize", () => this.onWindowResize(), false);
@@ -83,14 +83,14 @@ export default class SceneInit {
   }
 
   onWindowResize() {
-    // this.camera.aspect = window.innerWidth / window.innerHeight;
-    this.camera.aspect =
-      this.splitScreen.clientWidth / this.splitScreen.clientHeight;
+    this.camera.aspect = window.innerWidth / window.innerHeight;
+    // this.camera.aspect =
+    //   this.splitScreen.clientWidth / this.splitScreen.clientHeight;
     this.camera.updateProjectionMatrix();
-    // this.renderer.setSize(window.innerWidth, window.innerHeight);
-    this.renderer.setSize(
-      this.splitScreen.clientWidth,
-      this.splitScreen.clientHeight
-    );
+    this.renderer.setSize(window.innerWidth, window.innerHeight);
+    // this.renderer.setSize(
+    //   this.splitScreen.clientWidth,
+    //   this.splitScreen.clientHeight
+    // );
   }
 }

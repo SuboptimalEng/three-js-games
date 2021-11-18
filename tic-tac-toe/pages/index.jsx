@@ -19,12 +19,12 @@ export default function Home() {
 
     function onMouseDown(event) {
       // Half-screen
-      const splitScreen = document.getElementById("splitScreen");
-      mouse.x = (event.clientX / splitScreen.clientWidth) * 2 - 3;
-      mouse.y = -(event.clientY / splitScreen.clientHeight) * 2 + 1;
+      // const splitScreen = document.getElementById("splitScreen");
+      // mouse.x = (event.clientX / splitScreen.clientWidth) * 2 - 3;
+      // mouse.y = -(event.clientY / splitScreen.clientHeight) * 2 + 1;
       // Full-screen
-      // mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-      // mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+      mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+      mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
       raycaster.setFromCamera(mouse, test.camera);
       const intersects = raycaster.intersectObjects(
         ticTacToe.hiddenTiles.children
@@ -76,17 +76,17 @@ export default function Home() {
   return (
     <div className="flex flex-col items-center justify-center ">
       {/* Full-screen */}
-      {/* <canvas id="myThreeJsCanvas" /> */}
+      <canvas id="myThreeJsCanvas" />
 
       {/* Half-screen */}
-      <div>
+      {/* <div>
         <div className="absolute inset-y-0 left-0 right-1/2 text-2xl font-black z-10">
           <CM />
         </div>
       </div>
       <div id="splitScreen" className="absolute h-full left-1/2 right-0">
         <canvas id="myThreeJsCanvas" className="absolute left-1/2" />
-      </div>
+      </div> */}
     </div>
   );
 }
