@@ -46,20 +46,20 @@ export default function Home() {
     // window.addEventListener("mousemove", onMouseMove);
   }, []);
 
-  let xOffset = 9999;
-  let yOffset = 9999;
   const [x, setX] = useState(0);
   const [y, setY] = useState(0);
+  const [initialX, setInitialX] = useState(9999);
+  const [initialY, setInitialY] = useState(9999);
   const [showCustomEditor, setShowCustomEditor] = useState(false);
 
   useEffect(() => {
     // NOTE: When the editor is first displayed on the screen, we want
     // to instantly grab the x, y offsets and store them.
-    if (showCustomEditor && xOffset === 9999 && yOffset === 9999) {
+    if (showCustomEditor && initialX === 9999 && initialY === 9999) {
       const el = document.getElementById("custom-editor");
       const rect = el.getBoundingClientRect();
-      xOffset = rect.x;
-      yOffset = rect.y;
+      setInitialX(rect.x);
+      setInitialY(rect.y);
     }
   }, [showCustomEditor]);
 
@@ -68,8 +68,8 @@ export default function Home() {
       // NOTE: This will run the second time that the editor is open.
       const el = document.getElementById("custom-editor");
       const rect = el.getBoundingClientRect();
-      setX(rect.x - xOffset);
-      setY(rect.y - yOffset);
+      setX(rect.x - initialX);
+      setY(rect.y - initialY);
     }
 
     setShowCustomEditor(!showCustomEditor);
