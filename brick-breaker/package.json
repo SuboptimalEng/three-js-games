@@ -6,9 +6,13 @@
     "start": "next start"
   },
   "dependencies": {
+    "@codemirror/lang-javascript": "^0.19.3",
+    "@uiw/react-codemirror": "^4.2.4",
+    "codemirror": "^5.63.3",
     "next": "latest",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-draggable": "^4.4.4",
     "three": "^0.134.0"
   },
   "devDependencies": {
