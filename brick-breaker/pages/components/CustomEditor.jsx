@@ -65,7 +65,10 @@ const animate = () => {
 
   return (
     <div className="absolute inset-x-72 inset-y-36">
-      <Draggable defaultPosition={{ x: props.x, y: props.y }}>
+      <Draggable
+        defaultPosition={{ x: props.x, y: props.y }}
+        handle=".drag-handle"
+      >
         <div
           id="custom-editor"
           className="w-full h-full text-2xl bg-white rounded-xl"
@@ -82,7 +85,7 @@ const animate = () => {
               className="h-full w-11/12"
             />
             <div className="absolute border top-2 bottom-2 right-2 w-1/12">
-              <div className="flex flex-col text-4xl h-full place-items-center justify-center space-y-2">
+              <div className="flex flex-col text-4xl h-full place-items-center justify-center space-y-2 drag-handle">
                 <button onClick={prevCodeBlock}>⏮</button>
                 <button onClick={nextCodeBlock}>️⏭</button>
               </div>
