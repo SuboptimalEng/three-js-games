@@ -19,8 +19,47 @@ const animate = () => {
   window.requestAnimationFrame(animate);
 };
   `,
+    `class TicTacToe {
+  constructor() {
+    this.board = new THREE.Group();
+    this.boardLines = new THREE.Group();
+    this.board.add(this.boardLines);
+    this._createBoard();
+  }
+
+  _createBoard() {
+    // vertical board lines
+    const left = this._boardLine(4, 64, 4, -12, 0);
+    const right = this._boardLine(4, 64, 4, 12, 0);
+    this.boardLines.add(left);
+    this.boardLines.add(right);
+
+    // horizontal board lines
+    const top = this._boardLine(64, 4, 4, 0, 12);
+    const bottom = this._boardLine(64, 4, 4, 0, -12);
+    this.boardLines.add(top);
+    this.boardLines.add(bottom);
+  }
+}
+  `,
   ];
-  const [code, setCode] = useState(codeArray[0]);
+
+  const [index, setIndex] = useState(0);
+  const [code, setCode] = useState(codeArray[index]);
+
+  const nextCodeBlock = () => {
+    if (index < codeArray.length - 1) {
+      setCode(codeArray[index + 1]);
+      setIndex(index + 1);
+    }
+  };
+
+  const prevCodeBlock = () => {
+    if (index >= 1) {
+      setCode(codeArray[index - 1]);
+      setIndex(index - 1);
+    }
+  };
 
   console.log(props);
 
@@ -38,15 +77,14 @@ const animate = () => {
               theme="light"
               extensions={[javascript()]}
               onChange={(value, viewUpdate) => {
-                console.log("value:", value);
                 setCode(value);
               }}
               className="h-full w-11/12"
             />
             <div className="absolute border top-2 bottom-2 right-2 w-1/12">
-              <div className="flex flex-col h-full place-items-center justify-center">
-                <button onClick={() => console.log("hi")}>👋</button>
-                <button onClick={() => console.log("there")}>✌️</button>
+              <div className="flex flex-col text-4xl h-full place-items-center justify-center space-y-2">
+                <button onClick={prevCodeBlock}>⏮</button>
+                <button onClick={nextCodeBlock}>️⏭</button>
               </div>
             </div>
           </div>

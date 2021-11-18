@@ -48,34 +48,37 @@ export default function Home() {
 
   const [x, setX] = useState(0);
   const [y, setY] = useState(0);
-  const [initialX, setinitialX] = useState(0);
-  const [initialY, setinitialY] = useState(0);
+  const [initialX, setinitialX] = useState(-1);
+  const [initialY, setinitialY] = useState(-1);
   const [showCustomEditor, setShowCustomEditor] = useState(false);
 
-  const toggleCustomEditor = () => {
-    // NOTE: If the editor is currently displayed and the user closes
-    // it, then store the x,y coordinates of the editor to re-open in
-    // the same part of the screen where the user previously dragged it.
-    if (showCustomEditor) {
-      const el = document.getElementById("custom-editor");
-      const rect = el.getBoundingClientRect();
-      if (initialX === 0 && initialY === 0) {
-        setinitialX(rect.x);
-        setinitialY(rect.y);
-        setX(rect.x - rect.x);
-        setY(rect.y - rect.y);
-      } else {
-        setX(rect.x - initialX);
-        setY(rect.y - initialY);
-      }
-    }
-    setShowCustomEditor(!showCustomEditor);
-  };
+  // useEffect(() => {
+  //   if (showCustomEditor) {
+  //     // NOTE: If the editor is currently displayed and the user closes
+  //     // it, then store the x,y coordinates of the editor to re-open in
+  //     // the same part of the screen where the user previously dragged it.
+  //     const el = document.getElementById("custom-editor");
+  //     const rect = el.getBoundingClientRect();
+  //     if (initialX === -1 && initialY === -1) {
+  //       setinitialX(rect.x);
+  //       setinitialY(rect.y);
+  //       setX(rect.x - rect.x);
+  //       setY(rect.y - rect.y);
+  //     }
+  //   } else {
+  //     const el = document.getElementById("custom-editor");
+  //     if (el) {
+  //       const rect = el.getBoundingClientRect();
+  //       setX(rect.x - initialX);
+  //       setY(rect.y - initialY);
+  //     }
+  //   }
+  // }, [showCustomEditor]);
 
   return (
     <div className="flex flex-col items-center justify-center ">
       <div className="absolute bg-white right-4 top-4 p-2 rounded-xl text-2xl">
-        <button onClick={toggleCustomEditor}>
+        <button onClick={() => setShowCustomEditor(!showCustomEditor)}>
           {showCustomEditor ? <div>➡️ 💻</div> : <div>⬅️ 💻</div>}
         </button>
       </div>
