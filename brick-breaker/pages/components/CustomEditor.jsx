@@ -3,7 +3,7 @@ import Draggable from "react-draggable";
 import CodeMirror from "@uiw/react-codemirror";
 import { javascript } from "@codemirror/lang-javascript";
 
-export default function CustomEditor() {
+export default function CustomEditor(props) {
   const codeArray = [
     `// 🐦 twitter.com/SuboptimalEng
 // 💻 github.com/SuboptimalEng/GameDev
@@ -22,10 +22,15 @@ const animate = () => {
   ];
   const [code, setCode] = useState(codeArray[0]);
 
+  console.log(props);
+
   return (
-    <div className="absolute inset-x-64 inset-y-32">
-      <Draggable>
-        <div className="w-full h-full text-2xl bg-white rounded-xl">
+    <div className="absolute inset-x-72 inset-y-36">
+      <Draggable defaultPosition={{ x: props.x, y: props.y }}>
+        <div
+          id="custom-editor"
+          className="w-full h-full text-2xl bg-white rounded-xl"
+        >
           <div className="w-full h-full p-2">
             <CodeMirror
               value={code}
@@ -40,8 +45,8 @@ const animate = () => {
             />
             <div className="absolute border top-2 bottom-2 right-2 w-1/12">
               <div className="flex flex-col h-full place-items-center justify-center">
-                <button onClick={() => console.log("hi")}>hi</button>
-                <button onClick={() => console.log("there")}>there</button>
+                <button onClick={() => console.log("hi")}>👋</button>
+                <button onClick={() => console.log("there")}>✌️</button>
               </div>
             </div>
           </div>
