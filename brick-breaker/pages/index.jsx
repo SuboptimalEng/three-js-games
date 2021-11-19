@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import * as THREE from "three";
+import * as TWEEN from "@tweenjs/tween.js";
 
 import SceneInit from "./lib/SceneInit";
 import CustomEditor from "./components/CustomEditor";
@@ -56,38 +57,22 @@ export default function Home() {
     }
     addExperimentalCube();
 
-    const easeInOutCubic = (x) => {
-      return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
-    };
-
-    const easeInOutSine = (x) => {
-      return -(Math.cos(Math.PI * x) - 1) / 2;
-    };
-
-    const easeInOutQuint = (x) => {
-      return x < 0.5 ? 16 * x * x * x * x * x : 1 - Math.pow(-2 * x + 2, 5) / 2;
-    };
-
-    const scaleUp = (obj) => {
-      if (obj.scale.x < 1) {
-        obj.scale.x += easeInOutSine(obj.scale.x);
-      }
-      if (obj.scale.y < 1) {
-        obj.scale.y += easeInOutSine(obj.scale.y);
-      }
-      if (obj.scale.z < 1) {
-        obj.scale.z += easeInOutSine(obj.scale.z);
-      }
-    };
-
     const animate = (t) => {
-      // console.log(clock.getElapsedTime());
-      test.scene.children.forEach(scaleUp);
+      TWEEN.update(t);
       window.requestAnimationFrame(animate);
     };
 
-    const clock = new THREE.Clock(true);
-    clock.start();
+    const tween1 = new TWEEN.Tween({ x: 0, y: 0, z: 0 })
+      .to({ x: 1, y: 1, z: 1 }, 1000)
+      .easing(TWEEN.Easing.Quadratic.Out)
+      .onUpdate(({ x, y, z }) => {
+        test.scene.children.forEach((obj) => {
+          obj.scale.x = x;
+          obj.scale.y = y;
+          obj.scale.z = z;
+        });
+      })
+      .start();
 
     animate();
   }, []);
