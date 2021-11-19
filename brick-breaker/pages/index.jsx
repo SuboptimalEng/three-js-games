@@ -36,43 +36,61 @@ export default function Home() {
       }
 
       let uniforms = {
-        colorB: { type: "vec3", value: new THREE.Color(0xacb6e5) },
-        colorA: { type: "vec3", value: new THREE.Color(0x74ebd5) },
+        colorB: { type: "vec3", value: new THREE.Color(0xfff000) },
+        colorA: { type: "vec3", value: new THREE.Color(0x000fff) },
       };
 
       const geometry = new THREE.BoxGeometry(8, 8, 8);
-      let material = new THREE.ShaderMaterial({
-        uniforms: uniforms,
-        fragmentShader: fragmentShader(),
-        vertexShader: vertexShader(),
-      });
+      const material = new THREE.MeshNormalMaterial();
+      // let material = new THREE.ShaderMaterial({
+      //   uniforms: uniforms,
+      //   fragmentShader: fragmentShader(),
+      //   vertexShader: vertexShader(),
+      // });
 
       let mesh = new THREE.Mesh(geometry, material);
-      mesh.rotation.x = Math.PI / 8;
-      mesh.rotation.y = Math.PI / 8;
-      mesh.scale.x = 0.1;
-      mesh.scale.y = 0.1;
-      mesh.scale.z = 0.1;
-      test.scene.add(mesh);
+      let mesh2 = new THREE.Mesh(geometry, material);
+      let mesh3 = new THREE.Mesh(geometry, material);
+      // mesh.rotation.x = Math.PI / 8;
+      // mesh.rotation.y = Math.PI / 8;
+      mesh2.position.x = 16;
+      mesh3.position.x = -16;
+      test.scene.add(mesh, mesh2, mesh3);
+      const tween1 = new TWEEN.Tween({ x: 0, y: 0, z: 0, posX: 0 })
+        .to({ x: 1, y: 1, z: 1, posX: 10 }, 2000)
+        .easing(TWEEN.Easing.Quartic.InOut)
+        .onUpdate(({ x, y, z, posX }) => {
+          test.scene.children.forEach((obj) => {
+            obj.scale.x = x;
+            // obj.position.x = posX;
+            obj.scale.y = y;
+            obj.scale.z = z;
+          });
+        });
+      const tween2 = new TWEEN.Tween({ x: 1, y: 1, z: 1, posX: 10 })
+        .to({ x: 0, y: 0, z: 0, posX: 0 }, 2000)
+        .easing(TWEEN.Easing.Quartic.InOut)
+        .onUpdate(({ x, y, z, posX }) => {
+          test.scene.children.forEach((obj) => {
+            obj.scale.x = x;
+            // obj.position.x = posX;
+            obj.scale.y = y;
+            obj.scale.z = z;
+          });
+        });
+
+      tween1.chain(tween2);
+      tween2.chain(tween1);
+
+      tween1.start();
     }
+
     addExperimentalCube();
 
     const animate = (t) => {
       TWEEN.update(t);
       window.requestAnimationFrame(animate);
     };
-
-    const tween1 = new TWEEN.Tween({ x: 0, y: 0, z: 0 })
-      .to({ x: 1, y: 1, z: 1 }, 1000)
-      .easing(TWEEN.Easing.Quadratic.Out)
-      .onUpdate(({ x, y, z }) => {
-        test.scene.children.forEach((obj) => {
-          obj.scale.x = x;
-          obj.scale.y = y;
-          obj.scale.z = z;
-        });
-      })
-      .start();
 
     animate();
   }, []);
