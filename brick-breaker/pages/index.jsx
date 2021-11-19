@@ -10,31 +10,48 @@ export default function Home() {
     test.initScene();
     test.animate();
 
-    const bg = new THREE.BoxGeometry(8, 8, 8);
-    const bm = new THREE.MeshNormalMaterial();
-    const b = new THREE.Mesh(bg, bm);
-    const c = new THREE.Mesh(bg, bm);
-    const d = new THREE.Mesh(bg, bm);
-    b.position.x = 0;
-    b.position.y = 32;
+    function addExperimentalCube() {
+      function vertexShader() {
+        return `
+          varying vec3 vUv;
+          void main() {
+            vUv = position;
+            vec4 modelViewPosition = modelViewMatrix * vec4(position, 1.0);
+            gl_Position = projectionMatrix * modelViewPosition;
+          }
+        `;
+      }
 
-    c.position.x = -16;
-    c.position.y = 32;
+      function fragmentShader() {
+        return `
+            uniform vec3 colorA;
+            uniform vec3 colorB;
+            varying vec3 vUv;
 
-    d.position.x = 16;
-    d.position.y = 32;
+            void main() {
+              gl_FragColor = vec4(mix(colorA, colorB, vUv.z), 1.0);
+            }
+        `;
+      }
 
-    test.scene.add(b);
-    test.scene.add(c);
-    test.scene.add(d);
+      let uniforms = {
+        colorB: { type: "vec3", value: new THREE.Color(0xacb6e5) },
+        colorA: { type: "vec3", value: new THREE.Color(0x74ebd5) },
+      };
+
+      const geometry = new THREE.BoxGeometry(8, 8, 8);
+      let material = new THREE.ShaderMaterial({
+        uniforms: uniforms,
+        fragmentShader: fragmentShader(),
+        vertexShader: vertexShader(),
+      });
+
+      let mesh = new THREE.Mesh(geometry, material);
+      test.scene.add(mesh);
+    }
+    addExperimentalCube();
 
     const animate = () => {
-      b.rotation.x += 0.002;
-      b.rotation.y += 0.002;
-      c.rotation.x += 0.002;
-      c.rotation.y += 0.002;
-      d.rotation.x += 0.002;
-      d.rotation.y += 0.002;
       window.requestAnimationFrame(animate);
     };
 
