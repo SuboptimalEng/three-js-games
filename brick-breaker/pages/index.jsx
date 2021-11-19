@@ -47,20 +47,49 @@ export default function Home() {
       });
 
       let mesh = new THREE.Mesh(geometry, material);
+      mesh.rotation.x = Math.PI / 8;
+      mesh.rotation.y = Math.PI / 8;
+      mesh.scale.x = 0.1;
+      mesh.scale.y = 0.1;
+      mesh.scale.z = 0.1;
       test.scene.add(mesh);
     }
     addExperimentalCube();
 
-    const animate = () => {
+    const easeInOutCubic = (x) => {
+      return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+    };
+
+    const easeInOutSine = (x) => {
+      return -(Math.cos(Math.PI * x) - 1) / 2;
+    };
+
+    const easeInOutQuint = (x) => {
+      return x < 0.5 ? 16 * x * x * x * x * x : 1 - Math.pow(-2 * x + 2, 5) / 2;
+    };
+
+    const scaleUp = (obj) => {
+      if (obj.scale.x < 1) {
+        obj.scale.x += easeInOutSine(obj.scale.x);
+      }
+      if (obj.scale.y < 1) {
+        obj.scale.y += easeInOutSine(obj.scale.y);
+      }
+      if (obj.scale.z < 1) {
+        obj.scale.z += easeInOutSine(obj.scale.z);
+      }
+    };
+
+    const animate = (t) => {
+      // console.log(clock.getElapsedTime());
+      test.scene.children.forEach(scaleUp);
       window.requestAnimationFrame(animate);
     };
 
-    animate();
+    const clock = new THREE.Clock(true);
+    clock.start();
 
-    // const onMouseMove = (e) => {
-    //   console.log(e.clientX, e.clientY);
-    // };
-    // window.addEventListener("mousemove", onMouseMove);
+    animate();
   }, []);
 
   const [x, setX] = useState(0);
