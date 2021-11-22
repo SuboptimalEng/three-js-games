@@ -28,7 +28,7 @@ export default class SceneInit {
     this.uniforms = {
       u_time: { type: "f", value: 1.0 },
       colorB: { type: "vec3", value: new THREE.Color(0xfff000) },
-      colorA: { type: "vec3", value: new THREE.Color(0xfff000) },
+      colorA: { type: "vec3", value: new THREE.Color(0xffffff) },
     };
 
     // specify a canvas which is already created in the HTML file and tagged by an id

@@ -18,12 +18,35 @@ export default function Home() {
 
           varying vec3 vUv;
           uniform float u_time;
+
+          float random(vec2 st) {
+              return fract(sin(dot(st.xy,
+                                  vec2(12.9898,78.233)))*
+                  43758.5453123);
+          }
+
           void main() {
             vUv = position;
-            gl_Position = projectionMatrix * modelViewMatrix * vec4(position.x, position.y, cos(position.y/4.0 + u_time) + sin(position.x/4.0 + u_time) * 4.0, 1.0);
+            float rnd = random(position.xy);
+
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(position.x, position.y, rnd + cos(position.y/4.0 + u_time) + sin(position.x/4.0 + u_time) * 4.0, 1.0);
           }
         `;
       }
+      // NOTE: Working wave function.
+      // void main() {
+      //   vUv = position;
+      //   gl_Position =
+      //     projectionMatrix *
+      //     modelViewMatrix *
+      //     vec4(
+      //       position.x,
+      //       position.y,
+      //       cos(position.y / 4.0 + u_time) +
+      //         sin(position.x / 4.0 + u_time) * 4.0,
+      //       1.0
+      //     );
+      // };
 
       function fragmentShader() {
         return `
@@ -31,7 +54,16 @@ export default function Home() {
             uniform vec3 colorB;
             varying vec3 vUv;
 
+            float random (vec2 st) {
+                return fract(sin(dot(st.xy,
+                                    vec2(12.9898,78.233)))*
+                    43758.5453123);
+            }
+
             void main() {
+              // vUv = position
+              // float rnd = random(vUv.xy)
+
               gl_FragColor = vec4(mix(colorA, colorB, vUv.x), 1.0);
             }
         `;
