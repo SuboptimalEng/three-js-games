@@ -22,7 +22,14 @@ export default class SceneInit {
     );
     this.camera.position.z = 128;
 
+    this.clock = new THREE.Clock();
     this.scene = new THREE.Scene();
+
+    this.uniforms = {
+      u_time: { type: "f", value: 1.0 },
+      colorB: { type: "vec3", value: new THREE.Color(0xfff000) },
+      colorA: { type: "vec3", value: new THREE.Color(0xfff000) },
+    };
 
     // specify a canvas which is already created in the HTML file and tagged by an id
     // aliasing enabled
@@ -65,6 +72,7 @@ export default class SceneInit {
   }
 
   render() {
+    this.uniforms.u_time.value += this.clock.getDelta();
     this.renderer.render(this.scene, this.camera);
   }
 

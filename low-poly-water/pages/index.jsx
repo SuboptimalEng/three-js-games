@@ -14,10 +14,13 @@ export default function Home() {
     function addExperimentalCube() {
       function vertexShader() {
         return `
+          #define PI 3.14159
+
           varying vec3 vUv;
+          uniform float u_time;
           void main() {
             vUv = position;
-            gl_Position = projectionMatrix * modelViewMatrix * vec4(position * sin(2.0), 1.0);
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(position.x, position.y, cos(position.y/4.0 + u_time) + sin(position.x/4.0 + u_time) * 4.0, 1.0);
           }
         `;
       }
@@ -29,61 +32,61 @@ export default function Home() {
             varying vec3 vUv;
 
             void main() {
-              gl_FragColor = vec4(mix(colorA, colorB, vUv.z), 1.0);
+              gl_FragColor = vec4(mix(colorA, colorB, vUv.x), 1.0);
             }
         `;
       }
 
-      let uniforms = {
-        colorB: { type: "vec3", value: new THREE.Color(0xfff000) },
-        colorA: { type: "vec3", value: new THREE.Color(0x000fff) },
-      };
+      // let uniforms = {
+      //   u_time: { type: "f", value: 1.0 },
+      //   colorB: { type: "vec3", value: new THREE.Color(0xfff000) },
+      //   colorA: { type: "vec3", value: new THREE.Color(0x000fff) },
+      // };
 
-      const geometry = new THREE.BoxGeometry(8, 8, 8);
+      const geometry = new THREE.BoxGeometry(64, 64, 8, 32, 32, 4);
       // const material = new THREE.MeshNormalMaterial();
       let material = new THREE.ShaderMaterial({
-        uniforms: uniforms,
+        uniforms: test.uniforms,
         fragmentShader: fragmentShader(),
         vertexShader: vertexShader(),
         wireframe: true,
       });
 
       let mesh = new THREE.Mesh(geometry, material);
-      mesh.rotation.x = Math.PI / 8;
-      mesh.rotation.y = Math.PI / 8;
+      mesh.rotation.x = Math.PI / 2;
+      // mesh.rotation.x = Math.PI / 8;
+      // mesh.rotation.y = Math.PI / 8;
       test.scene.add(mesh);
 
-      const tween1 = new TWEEN.Tween({ x: 2, y: 2, z: 2 })
-        .to({ x: 4, y: 4, z: 4 }, 2000)
-        .easing(TWEEN.Easing.Quartic.InOut)
-        .onUpdate(({ x, y, z }) => {
-          test.scene.children.forEach((obj) => {
-            obj.scale.x = x;
-            obj.scale.y = y;
-            obj.scale.z = z;
-          });
-        });
-      const tween2 = new TWEEN.Tween({ x: 4, y: 4, z: 4 })
-        .to({ x: 2, y: 2, z: 2 }, 2000)
-        .easing(TWEEN.Easing.Quartic.InOut)
-        .onUpdate(({ x, y, z }) => {
-          test.scene.children.forEach((obj) => {
-            obj.scale.x = x;
-            obj.scale.y = y;
-            obj.scale.z = z;
-          });
-        });
-
-      tween1.chain(tween2);
-      tween2.chain(tween1);
-
-      tween1.start();
+      // const tween1 = new TWEEN.Tween({ x: 2, y: 2, z: 2 })
+      //   .to({ x: 4, y: 4, z: 4 }, 2000)
+      //   .easing(TWEEN.Easing.Quartic.InOut)
+      //   .onUpdate(({ x, y, z }) => {
+      //     test.scene.children.forEach((obj) => {
+      //       obj.scale.x = x;
+      //       obj.scale.y = y;
+      //       obj.scale.z = z;
+      //     });
+      //   });
+      // const tween2 = new TWEEN.Tween({ x: 4, y: 4, z: 4 })
+      //   .to({ x: 2, y: 2, z: 2 }, 2000)
+      //   .easing(TWEEN.Easing.Quartic.InOut)
+      //   .onUpdate(({ x, y, z }) => {
+      //     test.scene.children.forEach((obj) => {
+      //       obj.scale.x = x;
+      //       obj.scale.y = y;
+      //       obj.scale.z = z;
+      //     });
+      //   });
+      // tween1.chain(tween2);
+      // tween2.chain(tween1);
+      // tween1.start();
     }
 
     addExperimentalCube();
 
     const animate = (t) => {
-      TWEEN.update(t);
+      // TWEEN.update(t);
       window.requestAnimationFrame(animate);
     };
 
