@@ -29,7 +29,7 @@ export default function Home() {
             varying vec3 vUv;
 
             void main() {
-              gl_FragColor = vec4(mix(colorA, colorB, vUv.x), 1.0);
+              gl_FragColor = vec4(mix(colorA, colorB, vUv.z), 1.0);
             }
         `;
       }
@@ -45,37 +45,30 @@ export default function Home() {
         uniforms: uniforms,
         fragmentShader: fragmentShader(),
         vertexShader: vertexShader(),
+        wireframe: true,
       });
 
-      const g = new THREE.BufferGeometry();
-      console.log(g);
-
       let mesh = new THREE.Mesh(geometry, material);
-      let mesh2 = new THREE.Mesh(geometry, material);
-      let mesh3 = new THREE.Mesh(geometry, material);
-      // mesh.rotation.x = Math.PI / 8;
-      // mesh.rotation.y = Math.PI / 8;
-      mesh2.position.x = 16;
-      mesh3.position.x = -16;
-      test.scene.add(mesh, mesh2, mesh3);
-      const tween1 = new TWEEN.Tween({ x: 0, y: 0, z: 0, posX: 0 })
-        .to({ x: 1, y: 1, z: 1, posX: 10 }, 2000)
+      mesh.rotation.x = Math.PI / 8;
+      mesh.rotation.y = Math.PI / 8;
+      test.scene.add(mesh);
+
+      const tween1 = new TWEEN.Tween({ x: 2, y: 2, z: 2 })
+        .to({ x: 4, y: 4, z: 4 }, 2000)
         .easing(TWEEN.Easing.Quartic.InOut)
-        .onUpdate(({ x, y, z, posX }) => {
+        .onUpdate(({ x, y, z }) => {
           test.scene.children.forEach((obj) => {
             obj.scale.x = x;
-            // obj.position.x = posX;
             obj.scale.y = y;
             obj.scale.z = z;
           });
         });
-      const tween2 = new TWEEN.Tween({ x: 1, y: 1, z: 1, posX: 10 })
-        .to({ x: 0, y: 0, z: 0, posX: 0 }, 2000)
+      const tween2 = new TWEEN.Tween({ x: 4, y: 4, z: 4 })
+        .to({ x: 2, y: 2, z: 2 }, 2000)
         .easing(TWEEN.Easing.Quartic.InOut)
-        .onUpdate(({ x, y, z, posX }) => {
+        .onUpdate(({ x, y, z }) => {
           test.scene.children.forEach((obj) => {
             obj.scale.x = x;
-            // obj.position.x = posX;
             obj.scale.y = y;
             obj.scale.z = z;
           });
