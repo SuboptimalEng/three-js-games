@@ -17,8 +17,7 @@ export default function Home() {
           varying vec3 vUv;
           void main() {
             vUv = position;
-            vec4 modelViewPosition = modelViewMatrix * vec4(position, 1.0);
-            gl_Position = projectionMatrix * modelViewPosition;
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(position * sin(2.0), 1.0);
           }
         `;
       }
@@ -30,7 +29,7 @@ export default function Home() {
             varying vec3 vUv;
 
             void main() {
-              gl_FragColor = vec4(mix(colorA, colorB, vUv.z), 1.0);
+              gl_FragColor = vec4(mix(colorA, colorB, vUv.x), 1.0);
             }
         `;
       }
@@ -41,12 +40,15 @@ export default function Home() {
       };
 
       const geometry = new THREE.BoxGeometry(8, 8, 8);
-      const material = new THREE.MeshNormalMaterial();
-      // let material = new THREE.ShaderMaterial({
-      //   uniforms: uniforms,
-      //   fragmentShader: fragmentShader(),
-      //   vertexShader: vertexShader(),
-      // });
+      // const material = new THREE.MeshNormalMaterial();
+      let material = new THREE.ShaderMaterial({
+        uniforms: uniforms,
+        fragmentShader: fragmentShader(),
+        vertexShader: vertexShader(),
+      });
+
+      const g = new THREE.BufferGeometry();
+      console.log(g);
 
       let mesh = new THREE.Mesh(geometry, material);
       let mesh2 = new THREE.Mesh(geometry, material);
