@@ -7,6 +7,7 @@ export default class TicTacToeCube {
     this.asterisks = new THREE.Group();
     this.boardLines = new THREE.Group();
     this.hiddenCubes = new THREE.Group();
+    this.currentPlayer = "sphere";
 
     this.board.add(this.spheres);
     this.board.add(this.asterisks);
@@ -177,14 +178,29 @@ export default class TicTacToeCube {
     return cube;
   }
 
-  _sphere() {
+  addSphereOrAsterisk(offset) {
+    if (this.currentPlayer === "sphere") {
+      const sphere = this._sphere(offset);
+      this.spheres.add(sphere);
+      this.currentPlayer = "asterisk";
+    } else if (this.currentPlayer === "asterisk") {
+      const asterisk = this._asterisk(offset);
+      this.asterisks.add(asterisk);
+      this.currentPlayer = "sphere";
+    }
+  }
+
+  _sphere(offset) {
     const sphereGeometry = new THREE.SphereGeometry(8);
     const sphereMaterial = new THREE.MeshNormalMaterial();
     const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+    sphere.position.x = offset.x;
+    sphere.position.y = offset.y;
+    sphere.position.z = offset.z;
     return sphere;
   }
 
-  _asterisk() {
+  _asterisk(offset) {
     const asteriskGroup = new THREE.Group();
     const asteriskGeometry = new THREE.BoxGeometry(4, 16, 4);
     const asteriskMaterial = new THREE.MeshNormalMaterial();
@@ -202,6 +218,9 @@ export default class TicTacToeCube {
     a5.rotation.z = Math.PI / 3;
     a5.rotation.y = -Math.PI / 4;
     asteriskGroup.add(a1, a2, a3, a4, a5);
+    asteriskGroup.position.x = offset.x;
+    asteriskGroup.position.y = offset.y;
+    asteriskGroup.position.z = offset.z;
     return asteriskGroup;
   }
 }

@@ -1,4 +1,7 @@
+import * as THREE from "three";
+
 import { useEffect } from "react";
+
 import SceneInit from "./lib/SceneInit";
 import TicTacToeCube from "./lib/TicTacToeCube";
 
@@ -12,6 +15,40 @@ export default function Home() {
 
     const game = new TicTacToeCube();
     test.scene.add(game.board);
+
+    const mouse = new THREE.Vector2();
+    const raycaster = new THREE.Raycaster();
+
+    function onMouseDown(event) {
+      // Full-screen
+      mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+      mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+      raycaster.setFromCamera(mouse, test.camera);
+      const intersects = raycaster.intersectObjects(game.hiddenCubes.children);
+      console.log(intersects);
+      if (intersects.length > 0) {
+        const index = game.hiddenCubes.children.findIndex(
+          (c) => c.uuid === intersects[0].object.uuid
+        );
+        game.hiddenCubes.children.splice(index, 1);
+        const x = intersects[0].object.position.x;
+        const y = intersects[0].object.position.y;
+        const z = intersects[0].object.position.z;
+        game.addSphereOrAsterisk({ x, y, z });
+        // ticTacToe.checkWinConditions();
+        // const index = ticTacToe.hiddenTiles.children.findIndex(
+        //   (c) => c.uuid === intersects[0].object.uuid
+        // );
+        // ticTacToe.hiddenTiles.children.splice(index, 1);
+      }
+      // NOTE: Demo ray being cast past objects.
+      // for (let i = 0; i < intersects.length; i++) {
+      //   intersects[i].object.material.wireframe =
+      //     !intersects[i].object.material.wireframe;
+      // }
+    }
+
+    window.addEventListener("mousedown", onMouseDown, false);
   }, []);
 
   return (
