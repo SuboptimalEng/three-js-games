@@ -50,9 +50,12 @@ export default function Home() {
 
       function fragmentShader() {
         return `
+            #define PI 3.14159
+
+            varying vec3 vUv;
             uniform vec3 colorA;
             uniform vec3 colorB;
-            varying vec3 vUv;
+            uniform float u_time;
 
             float random (vec2 st) {
                 return fract(sin(dot(st.xy,
@@ -61,10 +64,11 @@ export default function Home() {
             }
 
             void main() {
-              // vUv = position
-              // float rnd = random(vUv.xy)
+              float rnd = random(vUv.xy);
+              // vec2 uv = gl_FragCoord.xy / u_resolution;
+              gl_FragColor = vec4(1.0, rnd, sin(vUv.z * PI / 8.0), 1.0).rgba;
 
-              gl_FragColor = vec4(mix(colorA, colorB, vUv.x), 1.0);
+              // gl_FragColor = vec4(mix(colorA, colorB, vUv.x), 1.0);
             }
         `;
       }
@@ -75,13 +79,13 @@ export default function Home() {
       //   colorA: { type: "vec3", value: new THREE.Color(0x000fff) },
       // };
 
-      const geometry = new THREE.BoxGeometry(64, 64, 8, 32, 32, 4);
+      const geometry = new THREE.BoxGeometry(64, 64, 8, 16, 16, 4);
       // const material = new THREE.MeshNormalMaterial();
       let material = new THREE.ShaderMaterial({
         uniforms: test.uniforms,
         fragmentShader: fragmentShader(),
         vertexShader: vertexShader(),
-        wireframe: true,
+        // wireframe: true,
       });
 
       let mesh = new THREE.Mesh(geometry, material);
