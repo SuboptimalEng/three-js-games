@@ -44,10 +44,26 @@ export default class TicTacToeCube {
   checkWinConditions() {
     for (let i = 0; i < 3; i++) {
       for (let j = 0; j < 3; j++) {
-        if (this._checkRow(i, j)) {
-          const strike = this._getStrike({
+        if (this._checkXRow(i, j)) {
+          const strike = this._getHorizontalStrike({
             x: 0,
             y: this._getYOffset(j),
+            z: this._getZOffset(i),
+          });
+          this.winStrikes.add(strike);
+        }
+        if (this._checkZRow(i, j)) {
+          const strike = this._getZStrike({
+            x: this._getXOffset(i),
+            y: this._getYOffset(j),
+            z: 0,
+          });
+          this.winStrikes.add(strike);
+        }
+        if (this._checkCol(i, j)) {
+          const strike = this._getVerticalStrike({
+            x: this._getXOffset(j),
+            y: 0,
             z: this._getZOffset(i),
           });
           this.winStrikes.add(strike);
@@ -56,8 +72,8 @@ export default class TicTacToeCube {
     }
   }
 
-  _getStrike(offset) {
-    const strikeGeometry = new THREE.BoxGeometry(64, 2, 4);
+  _getVerticalStrike(offset) {
+    const strikeGeometry = new THREE.BoxGeometry(2, 64, 2);
     const strikeMaterial = new THREE.MeshNormalMaterial();
     const strike = new THREE.Mesh(strikeGeometry, strikeMaterial);
     strike.position.x = offset.x;
@@ -66,17 +82,46 @@ export default class TicTacToeCube {
     return strike;
   }
 
-  _checkRow(i, j) {
+  _getZStrike(offset) {
+    const strikeGeometry = new THREE.BoxGeometry(2, 2, 64);
+    const strikeMaterial = new THREE.MeshNormalMaterial();
+    const strike = new THREE.Mesh(strikeGeometry, strikeMaterial);
+    strike.position.x = offset.x;
+    strike.position.y = offset.y;
+    strike.position.z = offset.z;
+    return strike;
+  }
+
+  _getHorizontalStrike(offset) {
+    const strikeGeometry = new THREE.BoxGeometry(64, 2, 2);
+    const strikeMaterial = new THREE.MeshNormalMaterial();
+    const strike = new THREE.Mesh(strikeGeometry, strikeMaterial);
+    strike.position.x = offset.x;
+    strike.position.y = offset.y;
+    strike.position.z = offset.z;
+    return strike;
+  }
+
+  _checkXRow(i, j) {
     return (
       this.boardCopy[i][j][0] === this.boardCopy[i][j][1] &&
       this.boardCopy[i][j][1] === this.boardCopy[i][j][2]
     );
   }
 
-  // _checkCol(i, j) {
-  //   this.boardCopy[i][0][j] === this.boardCopy[i][1][j] &&
-  //     this.boardCopy[i][1][j] === this.boardCopy[i][2][j];
-  // }
+  _checkZRow(i, j) {
+    return (
+      this.boardCopy[0][j][i] === this.boardCopy[1][j][i] &&
+      this.boardCopy[1][j][i] === this.boardCopy[2][j][i]
+    );
+  }
+
+  _checkCol(i, j) {
+    return (
+      this.boardCopy[i][0][j] === this.boardCopy[i][1][j] &&
+      this.boardCopy[i][1][j] === this.boardCopy[i][2][j]
+    );
+  }
 
   _createBoard() {
     // add vertical lines
@@ -225,7 +270,8 @@ export default class TicTacToeCube {
 
   _hiddenCube({ offsets }) {
     const cubeGeometry = new THREE.BoxGeometry(12, 12, 12);
-    const cubeMaterial = new THREE.MeshNormalMaterial({ wireframe: true });
+    // const cubeMaterial = new THREE.MeshNormalMaterial({ wireframe: true });
+    const cubeMaterial = new THREE.MeshPhongMaterial({ color: "black" });
     const cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
     cube.position.x = offsets.x;
     cube.position.y = offsets.y;
