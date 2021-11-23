@@ -51,7 +51,10 @@ export default class TicTacToeCube {
             2,
             0,
             this._getYOffset(j),
-            this._getZOffset(i)
+            this._getZOffset(i),
+            0,
+            0,
+            0
           );
         }
         if (this._checkZRow(i, j)) {
@@ -61,6 +64,9 @@ export default class TicTacToeCube {
             64,
             this._getXOffset(i),
             this._getYOffset(j),
+            0,
+            0,
+            0,
             0
           );
         }
@@ -71,20 +77,114 @@ export default class TicTacToeCube {
             2,
             this._getXOffset(j),
             0,
-            this._getZOffset(i)
+            this._getZOffset(i),
+            0,
+            0,
+            0
           );
         }
       }
     }
+    const rad = Math.PI / 4;
+    for (let i = 0; i < 3; i++) {
+      if (this._checkDiagonalXYPos(i)) {
+        this._addStrike(84, 2, 2, 0, 0, this._getZOffset(i), 0, 0, rad);
+      }
+      if (this._checkDiagonalXYNeg(i)) {
+        this._addStrike(84, 2, 2, 0, 0, this._getZOffset(i), 0, 0, -1 * rad);
+      }
+      if (this._checkDiagonalXZPos(i)) {
+        this._addStrike(2, 2, 84, 0, this._getYOffset(i), 0, 0, rad, 0);
+      }
+      if (this._checkDiagonalXZNeg(i)) {
+        this._addStrike(2, 2, 84, 0, this._getYOffset(i), 0, 0, -1 * rad, 0);
+      }
+      if (this._checkDiagonalYZPos(i)) {
+        this._addStrike(2, 84, 2, this._getXOffset(i), 0, 0, rad, 0, 0);
+      }
+      if (this._checkDiagonalYZNeg(i)) {
+        this._addStrike(2, 84, 2, this._getXOffset(i), 0, 0, -1 * rad, 0, 0);
+      }
+      // check xyz diagonals
+    }
   }
 
-  _addStrike(x, y, z, xOffset, yOffset, zOffset) {
+  _checkDiagonalYZPos(i) {
+    return (
+      this.boardCopy[0][0][i] === this.boardCopy[1][1][i] &&
+      this.boardCopy[1][1][i] === this.boardCopy[2][2][i]
+    );
+  }
+
+  _checkDiagonalYZNeg(i) {
+    return (
+      this.boardCopy[2][0][i] === this.boardCopy[1][1][i] &&
+      this.boardCopy[1][1][i] === this.boardCopy[0][2][i]
+    );
+  }
+
+  _checkDiagonalXZPos(i) {
+    return (
+      this.boardCopy[2][i][0] === this.boardCopy[1][i][1] &&
+      this.boardCopy[1][i][1] === this.boardCopy[0][i][2]
+    );
+  }
+
+  _checkDiagonalXZNeg(i) {
+    return (
+      this.boardCopy[0][i][0] === this.boardCopy[1][i][1] &&
+      this.boardCopy[1][i][1] === this.boardCopy[2][i][2]
+    );
+  }
+
+  _checkDiagonalXZPos(i) {
+    return (
+      this.boardCopy[2][i][0] === this.boardCopy[1][i][1] &&
+      this.boardCopy[1][i][1] === this.boardCopy[0][i][2]
+    );
+  }
+
+  _checkDiagonalXZNeg(i) {
+    return (
+      this.boardCopy[0][i][0] === this.boardCopy[1][i][1] &&
+      this.boardCopy[1][i][1] === this.boardCopy[2][i][2]
+    );
+  }
+
+  _checkDiagonalXYPos(i) {
+    return (
+      this.boardCopy[i][2][0] === this.boardCopy[i][1][1] &&
+      this.boardCopy[i][1][1] === this.boardCopy[i][0][2]
+    );
+  }
+
+  _checkDiagonalXYNeg(i) {
+    return (
+      this.boardCopy[i][0][0] === this.boardCopy[i][1][1] &&
+      this.boardCopy[i][1][1] === this.boardCopy[i][2][2]
+    );
+  }
+
+  _addStrike(
+    x,
+    y,
+    z,
+    xOffset,
+    yOffset,
+    zOffset,
+    xRotation,
+    yRotation,
+    zRotation
+  ) {
     const strikeGeometry = new THREE.BoxGeometry(x, y, z);
     const strikeMaterial = new THREE.MeshNormalMaterial();
     const strike = new THREE.Mesh(strikeGeometry, strikeMaterial);
     strike.position.x = xOffset;
     strike.position.y = yOffset;
     strike.position.z = zOffset;
+    strike.rotation.x = xRotation;
+    strike.rotation.y = yRotation;
+    strike.rotation.z = zRotation;
     this.winStrikes.add(strike);
   }
 
@@ -95,17 +195,17 @@ export default class TicTacToeCube {
     );
   }
 
-  _checkZRow(i, j) {
-    return (
-      this.boardCopy[0][j][i] === this.boardCopy[1][j][i] &&
-      this.boardCopy[1][j][i] === this.boardCopy[2][j][i]
-    );
-  }
-
   _checkYRow(i, j) {
     return (
       this.boardCopy[i][0][j] === this.boardCopy[i][1][j] &&
       this.boardCopy[i][1][j] === this.boardCopy[i][2][j]
+    );
+  }
+
+  _checkZRow(i, j) {
+    return (
+      this.boardCopy[0][j][i] === this.boardCopy[1][j][i] &&
+      this.boardCopy[1][j][i] === this.boardCopy[2][j][i]
     );
   }
 
@@ -255,7 +355,7 @@ export default class TicTacToeCube {
   }
 
   _hiddenCube({ offsets }) {
-    const cubeGeometry = new THREE.BoxGeometry(12, 12, 12);
+    const cubeGeometry = new THREE.BoxGeometry(8, 8, 8);
     // const cubeMaterial = new THREE.MeshNormalMaterial({ wireframe: true });
     const cubeMaterial = new THREE.MeshPhongMaterial({
       color: "black",
@@ -351,7 +451,7 @@ export default class TicTacToeCube {
   }
 
   _sphere(offset) {
-    const sphereGeometry = new THREE.SphereGeometry(7);
+    const sphereGeometry = new THREE.SphereGeometry(6);
     const sphereMaterial = new THREE.MeshNormalMaterial();
     const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
     sphere.position.x = offset.x;
@@ -362,7 +462,7 @@ export default class TicTacToeCube {
 
   _asterisk(offset) {
     const asteriskGroup = new THREE.Group();
-    const asteriskGeometry = new THREE.BoxGeometry(4, 15, 4);
+    const asteriskGeometry = new THREE.BoxGeometry(4, 14, 4);
     const asteriskMaterial = new THREE.MeshNormalMaterial();
     const a1 = new THREE.Mesh(asteriskGeometry, asteriskMaterial);
     const a2 = new THREE.Mesh(asteriskGeometry, asteriskMaterial);
