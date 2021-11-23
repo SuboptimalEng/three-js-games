@@ -3,8 +3,12 @@ import * as THREE from "three";
 export default class TicTacToeCube {
   constructor() {
     this.board = new THREE.Group();
+    this.spheres = new THREE.Group();
+    this.asterisks = new THREE.Group();
     this.boardLines = new THREE.Group();
 
+    this.board.add(this.spheres);
+    this.board.add(this.asterisks);
     this.board.add(this.boardLines);
 
     this._createBoard();
@@ -71,6 +75,12 @@ export default class TicTacToeCube {
       });
       this.boardLines.add(zAxisBoardLine);
     });
+
+    // testing spheres
+    // this.spheres.add(this._sphere());
+
+    // testing asterisks
+    // this.asterisks.add(this._asterisk());
   }
 
   _boardLine({ dimensions, offsets }) {
@@ -85,5 +95,33 @@ export default class TicTacToeCube {
     boardLine.position.y = offsets.y;
     boardLine.position.z = offsets.z;
     return boardLine;
+  }
+
+  _sphere() {
+    const sphereGeometry = new THREE.SphereGeometry(8);
+    const sphereMaterial = new THREE.MeshNormalMaterial();
+    const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+    return sphere;
+  }
+
+  _asterisk() {
+    const asteriskGroup = new THREE.Group();
+    const asteriskGeometry = new THREE.BoxGeometry(4, 16, 4);
+    const asteriskMaterial = new THREE.MeshNormalMaterial();
+    const a1 = new THREE.Mesh(asteriskGeometry, asteriskMaterial);
+    const a2 = new THREE.Mesh(asteriskGeometry, asteriskMaterial);
+    const a3 = new THREE.Mesh(asteriskGeometry, asteriskMaterial);
+    const a4 = new THREE.Mesh(asteriskGeometry, asteriskMaterial);
+    const a5 = new THREE.Mesh(asteriskGeometry, asteriskMaterial);
+    a2.rotation.z = Math.PI / 3;
+    a2.rotation.y = Math.PI / 4;
+    a3.rotation.z = -Math.PI / 3;
+    a3.rotation.y = -Math.PI / 4;
+    a4.rotation.z = -Math.PI / 3;
+    a4.rotation.y = Math.PI / 4;
+    a5.rotation.z = Math.PI / 3;
+    a5.rotation.y = -Math.PI / 4;
+    asteriskGroup.add(a1, a2, a3, a4, a5);
+    return asteriskGroup;
   }
 }
