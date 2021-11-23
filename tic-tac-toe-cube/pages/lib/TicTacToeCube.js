@@ -7,15 +7,44 @@ export default class TicTacToeCube {
     this.asterisks = new THREE.Group();
     this.boardLines = new THREE.Group();
     this.hiddenCubes = new THREE.Group();
-    this.currentPlayer = "sphere";
+    this.winStrikes = new THREE.Group();
 
     this.board.add(this.spheres);
     this.board.add(this.asterisks);
     this.board.add(this.boardLines);
     this.board.add(this.hiddenCubes);
+    this.board.add(this.winStrikes);
+
+    this.currentPlayer = "sphere";
+    this.boardCopy = [
+      [
+        // z = 24
+        ["", "", ""],
+        ["", "", ""],
+        ["", "", ""],
+      ],
+      [
+        // z = 0
+        ["", "", ""],
+        ["", "", ""],
+        ["", "", ""],
+      ],
+      [
+        // z = -24
+        ["", "", ""],
+        ["", "", ""],
+        ["", "", ""],
+      ],
+    ];
 
     this._createBoard();
   }
+
+  checkWinConditions() {
+    for (let z = 0; z < 3; z++) {}
+  }
+
+  _checkRow(z) {}
 
   _createBoard() {
     // add vertical lines
@@ -146,12 +175,6 @@ export default class TicTacToeCube {
       });
       this.hiddenCubes.add(hiddenCube);
     });
-
-    // testing spheres
-    // this.spheres.add(this._sphere());
-
-    // testing asterisks
-    // this.asterisks.add(this._asterisk());
   }
 
   _boardLine({ dimensions, offsets }) {
@@ -178,12 +201,53 @@ export default class TicTacToeCube {
     return cube;
   }
 
+  _getY(y) {
+    if (y === 24) {
+      return 0;
+    } else if (y === 0) {
+      return 1;
+    } else {
+      return 2;
+    }
+  }
+
+  _getX(x) {
+    if (x === -24) {
+      return 0;
+    } else if (x === 0) {
+      return 1;
+    } else {
+      return 2;
+    }
+  }
+
+  _getZ(z) {
+    if (z === 24) {
+      return 0;
+    } else if (z === 0) {
+      return 1;
+    } else {
+      return 2;
+    }
+  }
+
+  _updateBoardCopy(offset, move) {
+    const x = this._getX(offset.x);
+    const y = this._getY(offset.y);
+    const z = this._getZ(offset.z);
+
+    this.boardCopy[z][y][x] = move;
+    console.log(this.boardCopy);
+  }
+
   addSphereOrAsterisk(offset) {
     if (this.currentPlayer === "sphere") {
+      this._updateBoardCopy(offset, "o");
       const sphere = this._sphere(offset);
       this.spheres.add(sphere);
       this.currentPlayer = "asterisk";
     } else if (this.currentPlayer === "asterisk") {
+      this._updateBoardCopy(offset, "x");
       const asterisk = this._asterisk(offset);
       this.asterisks.add(asterisk);
       this.currentPlayer = "sphere";

@@ -20,7 +20,6 @@ export default function Home() {
     const raycaster = new THREE.Raycaster();
 
     function onMouseDown(event) {
-      // Full-screen
       mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
       mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
       raycaster.setFromCamera(mouse, test.camera);
@@ -35,17 +34,8 @@ export default function Home() {
         const y = intersects[0].object.position.y;
         const z = intersects[0].object.position.z;
         game.addSphereOrAsterisk({ x, y, z });
-        // ticTacToe.checkWinConditions();
-        // const index = ticTacToe.hiddenTiles.children.findIndex(
-        //   (c) => c.uuid === intersects[0].object.uuid
-        // );
-        // ticTacToe.hiddenTiles.children.splice(index, 1);
+        game.checkWinConditions();
       }
-      // NOTE: Demo ray being cast past objects.
-      // for (let i = 0; i < intersects.length; i++) {
-      //   intersects[i].object.material.wireframe =
-      //     !intersects[i].object.material.wireframe;
-      // }
     }
 
     window.addEventListener("mousedown", onMouseDown, false);
