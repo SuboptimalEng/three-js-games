@@ -257,7 +257,10 @@ export default class TicTacToeCube {
   _hiddenCube({ offsets }) {
     const cubeGeometry = new THREE.BoxGeometry(12, 12, 12);
     // const cubeMaterial = new THREE.MeshNormalMaterial({ wireframe: true });
-    const cubeMaterial = new THREE.MeshPhongMaterial({ color: "black" });
+    const cubeMaterial = new THREE.MeshPhongMaterial({
+      color: "black",
+      wireframe: true,
+    });
     const cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
     cube.position.x = offsets.x;
     cube.position.y = offsets.y;
