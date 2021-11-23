@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { BoxGeometry, MeshNormalMaterial } from "three";
 
 export default class TicTacToeCube {
   constructor() {
@@ -19,21 +20,21 @@ export default class TicTacToeCube {
     this.boardCopy = [
       [
         // z = 24
-        ["", "", ""],
-        ["", "", ""],
-        ["", "", ""],
+        ["1", "2", "3"],
+        ["4", "5", "6"],
+        ["7", "8", "9"],
       ],
       [
         // z = 0
-        ["", "", ""],
-        ["", "", ""],
-        ["", "", ""],
+        ["10", "11", "12"],
+        ["13", "14", "15"],
+        ["16", "17", "18"],
       ],
       [
         // z = -24
-        ["", "", ""],
-        ["", "", ""],
-        ["", "", ""],
+        ["19", "20", "21"],
+        ["22", "23", "24"],
+        ["25", "26", "27"],
       ],
     ];
 
@@ -41,10 +42,41 @@ export default class TicTacToeCube {
   }
 
   checkWinConditions() {
-    for (let z = 0; z < 3; z++) {}
+    for (let i = 0; i < 3; i++) {
+      for (let j = 0; j < 3; j++) {
+        if (this._checkRow(i, j)) {
+          const strike = this._getStrike({
+            x: 0,
+            y: this._getYOffset(j),
+            z: this._getZOffset(i),
+          });
+          this.winStrikes.add(strike);
+        }
+      }
+    }
   }
 
-  _checkRow(z) {}
+  _getStrike(offset) {
+    const strikeGeometry = new THREE.BoxGeometry(64, 2, 4);
+    const strikeMaterial = new THREE.MeshNormalMaterial();
+    const strike = new THREE.Mesh(strikeGeometry, strikeMaterial);
+    strike.position.x = offset.x;
+    strike.position.y = offset.y;
+    strike.position.z = offset.z;
+    return strike;
+  }
+
+  _checkRow(i, j) {
+    return (
+      this.boardCopy[i][j][0] === this.boardCopy[i][j][1] &&
+      this.boardCopy[i][j][1] === this.boardCopy[i][j][2]
+    );
+  }
+
+  // _checkCol(i, j) {
+  //   this.boardCopy[i][0][j] === this.boardCopy[i][1][j] &&
+  //     this.boardCopy[i][1][j] === this.boardCopy[i][2][j];
+  // }
 
   _createBoard() {
     // add vertical lines
@@ -201,6 +233,26 @@ export default class TicTacToeCube {
     return cube;
   }
 
+  _getX(x) {
+    if (x === -24) {
+      return 0;
+    } else if (x === 0) {
+      return 1;
+    } else {
+      return 2;
+    }
+  }
+
+  _getXOffset(x) {
+    if (x === 0) {
+      return -24;
+    } else if (x === 1) {
+      return 0;
+    } else {
+      return 24;
+    }
+  }
+
   _getY(y) {
     if (y === 24) {
       return 0;
@@ -211,13 +263,13 @@ export default class TicTacToeCube {
     }
   }
 
-  _getX(x) {
-    if (x === -24) {
+  _getYOffset(y) {
+    if (y === 0) {
+      return 24;
+    } else if (y === 1) {
       return 0;
-    } else if (x === 0) {
-      return 1;
     } else {
-      return 2;
+      return -24;
     }
   }
 
@@ -231,13 +283,22 @@ export default class TicTacToeCube {
     }
   }
 
+  _getZOffset(z) {
+    if (z === 0) {
+      return 24;
+    } else if (z === 1) {
+      return 0;
+    } else {
+      return -24;
+    }
+  }
+
   _updateBoardCopy(offset, move) {
     const x = this._getX(offset.x);
     const y = this._getY(offset.y);
     const z = this._getZ(offset.z);
 
     this.boardCopy[z][y][x] = move;
-    console.log(this.boardCopy);
   }
 
   addSphereOrAsterisk(offset) {
@@ -255,7 +316,7 @@ export default class TicTacToeCube {
   }
 
   _sphere(offset) {
-    const sphereGeometry = new THREE.SphereGeometry(8);
+    const sphereGeometry = new THREE.SphereGeometry(7);
     const sphereMaterial = new THREE.MeshNormalMaterial();
     const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
     sphere.position.x = offset.x;
@@ -266,7 +327,7 @@ export default class TicTacToeCube {
 
   _asterisk(offset) {
     const asteriskGroup = new THREE.Group();
-    const asteriskGeometry = new THREE.BoxGeometry(4, 16, 4);
+    const asteriskGeometry = new THREE.BoxGeometry(4, 15, 4);
     const asteriskMaterial = new THREE.MeshNormalMaterial();
     const a1 = new THREE.Mesh(asteriskGeometry, asteriskMaterial);
     const a2 = new THREE.Mesh(asteriskGeometry, asteriskMaterial);
