@@ -16,6 +16,7 @@ export default function Home() {
         return `
           #define PI 3.14159
 
+          varying float z;
           varying vec3 vUv;
           uniform float u_time;
 
@@ -29,7 +30,9 @@ export default function Home() {
             vUv = position;
             float rnd = random(position.xy);
 
-            gl_Position = projectionMatrix * modelViewMatrix * vec4(position.x, position.y, rnd + cos(position.y/4.0 + u_time) + sin(position.x/4.0 + u_time) * 4.0, 1.0);
+            z = rnd + cos(position.y/4.0 + u_time) + sin(position.x/4.0 + u_time) * 4.0;
+
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(position.x, position.y, z, 1.0);
           }
         `;
       }
@@ -50,21 +53,27 @@ export default function Home() {
 
       function fragmentShader() {
         return `
-            uniform vec3 colorA;
-            uniform vec3 colorB;
+            #define PI 3.14159
+
+            varying float z;
             varying vec3 vUv;
 
+            uniform vec3 colorA;
+            uniform vec3 colorB;
+            uniform float u_time;
+
             float random (vec2 st) {
-                return fract(sin(dot(st.xy,
-                                    vec2(12.9898,78.233)))*
+                return fract(sin(dot(st.y,
+                                    78.233))*
                     43758.5453123);
             }
 
             void main() {
-              // vUv = position
-              // float rnd = random(vUv.xy)
+              float rnd = random(vUv.xy);
+              // vec2 uv = gl_FragCoord.xy / u_resolution;
+              gl_FragColor = vec4(1.0, 0.5, sin(z + PI), 1.0).rgba;
 
-              gl_FragColor = vec4(mix(colorA, colorB, vUv.x), 1.0);
+              // gl_FragColor = vec4(mix(colorA, colorB, vUv.x), 1.0);
             }
         `;
       }
@@ -75,13 +84,13 @@ export default function Home() {
       //   colorA: { type: "vec3", value: new THREE.Color(0x000fff) },
       // };
 
-      const geometry = new THREE.BoxGeometry(64, 64, 8, 32, 32, 4);
+      const geometry = new THREE.BoxGeometry(64, 64, 8, 16, 16, 4);
       // const material = new THREE.MeshNormalMaterial();
       let material = new THREE.ShaderMaterial({
         uniforms: test.uniforms,
         fragmentShader: fragmentShader(),
         vertexShader: vertexShader(),
-        wireframe: true,
+        // wireframe: true,
       });
 
       let mesh = new THREE.Mesh(geometry, material);
