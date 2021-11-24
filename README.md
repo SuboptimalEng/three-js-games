@@ -10,13 +10,13 @@
 
 <img src="/_demos/tic-tac-toe-cube-2.png" width="100%">
 
-<img src="/_demos/tic-tac-toe-cube.png" width="100%">
+<img src="/_demos/tic-tac-toe-cube-1.png" width="100%">
 
 ## Tic-Tac-Toe
 
 <img src="/_demos/tic-tac-toe-2.png" width="100%">
 
-<img src="/_demos/tic-tac-toe.png" width="100%">
+<img src="/_demos/tic-tac-toe-1.png" width="100%">
 
 ## Solar System
 
