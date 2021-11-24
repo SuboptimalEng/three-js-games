@@ -231,6 +231,9 @@ export default class TicTacToeCube {
     strike.rotation.x = xRotation;
     strike.rotation.y = yRotation;
     strike.rotation.z = zRotation;
+    strike.scale.x = 0;
+    strike.scale.y = 0;
+    strike.scale.z = 0;
     this.winStrikes.add(strike);
   }
 
@@ -401,12 +404,12 @@ export default class TicTacToeCube {
   }
 
   _hiddenCube({ offsets }) {
-    const cubeGeometry = new THREE.BoxGeometry(4, 4, 4);
-    // const cubeMaterial = new THREE.MeshNormalMaterial({ wireframe: true });
-    const cubeMaterial = new THREE.MeshPhongMaterial({
-      color: "black",
-      wireframe: true,
-    });
+    const cubeGeometry = new THREE.BoxGeometry(8, 8, 8);
+    const cubeMaterial = new THREE.MeshNormalMaterial({ wireframe: true });
+    // const cubeMaterial = new THREE.MeshPhongMaterial({
+    //   color: "red",
+    //   // wireframe: true,
+    // });
     const cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
     cube.position.x = offsets.x;
     cube.position.y = offsets.y;
@@ -503,6 +506,9 @@ export default class TicTacToeCube {
     sphere.position.x = offset.x;
     sphere.position.y = offset.y;
     sphere.position.z = offset.z;
+    sphere.scale.x = 0;
+    sphere.scale.y = 0;
+    sphere.scale.z = 0;
     return sphere;
   }
 
@@ -527,6 +533,9 @@ export default class TicTacToeCube {
     asteriskGroup.position.x = offset.x;
     asteriskGroup.position.y = offset.y;
     asteriskGroup.position.z = offset.z;
+    asteriskGroup.scale.x = 0;
+    asteriskGroup.scale.y = 0;
+    asteriskGroup.scale.z = 0;
     return asteriskGroup;
   }
 }
