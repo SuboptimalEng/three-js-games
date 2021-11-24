@@ -4,12 +4,14 @@
 
 ### 👉 [Twitter Updates](https://www.twitter.com/SuboptimalEng)
 
-## 2. Tic-Tac-Toe
+## Tic-Tac-Toe Cube (3D)
+
+## Tic-Tac-Toe
 
 <img src="/_demos/tic-tac-toe-2.png" width="100%">
 
 <img src="/_demos/tic-tac-toe.png" width="100%">
 
-## 1. Solar System
+## Solar System
 
 <img src="/_demos/solar-system.png" width="100%">
