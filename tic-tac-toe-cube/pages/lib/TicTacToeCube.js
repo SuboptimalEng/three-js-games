@@ -42,6 +42,7 @@ export default class TicTacToeCube {
   }
 
   checkWinConditions() {
+    // NOTE: check rows and columns
     for (let i = 0; i < 3; i++) {
       for (let j = 0; j < 3; j++) {
         if (this._checkXRow(i, j)) {
@@ -85,6 +86,8 @@ export default class TicTacToeCube {
         }
       }
     }
+
+    // NOTE: check 2-axis diagonals
     const rad = Math.PI / 4;
     for (let i = 0; i < 3; i++) {
       if (this._checkDiagonalXYPos(i)) {
@@ -105,8 +108,51 @@ export default class TicTacToeCube {
       if (this._checkDiagonalYZNeg(i)) {
         this._addStrike(2, 84, 2, this._getXOffset(i), 0, 0, -1 * rad, 0, 0);
       }
-      // check xyz diagonals
     }
+
+    // NOTE: check xyz diagonals
+    const rot1 = Math.PI / 4;
+    const rot2 = Math.PI / 5;
+    if (this._fromTopLeftFrontToBottomRightBack()) {
+      this._addStrike(2, 2, 100, 0, 0, 0, -1 * rot1, -1 * rot2, 0);
+    }
+    if (this._fromTopRightFrontToBottomLeftBack()) {
+      this._addStrike(2, 2, 100, 0, 0, 0, -1 * rot1, 1 * rot2, 0);
+    }
+    if (this._fromTopLeftBackToBottomRightFront()) {
+      this._addStrike(2, 2, 100, 0, 0, 0, 1 * rot1, 1 * rot2, 0);
+    }
+    if (this._fromTopRightBackToBottomLeftFront()) {
+      this._addStrike(2, 2, 100, 0, 0, 0, 1 * rot1, -1 * rot2, 0);
+    }
+  }
+
+  _fromTopRightBackToBottomLeftFront() {
+    return (
+      this.boardCopy[2][0][2] === this.boardCopy[1][1][1] &&
+      this.boardCopy[1][1][1] === this.boardCopy[0][2][0]
+    );
+  }
+
+  _fromTopLeftBackToBottomRightFront() {
+    return (
+      this.boardCopy[2][0][0] === this.boardCopy[1][1][1] &&
+      this.boardCopy[1][1][1] === this.boardCopy[0][2][2]
+    );
+  }
+
+  _fromTopRightFrontToBottomLeftBack() {
+    return (
+      this.boardCopy[0][0][2] === this.boardCopy[1][1][1] &&
+      this.boardCopy[1][1][1] === this.boardCopy[2][2][0]
+    );
+  }
+
+  _fromTopLeftFrontToBottomRightBack() {
+    return (
+      this.boardCopy[0][0][0] === this.boardCopy[1][1][1] &&
+      this.boardCopy[1][1][1] === this.boardCopy[2][2][2]
+    );
   }
 
   _checkDiagonalYZPos(i) {
@@ -355,7 +401,7 @@ export default class TicTacToeCube {
   }
 
   _hiddenCube({ offsets }) {
-    const cubeGeometry = new THREE.BoxGeometry(8, 8, 8);
+    const cubeGeometry = new THREE.BoxGeometry(4, 4, 4);
     // const cubeMaterial = new THREE.MeshNormalMaterial({ wireframe: true });
     const cubeMaterial = new THREE.MeshPhongMaterial({
       color: "black",
