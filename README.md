@@ -6,6 +6,8 @@
 
 ## 3D Tic-Tac-Toe Cube
 
+<img src="/_demos/tic-tac-toe-cube-3.png" width="100%">
+
 <img src="/_demos/tic-tac-toe-cube-2.png" width="100%">
 
 <img src="/_demos/tic-tac-toe-cube.png" width="100%">
