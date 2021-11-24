@@ -490,7 +490,7 @@ export default class TicTacToeCube {
       this._updateBoardCopy(offset, "o");
       const sphere = this._sphere(offset);
       this.spheres.add(sphere);
-      this.currentPlayer = "asterisk";
+      // this.currentPlayer = "asterisk";
     } else if (this.currentPlayer === "asterisk") {
       this._updateBoardCopy(offset, "x");
       const asterisk = this._asterisk(offset);
