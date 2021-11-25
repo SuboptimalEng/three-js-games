@@ -4,7 +4,7 @@
 
 ### 👉 [Twitter Updates](https://www.twitter.com/SuboptimalEng)
 
-## 3D Tic-Tac-Toe Cube
+## Tic-Tac-Toe Cube
 
 <img src="/_demos/tic-tac-toe-cube-3.png" width="100%">
 
