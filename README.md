@@ -4,8 +4,6 @@
 
 ### 👉 [Twitter Updates](https://www.twitter.com/SuboptimalEng)
 
-## Testing Dev Branch
-
 ## Tic-Tac-Toe Cube
 
 <img src="/_demos/tic-tac-toe-cube-3.png" width="100%">
