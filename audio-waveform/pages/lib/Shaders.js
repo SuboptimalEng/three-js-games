@@ -6,6 +6,7 @@ const vertexShader = () => {
       varying vec3 vUv;
 
       uniform float u_time;
+      uniform float u_amplitude;
       uniform float[64] u_data_arr;
 
       void main() {
@@ -20,7 +21,7 @@ const vertexShader = () => {
         float x_multiplier = (32.0 - x) / 8.0;
         float y_multiplier = (32.0 - y) / 8.0;
 
-        z = cos(u_data_arr[int(floor_x)] / 50.0 + u_data_arr[int(floor_y)] / 50.0) * 2.0 + position.z / 2.0;
+        z = sin(u_data_arr[int(floor_x)] / 50.0 + u_data_arr[int(floor_y)] / 50.0) * u_amplitude;
         // z = (u_data_arr[int(floor_x)] / 50.0 + u_data_arr[int(floor_y)] / 50.0) * 2.0;
         gl_Position = projectionMatrix * modelViewMatrix * vec4(position.x, position.y, z, 1.0);
       }
@@ -41,7 +42,7 @@ const fragmentShader = () => {
     void main() {
       // gl_FragColor = vec4(mix(u_black, u_white, vUv.x), 1.0);
 
-      gl_FragColor = vec4(sin(u_time / 1000.0) + (32.0 - abs(x)) / 32.0 - 1.0, (32.0 - abs(y)) / 32.0, (abs(x + y) / 2.0) / 32.0, 1.0);
+      gl_FragColor = vec4((32.0 - abs(x)) / 32.0, (32.0 - abs(y)) / 32.0, (abs(x + y) / 2.0) / 32.0, 1.0);
     }
   `;
 };
