@@ -1,8 +1,8 @@
 # 👾 Gamedex
 
-###### Hello world! My internet name is Suboptimal and I am an Indian software engineer. Gamedex is the repo where I keep track of my game dev + computer graphics experiments. I also post demo clips on 👉 [twitter](https://www.twitter.com/SuboptimalEng) so feel free to follow me there!
+#### Hello world! My internet name is Suboptimal and I am an Indian software engineer. Gamedex is the repo where I keep track of my game dev + computer graphics experiments. I also post demo clips on 👉 [twitter](https://www.twitter.com/SuboptimalEng) so feel free to follow me there!
 
-###### All of the experiments are web-based and built with Next.js + Three.js + Tailwind CSS so running them locally is super easy. Here's an example of how you can run the `solar-system` animation:
+##### All of the experiments are web-based and built with Next.js + Three.js + Tailwind CSS so running them locally is super easy. Here's an example of how you can run the `solar-system` animation:
 
 ```
 git clone https://github.com/SuboptimalEng/Gamedex.git
