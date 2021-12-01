@@ -29,7 +29,7 @@ export default function Home() {
         colorA: { type: "vec3", value: new THREE.Color(0x000fff) },
       };
 
-      planeGeometry = new THREE.PlaneGeometry(64, 64, 64, 64);
+      planeGeometry = new THREE.PlaneBufferGeometry(64, 64, 64, 64);
       // planeGeometry = new THREE.BoxGeometry(64, 64, 16, 64, 64, 16);
       // planeGeometry = new THREE.SphereGeometry(16, 16, 16);
       // planeMaterial = new THREE.MeshNormalMaterial({ wireframe: true });
@@ -80,7 +80,7 @@ export default function Home() {
       <div className="absolute top-4 right-4">
         <audio
           id="myAudio"
-          src="./fur_elise.mp3"
+          src="./blue_boi.mp3"
           className="w-80"
           controls
           autoPlay

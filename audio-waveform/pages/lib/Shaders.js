@@ -22,10 +22,10 @@ const vertexShader = () => {
         floor_x = round(x);
 	      floor_y = round(y);
 
-        x_multiplier = (32.0 - x) / 16.0;
-        y_multiplier = (32.0 - y) / 16.0;
+        x_multiplier = (32.0 - x) / 8.0;
+        y_multiplier = (32.0 - y) / 8.0;
 
-        z = cos(u_data_arr[int(floor_x)] * x_multiplier / 50.0 + u_data_arr[int(floor_y)] * y_multiplier / 50.0);
+        z = cos(u_data_arr[int(floor_x)] / 50.0 + u_data_arr[int(floor_y)] / 50.0);
 
         // if (x >= 0.0) {
         //   z = u_data_arr[0] / 100.0;
