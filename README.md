@@ -14,6 +14,7 @@ npm run dev
 ## Audio Waveform
 
 <img src="/_demos/audio-waveform-1.png">
+<img src="/_demos/audio-waveform-2.png">
 
 ## 3D Tic-Tac-Toe Cube
 
