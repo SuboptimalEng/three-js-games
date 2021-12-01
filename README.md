@@ -1,4 +1,4 @@
-# 👾 GameDev Experiments
+# 👾 Game Dev Experiments
 
 ### 🐦 [Twitter Updates](https://www.twitter.com/SuboptimalEng)
 
