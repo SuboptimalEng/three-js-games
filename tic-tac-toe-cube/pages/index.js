@@ -74,7 +74,7 @@ export default function Home() {
     const animate = () => {
       game.spheres.children.forEach((sphere) => scaleUp(sphere));
       game.asterisks.children.forEach((asterisk) => scaleUp(asterisk));
-      // game.winStrikes.children.forEach((strike) => scaleUp(strike));
+      game.winStrikes.children.forEach((strike) => scaleUp(strike));
       requestAnimationFrame(animate);
     };
 
