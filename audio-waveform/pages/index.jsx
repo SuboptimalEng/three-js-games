@@ -20,7 +20,7 @@ export default function Home() {
     analyser = audioContext.createAnalyser();
     source.connect(analyser);
     analyser.connect(audioContext.destination);
-    analyser.fftSize = 256;
+    analyser.fftSize = 1024;
     dataArray = new Uint8Array(analyser.frequencyBinCount);
   };
 
@@ -36,7 +36,7 @@ export default function Home() {
       },
       u_amplitude: {
         type: "f",
-        value: 1.0,
+        value: 3.0,
       },
       u_data_arr: {
         type: "float[64]",
@@ -57,7 +57,7 @@ export default function Home() {
       uniforms: uniforms,
       vertexShader: vertexShader(),
       fragmentShader: fragmentShader(),
-      wireframe: true,
+      wireframe: false,
     });
     const planeMesh = new THREE.Mesh(planeGeometry, planeCustomMaterial);
     planeMesh.rotation.x = -Math.PI / 2 + Math.PI / 4;
