@@ -11,6 +11,10 @@ npm install
 npm run dev
 ```
 
+## Audio Waveform
+
+<img src="/_demos/audio-waveform-1.png">
+
 ## 3D Tic-Tac-Toe Cube
 
 <img src="/_demos/tic-tac-toe-cube-3.png" width="100%">
