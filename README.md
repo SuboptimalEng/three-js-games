@@ -6,7 +6,7 @@ All of the experiments are web-based and built with Next.js + Three.js + Tailwin
 
 ```
 git clone https://github.com/SuboptimalEng/Gamedex.git
-cd solar-system
+cd Gamedex/solar-system/
 npm install
 npm run dev
 ```
