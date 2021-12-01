@@ -17,13 +17,13 @@ npm run dev
 
 ## 3D Tic-Tac-Toe Cube
 
-<img src="/_demos/tic-tac-toe-cube-1.png">
-<img src="/_demos/tic-tac-toe-cube-2.png">
+<img src="/_demos/tic-tac-toe-3d-1.png">
+<img src="/_demos/tic-tac-toe-3d-2.png">
 
 ## "2D" Tic-Tac-Toe
 
-<img src="/_demos/tic-tac-toe-1.png">
-<img src="/_demos/tic-tac-toe-2.png">
+<img src="/_demos/tic-tac-toe-2d-1.png">
+<img src="/_demos/tic-tac-toe-2d-2.png">
 
 ## Solar System
 
