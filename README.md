@@ -1,6 +1,12 @@
 # 👾 Game Dev Experiments
 
-### 🐦 [Twitter Updates](https://www.twitter.com/SuboptimalEng)
+## Description
+
+### Hello world - my (internet) name is Suboptimal and I am an Indian software engineer interested in game development. I made this repository to help me keep track of my journey into game dev.
+
+### 👉 [Twitter](https://www.twitter.com/SuboptimalEng)
+
+### 👉 [YouTube](https://www.twitter.com/SuboptimalEng)
 
 ## 3D Tic-Tac-Toe Cube
 
