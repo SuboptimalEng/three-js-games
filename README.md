@@ -1,6 +1,6 @@
 # 👾 GameDev Experiments
 
-### 👉 [Twitter Updates](https://www.twitter.com/SuboptimalEng)
+### 🐦 [Twitter Updates](https://www.twitter.com/SuboptimalEng)
 
 ## 3D Tic-Tac-Toe Cube
 
