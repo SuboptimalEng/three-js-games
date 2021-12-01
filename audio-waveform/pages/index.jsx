@@ -57,7 +57,7 @@ export default function Home() {
       uniforms: uniforms,
       vertexShader: vertexShader(),
       fragmentShader: fragmentShader(),
-      // wireframe: true,
+      wireframe: true,
     });
     const planeMesh = new THREE.Mesh(planeGeometry, planeCustomMaterial);
     planeMesh.rotation.x = -Math.PI / 2 + Math.PI / 4;
