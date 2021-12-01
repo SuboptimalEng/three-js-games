@@ -80,7 +80,7 @@ export default function Home() {
       <div className="absolute top-4 right-4">
         <audio
           id="myAudio"
-          src="./blue_boi.mp3"
+          src="./fur_elise.mp3"
           className="w-80"
           controls
           autoPlay
