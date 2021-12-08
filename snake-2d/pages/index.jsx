@@ -15,23 +15,14 @@ export default function Home() {
     snakeGame = new SnakeGame(test.scene);
 
     document.addEventListener("keydown", (e) => {
-      if (e.keyCode === 87) {
-        snakeGame.lastPressedKey = "w";
-        console.log("w");
-      } else if (e.keyCode === 65) {
-        snakeGame.lastPressedKey = "a";
-        console.log("a");
-      } else if (e.keyCode === 83) {
-        snakeGame.lastPressedKey = "s";
-        console.log("s");
-      } else if (e.keyCode === 68) {
-        snakeGame.lastPressedKey = "d";
-        console.log("d");
-      }
+      snakeGame.lastPressedKey = e.key;
     });
 
-    const animate = () => {
-      snakeGame.loop(options);
+    const animate = (time) => {
+      console.log(time);
+      if (Math.round(time) % 10 === 0) {
+        snakeGame.moveSnake();
+      }
       requestAnimationFrame(animate);
     };
 

@@ -15,19 +15,19 @@ export default class SnakeGame {
     testScene.add(this.tileMap);
   }
 
-  loop() {
-    this.moveSnake();
-  }
+  // loop() {
+  //   this.moveSnake();
+  // }
 
   moveSnake() {
     const key = this.lastPressedKey;
-    if (key === "w") {
+    if (key === "w" || key === "ArrowUp") {
       this.snake.position.y += this.snakeSpeed;
-    } else if (key === "a") {
+    } else if (key === "a" || key === "ArrowLeft") {
       this.snake.position.x -= this.snakeSpeed;
-    } else if (key === "s") {
+    } else if (key === "s" || key === "ArrowDown") {
       this.snake.position.y -= this.snakeSpeed;
-    } else if (key === "d") {
+    } else if (key === "d" || key === "ArrowRight") {
       this.snake.position.x += this.snakeSpeed;
     }
   }
