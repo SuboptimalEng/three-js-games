@@ -2,7 +2,9 @@ import * as THREE from "three";
 
 export default class SnakeGame {
   constructor(testScene) {
-    this.boardSize = 8;
+    this.boardSize = 32;
+    this.snakeSpeed = 0.1;
+    this.lastPressedKey = "w";
     this.snake = new THREE.Group();
     this.tileMap = new THREE.Group();
 
@@ -13,8 +15,25 @@ export default class SnakeGame {
     testScene.add(this.tileMap);
   }
 
+  loop() {
+    this.moveSnake();
+  }
+
+  moveSnake() {
+    const key = this.lastPressedKey;
+    if (key === "w") {
+      this.snake.position.y += this.snakeSpeed;
+    } else if (key === "a") {
+      this.snake.position.x -= this.snakeSpeed;
+    } else if (key === "s") {
+      this.snake.position.y -= this.snakeSpeed;
+    } else if (key === "d") {
+      this.snake.position.x += this.snakeSpeed;
+    }
+  }
+
   _createSnake() {
-    const snakeGeometry = new THREE.BoxGeometry(4, 4, 4);
+    const snakeGeometry = new THREE.BoxGeometry(1, 1, 1);
     const snakeMaterial = new THREE.MeshNormalMaterial();
     const snakeMesh = new THREE.Mesh(snakeGeometry, snakeMaterial);
     snakeMesh.position.z = 4;
@@ -30,11 +49,11 @@ export default class SnakeGame {
   }
 
   _newTileMesh(i, j) {
-    const tileGeometry = new THREE.BoxGeometry(4, 4, 4);
+    const tileGeometry = new THREE.BoxGeometry(1, 1, 1);
     const tileMaterial = new THREE.MeshNormalMaterial({ wireframe: true });
     const tileMesh = new THREE.Mesh(tileGeometry, tileMaterial);
-    tileMesh.position.x = j * 4;
-    tileMesh.position.y = i * 4;
+    tileMesh.position.x = j;
+    tileMesh.position.y = i;
     return tileMesh;
   }
 }
