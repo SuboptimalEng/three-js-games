@@ -33,7 +33,7 @@ export default class SnakeGame {
   _animateSnakeMovement(oldCoords, newCoords) {
     const tween = new TWEEN.Tween(oldCoords)
       .to(newCoords, this.tweenTimeStep)
-      .easing(TWEEN.Easing.Quadratic.Out)
+      .easing(TWEEN.Easing.Quartic.Out)
       .onUpdate(({ x, y }) => {
         this.snake.position.x = x;
         this.snake.position.y = y;
