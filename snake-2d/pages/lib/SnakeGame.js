@@ -9,16 +9,18 @@ export default class SnakeGame {
     this.lastTimeStamp = 0;
     this.loopTimeStep = 512;
     this.tweenTimeStep = 256;
-    this.prevPressedKey = "w";
     this.lastPressedKey = "w";
 
     this.snake = new THREE.Group();
+    this.snacks = new THREE.Group();
     this.tileMap = new THREE.Group();
 
+    this._addSnack();
     this._createSnake();
     this._createTileMap();
 
     testScene.add(this.snake);
+    testScene.add(this.snacks);
     testScene.add(this.tileMap);
   }
 
@@ -27,8 +29,43 @@ export default class SnakeGame {
     const timeStep = t - this.lastTimeStamp;
     if (timeStep > this.loopTimeStep) {
       this._moveSnake();
+      this._updateSnack();
       this.lastTimeStamp = t;
     }
+  }
+
+  _updateSnack() {
+    const snackCoords = {
+      x: this.snacks.children[0].position.x,
+      y: this.snacks.children[0].position.y,
+    };
+    const snakeHeadCoords = {
+      x: this.snake.children[0].position.x,
+      y: this.snake.children[0].position.y,
+    };
+    if (
+      snakeHeadCoords.x === snackCoords.x &&
+      snakeHeadCoords.y === snackCoords.y
+    ) {
+      // TODO: What is the best way to remove a mesh?
+      // this.snacks.children = []
+      this.snacks.remove(this.snacks.children[0]);
+      this._addSnack();
+    }
+  }
+
+  _addSnack() {
+    const snackGeometry = new THREE.BoxGeometry(1, 1, 1);
+    const snackMaterial = new THREE.MeshNormalMaterial();
+    const snackMesh = new THREE.Mesh(snackGeometry, snackMaterial);
+    let x = Math.round((Math.random() * this.boardSize) / 2);
+    let y = Math.round((Math.random() * this.boardSize) / 2);
+    x = Math.random() < 0.5 ? x * -1 : x * -1;
+    y = Math.random() < 0.5 ? y * -1 : y;
+    snackMesh.position.x = x;
+    snackMesh.position.y = y;
+    snackMesh.position.z = 1;
+    this.snacks.add(snackMesh);
   }
 
   _animateSnakeMovement(oldCoords, newCoords) {
@@ -53,7 +90,6 @@ export default class SnakeGame {
   }
 
   _moveSnake() {
-    const prevPressedKey = this.prevPressedKey;
     const lastPressedKey = this.lastPressedKey;
 
     const oldHeadXCoord = this.snake.children[0].position.x;
