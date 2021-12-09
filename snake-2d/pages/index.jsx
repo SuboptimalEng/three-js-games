@@ -1,4 +1,3 @@
-import * as THREE from "three";
 import { useEffect } from "react";
 import SceneInit from "./lib/SceneInit";
 import SnakeGame from "./lib/SnakeGame";
@@ -11,17 +10,25 @@ export default function Home() {
 
     const snakeGame = new SnakeGame(test.scene);
 
-    const onKeyDown = (e) => {
-      snakeGame.lastPressedKey = e.key;
-    };
-    document.addEventListener("keydown", onKeyDown);
-
     const animate = (t) => {
       snakeGame.loop(t);
       requestAnimationFrame(animate);
     };
     animate();
 
+    const initDatGui = async () => {
+      const dat = await import("dat.gui");
+      const gui = new dat.GUI();
+      const snakeGameFolder = gui.addFolder("Snake Game");
+      snakeGameFolder.add(snakeGame, "loopTimeStep", 256, 1024);
+    };
+    initDatGui();
+
+    const onKeyDown = (e) => {
+      snakeGame.prevPressedKey = snakeGame.lastPressedKey;
+      snakeGame.lastPressedKey = e.key;
+    };
+    document.addEventListener("keydown", onKeyDown);
     return () => {
       document.removeEventListener("keydown", onKeyDown);
     };

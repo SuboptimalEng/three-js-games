@@ -7,8 +7,9 @@ export default class SnakeGame {
     this.snakeSpeed = 1;
 
     this.lastTimeStamp = 0;
-    this.loopTimeStep = 500;
-    this.tweenTimeStep = 250;
+    this.loopTimeStep = 512;
+    this.tweenTimeStep = 256;
+    this.prevPressedKey = "w";
     this.lastPressedKey = "w";
 
     this.snake = new THREE.Group();
@@ -42,7 +43,7 @@ export default class SnakeGame {
       }
       const tween = new TWEEN.Tween(oldCoords)
         .to(newCoords, this.tweenTimeStep)
-        .easing(TWEEN.Easing.Exponential.Out)
+        .easing(TWEEN.Easing.Sinusoidal.Out)
         .onUpdate(({ x, y }) => {
           this.snake.children[i].position.x = x;
           this.snake.children[i].position.y = y;
@@ -52,7 +53,9 @@ export default class SnakeGame {
   }
 
   _moveSnake() {
-    const key = this.lastPressedKey;
+    const prevPressedKey = this.prevPressedKey;
+    const lastPressedKey = this.lastPressedKey;
+
     const oldHeadXCoord = this.snake.children[0].position.x;
     const oldHeadYCoord = this.snake.children[0].position.y;
     const oldCoords = {
@@ -64,16 +67,21 @@ export default class SnakeGame {
       y: oldHeadYCoord,
     };
 
-    if (key === "w" || key === "ArrowUp") {
+    const upKeys = ["w", "ArrowUp"];
+    const leftKeys = ["a", "ArrowLeft"];
+    const downKeys = ["s", "ArrowDown"];
+    const rightKeys = ["d", "ArrowRight"];
+
+    if (upKeys.includes(lastPressedKey)) {
       newCoords.y = oldHeadYCoord + this.snakeSpeed;
       this._animateSnakeMovement(oldCoords, newCoords);
-    } else if (key === "a" || key === "ArrowLeft") {
+    } else if (leftKeys.includes(lastPressedKey)) {
       newCoords.x = oldHeadXCoord - this.snakeSpeed;
       this._animateSnakeMovement(oldCoords, newCoords);
-    } else if (key === "s" || key === "ArrowDown") {
+    } else if (downKeys.includes(lastPressedKey)) {
       newCoords.y = oldHeadYCoord - this.snakeSpeed;
       this._animateSnakeMovement(oldCoords, newCoords);
-    } else if (key === "d" || key === "ArrowRight") {
+    } else if (rightKeys.includes(lastPressedKey)) {
       newCoords.x = oldHeadXCoord + this.snakeSpeed;
       this._animateSnakeMovement(oldCoords, newCoords);
     }
@@ -106,7 +114,9 @@ export default class SnakeGame {
 
   _newTileMesh(i, j) {
     const tileGeometry = new THREE.BoxGeometry(1, 1, 1);
-    const tileMaterial = new THREE.MeshNormalMaterial({ wireframe: true });
+    const tileMaterial = new THREE.MeshNormalMaterial({
+      wireframe: true,
+    });
     const tileMesh = new THREE.Mesh(tileGeometry, tileMaterial);
     tileMesh.position.x = j;
     tileMesh.position.y = i;
