@@ -31,34 +31,50 @@ export default class SnakeGame {
   }
 
   _animateSnakeMovement(oldCoords, newCoords) {
-    const tween = new TWEEN.Tween(oldCoords)
-      .to(newCoords, this.tweenTimeStep)
-      .easing(TWEEN.Easing.Quartic.Out)
-      .onUpdate(({ x, y }) => {
-        this.snake.position.x = x;
-        this.snake.position.y = y;
-      });
-    tween.start();
+    for (let i = 0; i < this.snake.children.length; i++) {
+      // note: head of snake is pre-determined from user input
+      if (i !== 0) {
+        newCoords = { x: oldCoords.x, y: oldCoords.y };
+        oldCoords = {
+          x: this.snake.children[i].position.x,
+          y: this.snake.children[i].position.y,
+        };
+      }
+      const tween = new TWEEN.Tween(oldCoords)
+        .to(newCoords, this.tweenTimeStep)
+        .easing(TWEEN.Easing.Exponential.Out)
+        .onUpdate(({ x, y }) => {
+          this.snake.children[i].position.x = x;
+          this.snake.children[i].position.y = y;
+        });
+      tween.start();
+    }
   }
 
   _moveSnake() {
     const key = this.lastPressedKey;
-    const oldXCoord = this.snake.position.x;
-    const oldYCoord = this.snake.position.y;
-    const oldCoords = { x: oldXCoord, y: oldYCoord };
-    const newCoords = { x: oldXCoord, y: oldYCoord };
+    const oldHeadXCoord = this.snake.children[0].position.x;
+    const oldHeadYCoord = this.snake.children[0].position.y;
+    const oldCoords = {
+      x: oldHeadXCoord,
+      y: oldHeadYCoord,
+    };
+    const newCoords = {
+      x: oldHeadXCoord,
+      y: oldHeadYCoord,
+    };
 
     if (key === "w" || key === "ArrowUp") {
-      newCoords.y = oldYCoord + this.snakeSpeed;
+      newCoords.y = oldHeadYCoord + this.snakeSpeed;
       this._animateSnakeMovement(oldCoords, newCoords);
     } else if (key === "a" || key === "ArrowLeft") {
-      newCoords.x = oldXCoord - this.snakeSpeed;
+      newCoords.x = oldHeadXCoord - this.snakeSpeed;
       this._animateSnakeMovement(oldCoords, newCoords);
     } else if (key === "s" || key === "ArrowDown") {
-      newCoords.y = oldYCoord - this.snakeSpeed;
+      newCoords.y = oldHeadYCoord - this.snakeSpeed;
       this._animateSnakeMovement(oldCoords, newCoords);
     } else if (key === "d" || key === "ArrowRight") {
-      newCoords.x = oldXCoord + this.snakeSpeed;
+      newCoords.x = oldHeadXCoord + this.snakeSpeed;
       this._animateSnakeMovement(oldCoords, newCoords);
     }
   }
@@ -68,7 +84,16 @@ export default class SnakeGame {
     const snakeMaterial = new THREE.MeshNormalMaterial();
     const snakeMesh = new THREE.Mesh(snakeGeometry, snakeMaterial);
     snakeMesh.position.z = 1;
-    this.snake.add(snakeMesh);
+    const sm = new THREE.Mesh(snakeGeometry, snakeMaterial);
+    sm.position.z = 1;
+    sm.position.x = -1;
+    const sm2 = new THREE.Mesh(snakeGeometry, snakeMaterial);
+    sm2.position.z = 1;
+    sm2.position.x = -2;
+    const sm3 = new THREE.Mesh(snakeGeometry, snakeMaterial);
+    sm3.position.z = 1;
+    sm3.position.x = -3;
+    this.snake.add(snakeMesh, sm, sm2, sm3);
   }
 
   _createTileMap() {
