@@ -4,32 +4,26 @@ import SceneInit from "./lib/SceneInit";
 import SnakeGame from "./lib/SnakeGame";
 
 export default function Home() {
-  let snakeGame;
-  let options = {};
-
   useEffect(() => {
     const test = new SceneInit("myThreeJsCanvas");
     test.initScene();
     test.animate();
 
-    snakeGame = new SnakeGame(test.scene);
+    const snakeGame = new SnakeGame(test.scene);
 
-    document.addEventListener("keydown", (e) => {
+    const onKeyDown = (e) => {
       snakeGame.lastPressedKey = e.key;
-    });
+    };
+    document.addEventListener("keydown", onKeyDown);
 
-    const animate = (time) => {
-      console.log(time);
-      if (Math.round(time) % 10 === 0) {
-        snakeGame.moveSnake();
-      }
+    const animate = (t) => {
+      snakeGame.loop(t);
       requestAnimationFrame(animate);
     };
-
     animate();
 
     return () => {
-      document.removeEventListener("keydown");
+      document.removeEventListener("keydown", onKeyDown);
     };
   }, []);
 
