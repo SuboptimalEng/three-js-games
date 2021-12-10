@@ -1,17 +1,17 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import * as THREE from "three";
 import SceneInit from "./lib/SceneInit";
+import CustomEditor from "./components/CustomEditor";
 import { vertexShader, fragmentShader } from "./lib/Shaders";
 
 export default function Home() {
   let test, audioContext, audioElement, dataArray, analyser, source;
 
-  // let gui;
-
-  // const initGui = async () => {
-  //   const dat = await import("dat.gui");
-  //   gui = new dat.GUI();
-  // };
+  let gui;
+  const initGui = async () => {
+    const dat = await import("dat.gui");
+    gui = new dat.GUI();
+  };
 
   const setupAudioContext = () => {
     audioContext = new window.AudioContext();
@@ -52,16 +52,16 @@ export default function Home() {
 
     // note: set up plane mesh and add it to the scene
     const planeGeometry = new THREE.PlaneGeometry(64, 64, 64, 64);
-    const planeMaterial = new THREE.MeshNormalMaterial({ wireframe: true });
-    const planeMesh = new THREE.Mesh(planeGeometry, planeMaterial);
-    // const planeCustomMaterial = new THREE.ShaderMaterial({
-    //   // note: this is where the magic happens
-    //   uniforms: uniforms,
-    //   vertexShader: vertexShader(),
-    //   fragmentShader: fragmentShader(),
-    //   wireframe: false,
-    // });
-    // const planeMesh = new THREE.Mesh(planeGeometry, planeCustomMaterial);
+    // const planeMaterial = new THREE.MeshNormalMaterial({ wireframe: true });
+    // const planeMesh = new THREE.Mesh(planeGeometry, planeMaterial);
+    const planeCustomMaterial = new THREE.ShaderMaterial({
+      // note: this is where the magic happens
+      uniforms: uniforms,
+      vertexShader: vertexShader(),
+      fragmentShader: fragmentShader(),
+      wireframe: true,
+    });
+    const planeMesh = new THREE.Mesh(planeGeometry, planeCustomMaterial);
     planeMesh.rotation.x = -Math.PI / 2 + Math.PI / 4;
     planeMesh.scale.x = 2;
     planeMesh.scale.y = 2;
@@ -69,18 +69,18 @@ export default function Home() {
     planeMesh.position.y = 8;
     test.scene.add(planeMesh);
 
-    // if (gui === undefined) {
-    //   await initGui();
-    //   const audioWaveGui = gui.addFolder("audio waveform");
-    //   audioWaveGui
-    //     .add(planeCustomMaterial, "wireframe")
-    //     .name("wireframe")
-    //     .listen();
-    //   audioWaveGui
-    //     .add(uniforms.u_amplitude, "value", 1.0, 8.0)
-    //     .name("amplitude")
-    //     .listen();
-    // }
+    if (gui === undefined) {
+      await initGui();
+      const audioWaveGui = gui.addFolder("audio waveform");
+      audioWaveGui
+        .add(planeCustomMaterial, "wireframe")
+        .name("wireframe")
+        .listen();
+      audioWaveGui
+        .add(uniforms.u_amplitude, "value", 1.0, 8.0)
+        .name("amplitude")
+        .listen();
+    }
 
     const render = (time) => {
       // note: update audio data
@@ -103,6 +103,12 @@ export default function Home() {
     test.animate();
   }, []);
 
+  // note: Custom editor helpers.
+  // const [showCustomEditor, setShowCustomEditor] = useState(false);
+  // const toggleCustomEditor = () => {
+  //   setShowCustomEditor(!showCustomEditor);
+  // };
+
   return (
     <div className="flex flex-col items-center justify-center">
       <div className="absolute bottom-2 right-2">
@@ -115,7 +121,13 @@ export default function Home() {
           onPlay={play}
         />
       </div>
+      {/* <div className="absolute bg-white bottom-2 left-2 p-2 rounded-xl text-2xl">
+        <button onClick={toggleCustomEditor}>
+          {showCustomEditor ? <div>⬅️ 💻</div> : <div>➡ 💻</div>}
+        </button>
+      </div> */}
       <canvas id="myThreeJsCanvas"></canvas>
+      {/* {showCustomEditor ? <CustomEditor /> : null} */}
     </div>
   );
 }
