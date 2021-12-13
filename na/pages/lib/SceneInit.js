@@ -55,7 +55,7 @@ export default class SceneInit {
     // spot light which is illuminating the chart directly
     let spotLight = new THREE.SpotLight(0xffffff, 0.55);
     spotLight.castShadow = true;
-    spotLight.position.set(0, 50, 50);
+    spotLight.position.set(0, 0, 10);
     this.scene.add(spotLight);
 
     // if window resizes

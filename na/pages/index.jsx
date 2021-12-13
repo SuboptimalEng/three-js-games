@@ -10,18 +10,20 @@ export default function Home() {
     test.animate();
 
     const sphereGeometry = new THREE.SphereGeometry(8);
-    const sphereMaterial = new THREE.MeshNormalMaterial();
+    const sphereMaterial = new THREE.MeshToonMaterial();
     const sphereMesh = new THREE.Mesh(sphereGeometry, sphereMaterial);
     test.scene.add(sphereMesh);
 
     const sg = new THREE.SphereGeometry(40, 20, 20);
     const sm = new THREE.MeshNormalMaterial({
-      wireframe: true,
+      // wireframe: true,
+      transparent: true,
+      opacity: 0.5,
     });
     const sm2 = new THREE.Mesh(sg, sm);
     test.scene.add(sm2);
 
-    const boxGeometry = new THREE.BoxGeometry(4, 4, 80, 1, 1, 16);
+    const boxGeometry = new THREE.BoxGeometry(4, 4, 72, 1, 1, 16);
     const boxMaterial = new THREE.ShaderMaterial({
       vertexShader: vertexShader(),
       fragmentShader: fragmentShader(),
@@ -67,7 +69,7 @@ export default function Home() {
       bm4.rotation.y += 0.032;
       bm5.rotation.y += 0.036;
       bm6.rotation.y += 0.04;
-      sm2.rotation.y += 0.01;
+      // sm2.rotation.y += 0.01;
 
       window.requestAnimationFrame(render);
     };
