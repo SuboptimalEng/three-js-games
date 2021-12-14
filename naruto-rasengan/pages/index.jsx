@@ -1,6 +1,7 @@
 import * as THREE from "three";
-import { useEffect } from "react";
 import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader.js";
+
+import { useEffect } from "react";
 import SceneInit from "./lib/SceneInit";
 import { vertexShader, fragmentShader, vs, fs, fs2 } from "./lib/Shaders";
 
@@ -9,11 +10,9 @@ export default function Home() {
     const test = new SceneInit("myThreeJsCanvas");
     test.initScene();
     test.animate();
-
     test.scene.position.y = 20;
 
-    const manager = new THREE.LoadingManager();
-    const loader = new OBJLoader(manager);
+    const loader = new OBJLoader();
     loader.load(
       "./hand.obj",
       function (obj) {
@@ -22,7 +21,7 @@ export default function Home() {
         obj.scale.y = 4;
         obj.scale.z = 4;
         obj.rotation.x = -Math.PI / 2;
-        obj.position.z = -30;
+        obj.position.z = -28;
         obj.position.y = -50;
         obj.position.x = 6;
         test.scene.add(obj);
@@ -34,26 +33,6 @@ export default function Home() {
         console.log("An error happened");
       }
     );
-
-    // // load a resource
-    // const loader = new THREE.ObjectLoader();
-    // loader.load(
-    //   // resource URL
-    //   "./hand.obj",
-    //   // called when resource is loaded
-    //   function (object) {
-    //     console.log(object);
-    //     test.scene.add(object);
-    //   }
-    //   // called when loading is in progresses
-    //   // function (xhr) {
-    //   //   console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
-    //   // },
-    //   // called when loading has errors
-    //   // function (error) {
-    //   //   console.log("An error happened");
-    //   // }
-    // );
 
     const sphereGeometry = new THREE.SphereGeometry(20, 80, 80);
     const sphereMaterial = new THREE.ShaderMaterial({
