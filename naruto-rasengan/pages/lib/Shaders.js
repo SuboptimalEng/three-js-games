@@ -1,18 +1,9 @@
-const vertexShader = () => {
+const sinWaveVertexShader = () => {
   return `
     varying vec3 vUv;
 
     void main() {
       vUv = position;
-
-      // gl_Position = projectionMatrix
-      //   * modelViewMatrix
-      //   * vec4(
-      //     sin(position.z / 16.0) * 16.0 + position.x * 4.0 / abs(position.z) ,
-      //     position.y * 4.0 / position.z,
-      //     position.z,
-      //     1.0
-      //   );
 
       if (position.z == 0.0) {
         gl_Position = projectionMatrix
@@ -24,11 +15,10 @@ const vertexShader = () => {
             1.0
           );
       } else {
-        // position.x / position.z,
         gl_Position = projectionMatrix
           * modelViewMatrix
           * vec4(
-            sin(position.z / 16.0) * 16.0 + position.x * 0.5 / abs(position.z) ,
+            sin(position.z / 8.0) * 8.0 + position.x * 0.5 / abs(position.z) ,
             position.y * 0.5 / abs(position.z),
             position.z,
             1.0
@@ -48,7 +38,7 @@ const fragmentShader = () => {
   `;
 };
 
-const vs = () => {
+const sphereVertexShader = () => {
   return `
     varying vec2 vertexUv;
     varying vec3 vertexNormal;
@@ -64,7 +54,7 @@ const vs = () => {
   `;
 };
 
-const fs = () => {
+const auraFragmentShader = () => {
   return `
     varying vec2 vertexUv;
     varying vec3 vertexNormal;
@@ -76,7 +66,7 @@ const fs = () => {
   `;
 };
 
-const fs2 = () => {
+const rasenganFragmentShader = () => {
   return `
     varying vec2 vertexUv;
     varying vec3 vertexNormal;
@@ -88,4 +78,10 @@ const fs2 = () => {
   `;
 };
 
-export { vertexShader, fragmentShader, vs, fs, fs2 };
+export {
+  sinWaveVertexShader,
+  fragmentShader,
+  sphereVertexShader,
+  auraFragmentShader,
+  rasenganFragmentShader,
+};
