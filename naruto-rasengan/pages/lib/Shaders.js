@@ -1,3 +1,33 @@
+const sinWaveVertexShader2 = () => {
+  return `
+    varying vec3 vUv;
+
+    void main() {
+      vUv = position;
+
+      if (position.z == 0.0) {
+        gl_Position = projectionMatrix
+          * modelViewMatrix
+          * vec4(
+            position.x,
+            position.y,
+            position.z,
+            1.0
+          );
+      } else {
+        gl_Position = projectionMatrix
+          * modelViewMatrix
+          * vec4(
+            position.x/ abs(position.z) ,
+            position.y/ abs(position.z),
+            position.z,
+            1.0
+          );
+      }
+    }
+  `;
+};
+
 const sinWaveVertexShader = () => {
   return `
     varying vec3 vUv;
@@ -18,7 +48,7 @@ const sinWaveVertexShader = () => {
         gl_Position = projectionMatrix
           * modelViewMatrix
           * vec4(
-            sin(position.z / 8.0) * 8.0 + position.x * 0.5 / abs(position.z) ,
+            sin(position.z / 8.0) * 8.0 + position.x * 0.5 / abs(position.z),
             position.y * 0.5 / abs(position.z),
             position.z,
             1.0
@@ -79,6 +109,7 @@ const rasenganFragmentShader = () => {
 };
 
 export {
+  sinWaveVertexShader2,
   sinWaveVertexShader,
   fragmentShader,
   sphereVertexShader,

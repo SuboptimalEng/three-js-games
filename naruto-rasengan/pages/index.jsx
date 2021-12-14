@@ -5,6 +5,7 @@ import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader.js";
 import { useEffect } from "react";
 import SceneInit from "./lib/SceneInit";
 import {
+  sinWaveVertexShader2,
   sinWaveVertexShader,
   fragmentShader,
   sphereVertexShader,
@@ -18,7 +19,10 @@ export default function Home() {
     test.initScene();
     test.animate();
 
-    test.scene.position.y = 20;
+    // test.scene.scale.x = 2.0;
+    // test.scene.scale.y = 2.0;
+    // test.scene.scale.z = 2.0;
+
     const loader = new OBJLoader();
     loader.load(
       "./hand.obj",
@@ -30,6 +34,7 @@ export default function Home() {
         obj.position.z = -28;
         obj.position.y = -50;
         obj.position.x = 6;
+        test.scene.position.y = 20;
         test.scene.add(obj);
       },
       function (xhr) {
@@ -40,18 +45,8 @@ export default function Home() {
       }
     );
 
-    const sphereGeometry = new THREE.SphereGeometry(20, 80, 80);
-    const sphereMaterial = new THREE.ShaderMaterial({
-      vertexShader: sphereVertexShader(),
-      fragmentShader: rasenganFragmentShader(),
-      // wireframe: true,
-      transparent: true,
-      opacity: 0.5,
-    });
-    const sm = new THREE.Mesh(sphereGeometry, sphereMaterial);
-    test.scene.add(sm);
-
     const boxGeometry = new THREE.BoxGeometry(0.5, 0.5, 36, 4, 4, 16);
+    // const boxGeometry = new THREE.BoxGeometry(4, 4, 36, 1, 1, 16);
     const boxMaterial = new THREE.ShaderMaterial({
       vertexShader: sinWaveVertexShader(),
       fragmentShader: fragmentShader(),
@@ -84,8 +79,17 @@ export default function Home() {
     bm11.rotation.x = Math.PI / 4.5;
     const bm12 = new THREE.Mesh(boxGeometry, boxMaterial);
     bm12.rotation.x = Math.PI / 5.5;
-
     test.scene.add(bm2, bm3, bm4, bm5, bm6, bm7, bm8, bm9, bm10, bm11, bm12);
+
+    const sphereGeometry = new THREE.SphereGeometry(20, 80, 80);
+    const sphereMaterial = new THREE.ShaderMaterial({
+      vertexShader: sphereVertexShader(),
+      fragmentShader: rasenganFragmentShader(),
+      transparent: true,
+      opacity: 0.5,
+    });
+    const sm = new THREE.Mesh(sphereGeometry, sphereMaterial);
+    test.scene.add(sm);
 
     const sphereGeometry2 = new THREE.SphereGeometry(20, 20, 20);
     const sphereMaterial2 = new THREE.ShaderMaterial({
@@ -93,9 +97,6 @@ export default function Home() {
       fragmentShader: auraFragmentShader(),
       blending: THREE.AdditiveBlending,
       side: THREE.BackSide,
-      // transparent: true,
-      // opacity: 0.5,
-      // wireframe: true,
     });
     const sm2 = new THREE.Mesh(sphereGeometry2, sphereMaterial2);
     sm2.scale.x = 1.25;
