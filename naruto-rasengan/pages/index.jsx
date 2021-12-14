@@ -1,4 +1,5 @@
 import * as THREE from "three";
+
 import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader.js";
 
 import { useEffect } from "react";
@@ -22,7 +23,6 @@ export default function Home() {
     loader.load(
       "./hand.obj",
       function (obj) {
-        console.log(obj);
         obj.scale.x = 4;
         obj.scale.y = 4;
         obj.scale.z = 4;
