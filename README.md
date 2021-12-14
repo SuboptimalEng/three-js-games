@@ -11,6 +11,10 @@ npm install
 npm run dev
 ```
 
+## Naruto Rasengan
+
+#### 👉 [Hand Obj by Catherine Zamai](https://sketchfab.com/3d-models/hand-anatomy-ada8498be9754e9f90b2eecc1b4ef8c5)
+
 ## Audio Waveform
 
 <img src="/_demos/audio-waveform-1.png">

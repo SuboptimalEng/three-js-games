@@ -1,7 +1,8 @@
 import * as THREE from "three";
 import { useEffect } from "react";
+import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader.js";
 import SceneInit from "./lib/SceneInit";
-import { vertexShader, fragmentShader, vs, fs } from "./lib/Shaders";
+import { vertexShader, fragmentShader, vs, fs, fs2 } from "./lib/Shaders";
 
 export default function Home() {
   useEffect(() => {
@@ -9,18 +10,63 @@ export default function Home() {
     test.initScene();
     test.animate();
 
-    const sphereGeometry = new THREE.SphereGeometry(40, 20, 20);
-    const sphereMaterial = new THREE.MeshNormalMaterial({
+    test.scene.position.y = 20;
+
+    const manager = new THREE.LoadingManager();
+    const loader = new OBJLoader(manager);
+    loader.load(
+      "./hand.obj",
+      function (obj) {
+        console.log(obj);
+        obj.scale.x = 4;
+        obj.scale.y = 4;
+        obj.scale.z = 4;
+        obj.rotation.x = -Math.PI / 2;
+        obj.position.z = -30;
+        obj.position.y = -50;
+        obj.position.x = 6;
+        test.scene.add(obj);
+      },
+      function (xhr) {
+        console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+      },
+      function (error) {
+        console.log("An error happened");
+      }
+    );
+
+    // // load a resource
+    // const loader = new THREE.ObjectLoader();
+    // loader.load(
+    //   // resource URL
+    //   "./hand.obj",
+    //   // called when resource is loaded
+    //   function (object) {
+    //     console.log(object);
+    //     test.scene.add(object);
+    //   }
+    //   // called when loading is in progresses
+    //   // function (xhr) {
+    //   //   console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+    //   // },
+    //   // called when loading has errors
+    //   // function (error) {
+    //   //   console.log("An error happened");
+    //   // }
+    // );
+
+    const sphereGeometry = new THREE.SphereGeometry(20, 80, 80);
+    const sphereMaterial = new THREE.ShaderMaterial({
+      vertexShader: vs(),
+      fragmentShader: fs2(),
       // wireframe: true,
       transparent: true,
-      opacity: 0.25,
+      opacity: 0.5,
     });
     const sm = new THREE.Mesh(sphereGeometry, sphereMaterial);
     test.scene.add(sm);
 
-    const g = new THREE.Group();
-
-    const boxGeometry = new THREE.BoxGeometry(4, 4, 120, 1, 1, 16);
+    const boxGeometry = new THREE.BoxGeometry(0.5, 0.5, 36, 4, 4, 16);
     const boxMaterial = new THREE.ShaderMaterial({
       vertexShader: vertexShader(),
       fragmentShader: fragmentShader(),
@@ -75,10 +121,15 @@ export default function Home() {
     bm10.rotation.x = Math.PI / 3.5;
     test.scene.add(bm10);
 
-    g.add(bm, bm2, bm3, bm4, bm5, bm6, bm7, bm8, bm9, bm10);
-    test.scene.add(g);
+    const bm11 = new THREE.Mesh(boxGeometry, boxMaterial);
+    bm11.rotation.x = Math.PI / 4.5;
+    test.scene.add(bm11);
 
-    const sphereGeometry2 = new THREE.SphereGeometry(40, 40, 40);
+    const bm12 = new THREE.Mesh(boxGeometry, boxMaterial);
+    bm12.rotation.x = Math.PI / 5.5;
+    test.scene.add(bm12);
+
+    const sphereGeometry2 = new THREE.SphereGeometry(20, 20, 20);
     const sphereMaterial2 = new THREE.ShaderMaterial({
       vertexShader: vs(),
       fragmentShader: fs(),
@@ -106,7 +157,9 @@ export default function Home() {
       bm8.rotation.y += 0.048;
       bm9.rotation.y += 0.052;
       bm10.rotation.y += 0.056;
-      g.rotation.y += 0.01;
+      bm11.rotation.y += 0.056;
+      bm12.rotation.y += 0.056;
+      // sm.rotation.y += 0.02;
 
       window.requestAnimationFrame(render);
     };

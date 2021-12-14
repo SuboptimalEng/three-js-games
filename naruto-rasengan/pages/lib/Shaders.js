@@ -76,4 +76,16 @@ const fs = () => {
   `;
 };
 
-export { vertexShader, fragmentShader, vs, fs };
+const fs2 = () => {
+  return `
+    varying vec2 vertexUv;
+    varying vec3 vertexNormal;
+
+    void main() {
+      float intensity = pow(0.9 - dot(vertexNormal, vec3(0.0, 0.0, 1.0)), 2.0);
+      gl_FragColor = vec4(0.5, 0.75, 1.0, 1.0) * intensity;
+    }
+  `;
+};
+
+export { vertexShader, fragmentShader, vs, fs, fs2 };
