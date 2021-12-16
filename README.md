@@ -15,6 +15,9 @@ npm run dev
 
 #### 👉 ["Hand Anatomy"](https://sketchfab.com/3d-models/hand-anatomy-ada8498be9754e9f90b2eecc1b4ef8c5) by [Caterina Zamai](https://www.artstation.com/zaccate) is licensed under [CC Attribution](https://creativecommons.org/licenses/by/4.0/)
 
+<img src="/_demos/naruto-rasengan-1.png">
+<img src="/_demos/naruto-rasengan-2.png">
+
 ## Audio Waveform
 
 <img src="/_demos/audio-waveform-1.png">
@@ -27,8 +30,8 @@ npm run dev
 
 ## "2D" Tic-Tac-Toe
 
-<img src="/_demos/tic-tac-toe-2d-1.png">
-<img src="/_demos/tic-tac-toe-2d-2.png">
+<img src="/_demos/tic-tac-toe-1.png">
+<img src="/_demos/tic-tac-toe-2.png">
 
 ## Solar System
 
