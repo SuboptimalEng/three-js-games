@@ -11,7 +11,7 @@ npm install
 npm run dev
 ```
 
-## Naruto Rasengan
+## Naruto's Rasengan
 
 #### 👉 ["Hand Anatomy"](https://sketchfab.com/3d-models/hand-anatomy-ada8498be9754e9f90b2eecc1b4ef8c5) by [Caterina Zamai](https://www.artstation.com/zaccate) is licensed under [CC Attribution](https://creativecommons.org/licenses/by/4.0/)
 
