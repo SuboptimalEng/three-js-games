@@ -13,8 +13,9 @@ npm run dev
 
 ## Piano
 
-<img src="/_demos/piano-1.png">
-<img src="/_demos/piano-2.png">
+#### 👉 Grand Piano Music from [reality3d](https://github.com/reality3d/3d-piano-player)
+
+<img src="/_demos/piano.png">
 
 ## Naruto's Rasengan
 
