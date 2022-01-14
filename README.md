@@ -16,6 +16,7 @@ npm run dev
 #### 👉 Grand piano music by [Borja Morales (reality3d)](https://github.com/reality3d/3d-piano-player) is licensed under [MIT](https://github.com/reality3d/3d-piano-player/blob/master/LICENSE)
 
 <img src="/_demos/piano-1.png">
+<img src="/_demos/piano.png">
 
 ## Naruto's Rasengan
 
