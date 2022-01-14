@@ -40,9 +40,8 @@ export default class Piano {
     this.highlightColor = '#61DBFB';
 
     this.pianoGroup = new THREE.Group();
-    // this.pianoGroup.position.x = -65;
-    this.pianoGroup.position.x = -50;
-    this.pianoGroup.rotation.x = -Math.PI / 8;
+    this.pianoGroup.position.x = -65;
+    this.pianoGroup.rotation.x = -Math.PI / 4;
     this.pianoGroup.add(
       ...this.flatKeys.map((key) => key.keyGroup),
       ...this.naturalKeys.map((key) => key.keyGroup)
