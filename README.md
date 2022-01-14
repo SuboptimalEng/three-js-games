@@ -13,7 +13,7 @@ npm run dev
 
 ## Piano
 
-#### 👉 Grand piano notes from [Borja Morales (reality3d)](https://github.com/reality3d/3d-piano-player) is under the [MIT License](https://github.com/reality3d/3d-piano-player/blob/master/LICENSE).
+#### 👉 Grand piano notes by [Borja Morales (reality3d)](https://github.com/reality3d/3d-piano-player) is under the [MIT License](https://github.com/reality3d/3d-piano-player/blob/master/LICENSE).
 
 <img src="/_demos/piano.png">
 
