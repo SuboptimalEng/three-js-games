@@ -3,20 +3,20 @@ import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeom
 
 import Key from './Key';
 
-export default class Keyboard {
+export default class Calculator {
   constructor() {
-    this.keyboardGroup = new THREE.Group();
+    this.calculatorGroup = new THREE.Group();
 
-    this.loadKeyboardMesh();
+    this.loadCalculatorMesh();
     this.loadKeyMeshes();
   }
 
-  loadKeyboardMesh() {
+  loadCalculatorMesh() {
     const geometry = new RoundedBoxGeometry(100, 8, 100, 4, 0.5);
     const material = new THREE.MeshNormalMaterial();
-    this.keyboardMesh = new THREE.Mesh(geometry, material);
-    this.keyboardMesh.position.y = -16;
-    this.keyboardGroup.add(this.keyboardMesh);
+    this.calculatorMesh = new THREE.Mesh(geometry, material);
+    this.calculatorMesh.position.y = -16;
+    this.calculatorGroup.add(this.calculatorMesh);
   }
 
   pressKey(event) {
@@ -35,11 +35,13 @@ export default class Keyboard {
   }
 
   loadKeyMeshes() {
-    const w = new Key('w', 1.5, -9, -11);
-    const a = new Key('a', 1.5, -22, 11);
-    const s = new Key('s', 1.5, 0, 11);
-    const d = new Key('d', 1.5, 22, 11);
-    this.keys = [w, a, s, d];
-    this.keys.forEach((k) => this.keyboardGroup.add(k.keyGroup));
+    const k1 = new Key('1', 1.5, -20, 0);
+    const k2 = new Key('2', 1.5, 0, 0);
+    const k3 = new Key('3', 1.5, 20, 0);
+    const k4 = new Key('4', 1.5, -20, -20);
+    const k5 = new Key('5', 1.5, 0, -20);
+    const k6 = new Key('6', 1.5, 20, -20);
+    this.keys = [k1, k2, k3, k4, k5, k6];
+    this.keys.forEach((k) => this.calculatorGroup.add(k.keyGroup));
   }
 }

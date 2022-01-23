@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import Keyboard from './lib/Keyboard';
+import Calculator from './lib/Calculator';
 import SceneInit from './lib/SceneInit';
 
 function App() {
@@ -9,17 +9,17 @@ function App() {
     test.initScene();
     test.animate();
 
-    const k = new Keyboard();
-    test.scene.add(k.keyboardGroup);
+    const c = new Calculator();
+    test.scene.add(c.calculatorGroup);
 
     const onKeyDown = (event) => {
       if (event.repeat) {
         return;
       }
-      k.pressKey(event);
+      c.pressKey(event);
     };
     const onKeyUp = (event) => {
-      k.releaseKey(event);
+      c.releaseKey(event);
     };
 
     window.addEventListener('keydown', onKeyDown);
