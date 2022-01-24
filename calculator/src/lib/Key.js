@@ -5,9 +5,8 @@ import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry';
 import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry';
 
 export default class Key {
-  constructor(text, width, xOffset, yOffset) {
+  constructor(text, xOffset, yOffset) {
     this.text = text;
-    this.width = width;
     this.xOffset = xOffset;
     this.yOffset = yOffset;
     this.zOffset = 4;
@@ -16,11 +15,11 @@ export default class Key {
     this.loadKeyMesh();
   }
 
-  up() {
+  release() {
     this.keyGroup.position.z = 0;
   }
 
-  down() {
+  press() {
     this.keyGroup.position.z = -2;
   }
 

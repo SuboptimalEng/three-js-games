@@ -59,10 +59,10 @@ export default class SceneInit {
     this.scene.add(ambientLight);
 
     // spot light which is illuminating the chart directly
-    // let spotLight = new THREE.SpotLight(0x00ff00, 1);
-    // spotLight.castShadow = true;
-    // spotLight.position.set(0, 50, 128);
-    // this.scene.add(spotLight);
+    let spotLight = new THREE.SpotLight('#fafafa', 0.9);
+    spotLight.castShadow = true;
+    spotLight.position.set(50, 50, 50);
+    this.scene.add(spotLight);
 
     // if window resizes
     window.addEventListener('resize', () => this.onWindowResize(), false);
