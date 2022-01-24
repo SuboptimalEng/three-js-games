@@ -12,16 +12,17 @@ export default class Key {
     this.zOffset = 4;
 
     this.keyGroup = new THREE.Group();
+    this.keyGroup.position.z = 10;
     this.loadKeyMesh();
   }
 
   release() {
-    this.keyGroup.position.z = 0;
+    this.keyGroup.position.z += 2;
     this.keyMesh.material.color.set('#fafafa');
   }
 
   press() {
-    this.keyGroup.position.z = -2;
+    this.keyGroup.position.z -= 2;
     this.keyMesh.material.color.set('#000000');
   }
 
