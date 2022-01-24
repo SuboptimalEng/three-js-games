@@ -5,6 +5,7 @@ import { FontLoader } from 'three/examples/jsm/loaders/FontLoader';
 import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry';
 
 import Key from './Key';
+import Display from './Display';
 
 export default class Calculator {
   constructor() {
@@ -12,6 +13,12 @@ export default class Calculator {
     this.loadCalculatorMesh();
     this.loadKeyMeshes();
     this.loadKeyText();
+    this.loadDisplay();
+  }
+
+  loadDisplay() {
+    this.display = new Display();
+    this.calculatorGroup.add(this.display.displayGroup);
   }
 
   loadKeyText() {
@@ -38,9 +45,9 @@ export default class Calculator {
   }
 
   loadCalculatorMesh() {
-    const geometry = new RoundedBoxGeometry(100, 100, 4, 4, 0.5);
+    const geometry = new RoundedBoxGeometry(100, 100, 4, 4, 1);
     const material = new THREE.MeshStandardMaterial({
-      wireframe: true,
+      // wireframe: true,
       color: '#007acc',
       refractionRatio: 0.1,
     });
