@@ -43,7 +43,10 @@ export default class Key {
 
   loadKeyMesh() {
     const geometry = new RoundedBoxGeometry(16, 16, 4, 2, 1);
-    const material = new THREE.MeshStandardMaterial({ color: '#fafafa' });
+    const material = new THREE.MeshStandardMaterial({
+      color: '#fafafa',
+      transparent: true,
+    });
     // TODO: Create fancy key.
     // const geometry = new THREE.BoxGeometry(64, 64, 32);
     // const material = new THREE.ShaderMaterial({

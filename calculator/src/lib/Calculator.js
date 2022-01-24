@@ -7,10 +7,17 @@ import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeom
 
 import Key from './Key';
 import Display from './Display';
+import { calculatorFragmentShader, calculatorVertexShader } from './Shaders';
 
 export default class Calculator {
-  constructor() {
+  constructor(uniforms) {
     this.expression = '';
+    this.uniforms = uniforms;
+    // this.uniforms = {
+    //   u_time: { type: 'f', value: 1.0 },
+    //   u_x_offset: { type: 'f', value: 0.0 },
+    //   u_y_offset: { type: 'f', value: 0.0 },
+    // };
     this.calculatorGroup = new THREE.Group();
     this.loadCalculatorMesh();
     this.loadKeyMeshes();
@@ -80,13 +87,20 @@ export default class Calculator {
   }
 
   loadCalculatorMesh() {
-    const geometry = new RoundedBoxGeometry(100, 100, 4, 4, 1);
-    const material = new THREE.MeshStandardMaterial({
-      // wireframe: true,
-      // NOTE: TypeScript blue.
-      color: '#007acc',
-      refractionRatio: 0.9,
+    // const geometry = new RoundedBoxGeometry(100, 100, 4, 4, 1);
+    const geometry = new THREE.BoxGeometry(100, 100, 4, 10, 10, 1);
+    const material = new THREE.ShaderMaterial({
+      wireframe: true,
+      uniforms: this.uniforms,
+      vertexShader: calculatorVertexShader(),
+      fragmentShader: calculatorFragmentShader(),
     });
+    // const material = new THREE.MeshStandardMaterial({
+    //   // wireframe: true,
+    //   // NOTE: TypeScript blue.
+    //   color: '#007acc',
+    //   refractionRatio: 0.9,
+    // });
     this.calculatorMesh = new THREE.Mesh(geometry, material);
     this.calculatorGroup.add(this.calculatorMesh);
   }

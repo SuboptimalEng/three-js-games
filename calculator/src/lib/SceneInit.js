@@ -33,6 +33,8 @@ export default class SceneInit {
     // NOTE: Declare uniforms to pass into glsl shaders.
     this.uniforms = {
       u_time: { type: 'f', value: 1.0 },
+      u_x_offset: { type: 'f', value: 0.0 },
+      u_y_offset: { type: 'f', value: 0.0 },
       colorB: { type: 'vec3', value: new THREE.Color(0xfff000) },
       colorA: { type: 'vec3', value: new THREE.Color(0xffffff) },
     };
@@ -61,7 +63,7 @@ export default class SceneInit {
     // spot light which is illuminating the chart directly
     let spotLight = new THREE.SpotLight('#fafafa', 0.5);
     spotLight.castShadow = true;
-    spotLight.position.set(50, 50, 50);
+    spotLight.position.set(0, 20, 20);
     this.scene.add(spotLight);
 
     // if window resizes

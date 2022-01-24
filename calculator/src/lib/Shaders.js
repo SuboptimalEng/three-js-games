@@ -31,4 +31,44 @@ const keyFragmentShader = () => {
   `;
 };
 
-export { keyVertexShader, keyFragmentShader };
+const calculatorVertexShader = () => {
+  return `
+	uniform float u_time;
+	uniform float u_x_offset;
+	uniform float u_y_offset;
+
+	varying vec3 n;
+	varying vec3 vUv;
+
+	void main() {
+		n = normal;
+		vUv = position;
+
+		gl_Position = projectionMatrix
+			* modelViewMatrix
+			* vec4(vUv.x , vUv.y , vUv.z + sin(u_time) , 1.0 );
+	}
+  `;
+};
+
+const calculatorFragmentShader = () => {
+  return `
+	uniform float u_time;
+	uniform float u_x_offset;
+	uniform float u_y_offset;
+
+	varying vec3 n;
+	varying vec3 vUv;
+
+	void main() {
+      gl_FragColor = vec4(0.5, 0.5, 0.0, 0.5);
+	}
+  `;
+};
+
+export {
+  keyVertexShader,
+  keyFragmentShader,
+  calculatorVertexShader,
+  calculatorFragmentShader,
+};

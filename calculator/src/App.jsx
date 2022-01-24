@@ -9,7 +9,7 @@ function App() {
     test.initScene();
     test.animate();
 
-    const c = new Calculator();
+    const c = new Calculator(test.uniforms);
     test.scene.add(c.calculatorGroup);
 
     const onKeyDown = (event) => {
