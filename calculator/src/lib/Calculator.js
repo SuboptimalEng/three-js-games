@@ -12,10 +12,10 @@ export default class Calculator {
   }
 
   loadCalculatorMesh() {
-    const geometry = new RoundedBoxGeometry(100, 8, 100, 4, 0.5);
+    const geometry = new RoundedBoxGeometry(100, 100, 8, 4, 0.5);
     const material = new THREE.MeshNormalMaterial();
     this.calculatorMesh = new THREE.Mesh(geometry, material);
-    this.calculatorMesh.position.y = -16;
+    this.calculatorMesh.position.y = -8;
     this.calculatorGroup.add(this.calculatorMesh);
   }
 
@@ -38,10 +38,7 @@ export default class Calculator {
     const k1 = new Key('1', 1.5, -20, 0);
     const k2 = new Key('2', 1.5, 0, 0);
     const k3 = new Key('3', 1.5, 20, 0);
-    const k4 = new Key('4', 1.5, -20, -20);
-    const k5 = new Key('5', 1.5, 0, -20);
-    const k6 = new Key('6', 1.5, 20, -20);
-    this.keys = [k1, k2, k3, k4, k5, k6];
+    this.keys = [k1, k2, k3];
     this.keys.forEach((k) => this.calculatorGroup.add(k.keyGroup));
   }
 }
