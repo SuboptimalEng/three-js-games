@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { evaluate } from 'mathjs';
 
 import { TTFLoader } from 'three/examples/jsm/loaders/TTFLoader';
 import { FontLoader } from 'three/examples/jsm/loaders/FontLoader';
@@ -93,8 +94,14 @@ export default class Calculator {
   pressKey(event) {
     const validKey = this.keys.find((key) => key.text === event.key);
     if (validKey) {
-      this.expression = this.expression + validKey.text;
-      this.display.showExpression(this.expression, this.parsedFont);
+      if (validKey.text === '=') {
+        this.expression = evaluate(this.expression).toString();
+        console.log(this.expression);
+        this.display.showExpression(this.expression, this.parsedFont);
+      } else {
+        this.expression = this.expression + validKey.text;
+        this.display.showExpression(this.expression, this.parsedFont);
+      }
       validKey.press();
     }
   }
