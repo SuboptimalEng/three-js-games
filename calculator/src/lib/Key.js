@@ -17,10 +17,12 @@ export default class Key {
 
   release() {
     this.keyGroup.position.z = 0;
+    this.keyMesh.material.color.set('#fafafa');
   }
 
   press() {
     this.keyGroup.position.z = -2;
+    this.keyMesh.material.color.set('#000000');
   }
 
   addText(parsedFont) {
@@ -29,7 +31,7 @@ export default class Key {
       size: 8,
       height: 2.5,
     });
-    const textMaterial = new THREE.MeshPhongMaterial({ color: 0xff0000 });
+    const textMaterial = new THREE.MeshStandardMaterial({ color: '#ff0000' });
     this.textMesh = new THREE.Mesh(textGeometry, textMaterial);
 
     this.textMesh.position.x = this.xOffset - 4;
