@@ -10,7 +10,7 @@ export default class Key {
     this.width = width;
     this.xOffset = xOffset;
     this.yOffset = yOffset;
-    this.zOffset = 4.5;
+    this.zOffset = 4;
 
     this.keyGroup = new THREE.Group();
     this.loadKeyMesh();

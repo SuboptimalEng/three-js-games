@@ -17,12 +17,15 @@ export default class Calculator {
   loadKeyText() {
     this.ttfLoader = new TTFLoader();
     this.fontLoader = new FontLoader();
-    this.ttfLoader.load('./fonts/jbm-regular.ttf', (unparsedFont) => {
-      const parsedFont = this.fontLoader.parse(unparsedFont);
-      this.keys.forEach((key) => {
-        key.addText(parsedFont);
-      });
-    });
+    this.ttfLoader.load(
+      './fonts/JetBrainsMonoExtraBold.ttf',
+      (unparsedFont) => {
+        const parsedFont = this.fontLoader.parse(unparsedFont);
+        this.keys.forEach((key) => {
+          key.addText(parsedFont);
+        });
+      }
+    );
   }
 
   loadKeyMeshes() {
@@ -36,7 +39,11 @@ export default class Calculator {
 
   loadCalculatorMesh() {
     const geometry = new RoundedBoxGeometry(100, 100, 4, 4, 0.5);
-    const material = new THREE.MeshNormalMaterial();
+    const material = new THREE.MeshStandardMaterial({
+      wireframe: true,
+      color: '#007acc',
+      refractionRatio: 0.1,
+    });
     this.calculatorMesh = new THREE.Mesh(geometry, material);
     this.calculatorGroup.add(this.calculatorMesh);
   }
