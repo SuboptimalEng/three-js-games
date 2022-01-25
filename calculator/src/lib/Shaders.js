@@ -44,9 +44,17 @@ const calculatorVertexShader = () => {
 		n = normal;
 		vUv = position;
 
+		float x = abs(0.0 - position.x);
+		float y = abs(0.0 - position.y);
+
 		gl_Position = projectionMatrix
 			* modelViewMatrix
-			* vec4(position.x , position.y , 4.0 * (sin(position.x/16.0 + u_time) + sin(position.y/16.0 + u_time)) , 1.0 );
+			* vec4(
+				position.x,
+				position.y,
+				4.0 * (sin(x/16.0 - u_time*4.0) + sin(y/16.0 - u_time*4.0)),
+				1.0
+			);
 	}
   `;
 };
