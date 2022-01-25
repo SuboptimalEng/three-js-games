@@ -6,7 +6,7 @@ import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeom
 export default class Display {
   constructor() {
     this.displayGroup = new THREE.Group();
-    this.displayGroup.position.z = 4;
+    this.displayGroup.position.z = 14;
     this.displayGroup.position.y = 36;
     this.loadDisplayMesh();
   }

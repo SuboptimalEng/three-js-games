@@ -88,7 +88,7 @@ export default class Calculator {
 
   loadCalculatorMesh() {
     // const geometry = new RoundedBoxGeometry(100, 100, 4, 4, 1);
-    const geometry = new THREE.BoxGeometry(100, 100, 4, 10, 10, 1);
+    const geometry = new THREE.BoxGeometry(200, 200, 4, 20, 20, 1);
     const material = new THREE.ShaderMaterial({
       wireframe: true,
       uniforms: this.uniforms,

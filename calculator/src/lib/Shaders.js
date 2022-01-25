@@ -46,7 +46,7 @@ const calculatorVertexShader = () => {
 
 		gl_Position = projectionMatrix
 			* modelViewMatrix
-			* vec4(vUv.x , vUv.y , vUv.z + sin(u_time) , 1.0 );
+			* vec4(position.x , position.y , 4.0 * (sin(position.x/16.0 + u_time) + sin(position.y/16.0 + u_time)) , 1.0 );
 	}
   `;
 };
