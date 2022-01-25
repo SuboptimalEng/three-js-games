@@ -52,7 +52,7 @@ const calculatorVertexShader = () => {
 			* vec4(
 				position.x,
 				position.y,
-				4.0 * (sin(x/16.0 - u_time*4.0) + sin(y/16.0 - u_time*4.0)),
+				position.z + 2.0 * (sin(x/16.0 - u_time*4.0) + sin(y/16.0 - u_time*4.0)),
 				1.0
 			);
 	}
@@ -69,7 +69,7 @@ const calculatorFragmentShader = () => {
 	varying vec3 vUv;
 
 	void main() {
-      gl_FragColor = vec4(0.5, 0.5, 0.0, 0.5);
+      gl_FragColor = vec4(0.0, 0.47, 0.8, 0.5);
 	}
   `;
 };

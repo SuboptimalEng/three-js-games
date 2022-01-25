@@ -1,8 +1,9 @@
 import * as THREE from 'three';
 
-// import { keyVertexShader, keyFragmentShader } from './Shaders';
 import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry';
 import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry';
+
+// import { keyVertexShader, keyFragmentShader } from './Shaders';
 
 export default class Key {
   constructor(text, xOffset, yOffset) {
@@ -12,7 +13,6 @@ export default class Key {
     this.zOffset = 4;
 
     this.keyGroup = new THREE.Group();
-    this.keyGroup.position.z = 10;
     this.loadKeyMesh();
   }
 
@@ -23,14 +23,15 @@ export default class Key {
 
   press() {
     this.keyGroup.position.z -= 2;
-    this.keyMesh.material.color.set('#000000');
+    this.keyMesh.material.color.set('#f7df1e');
   }
 
   addText(parsedFont) {
     const textGeometry = new TextGeometry(this.text, {
       font: parsedFont,
       size: 8,
-      height: 2.5,
+      // height: 2.5,
+      height: 4,
     });
     const textMaterial = new THREE.MeshStandardMaterial({ color: '#ff0000' });
     this.textMesh = new THREE.Mesh(textGeometry, textMaterial);
@@ -45,22 +46,22 @@ export default class Key {
     const geometry = new RoundedBoxGeometry(16, 16, 4, 2, 1);
     const material = new THREE.MeshStandardMaterial({
       color: '#fafafa',
-      transparent: true,
     });
-    // TODO: Create fancy key.
+
+    // Note: Create fancy key.
     // const geometry = new THREE.BoxGeometry(64, 64, 32);
     // const material = new THREE.ShaderMaterial({
     //   wireframe: true,
     //   vertexShader: keyVertexShader(),
     //   fragmentShader: keyFragmentShader(),
     // });
-    // this.keyMesh.scale.set(0.25, 0.25, 0.25);
+    // this.keyMesh.scale.set(0.1, 0.1, 0.1);
+
     this.keyMesh = new THREE.Mesh(geometry, material);
     this.keyMesh.position.x = this.xOffset;
     this.keyMesh.position.y = this.yOffset;
     this.keyMesh.position.z = this.zOffset;
     this.keyMesh.rotation.x = Math.PI;
-
     this.keyGroup.add(this.keyMesh);
   }
 }
