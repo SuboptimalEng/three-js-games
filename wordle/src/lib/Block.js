@@ -9,26 +9,36 @@ export default class Block {
     this.xOffset = xOffset;
     this.yOffset = yOffset;
     this.blockGroup = new THREE.Group();
+    this.blockGroup.position.x = xOffset;
+    this.blockGroup.position.y = yOffset;
+    this.addBlock();
+  }
+
+  setFont(parsedFont) {
+    this.parsedFont = parsedFont;
+  }
+
+  addBlock() {
     const geometry = new RoundedBoxGeometry(8, 8, 8, 4, 1);
     const material = new THREE.MeshNormalMaterial({
       transparent: true,
       opacity: 0.25,
     });
-    this.mesh = new THREE.Mesh(geometry, material);
-    this.blockGroup.add(this.mesh);
-    this.blockGroup.position.x = xOffset;
-    this.blockGroup.position.y = yOffset;
+    this.block = new THREE.Mesh(geometry, material);
+    this.blockGroup.add(this.block);
   }
 
-  addLetter(parsedFont) {
-    console.log('hi there');
+  removeLetter() {
+    this.blockGroup.remove(this.letterMesh);
+  }
 
-    const letterGeometry = new TextGeometry(this.letter, {
-      font: parsedFont,
+  addLetter(letter) {
+    const letterGeometry = new TextGeometry(letter, {
+      font: this.parsedFont,
       size: 5,
       height: 2,
     });
-    const letterMaterial = new THREE.MeshNormalMaterial({});
+    const letterMaterial = new THREE.MeshNormalMaterial();
     this.letterMesh = new THREE.Mesh(letterGeometry, letterMaterial);
     this.letterMesh.position.x = -2;
     this.letterMesh.position.y = -2;

@@ -16,7 +16,7 @@ function App() {
       if (event.repeat) {
         return;
       }
-      w.updateColor(event);
+      w.addLetter(event);
     };
 
     window.addEventListener('keydown', onKeyDown);
