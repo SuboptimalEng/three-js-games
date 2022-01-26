@@ -28,7 +28,7 @@ export default class Block {
     this.parsedFont = parsedFont;
   }
 
-  checkLetter(word, letter, TWEEN) {
+  checkLetter(word, letter) {
     if (this.letter === letter) {
       this.block.material.color.set('#008000');
       this.animate = true;
