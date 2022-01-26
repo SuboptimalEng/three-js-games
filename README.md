@@ -11,6 +11,10 @@ npm install
 npm run dev
 ```
 
+## Wordle
+
+<img src="/_demos/wordle.png">
+
 ## Calculator
 
 <img src="/_demos/calculator.png">
