@@ -1,5 +1,8 @@
 import * as THREE from 'three';
 
+import { TTFLoader } from 'three/examples/jsm/loaders/TTFLoader';
+import { FontLoader } from 'three/examples/jsm/loaders/FontLoader';
+
 import Block from './Block';
 
 export default class Wordle {
@@ -7,6 +10,7 @@ export default class Wordle {
     this.wordleGroup = new THREE.Group();
     this.wordleGroup.position.x = -20;
     this.createBlocks();
+    this.loadLetters();
   }
 
   createBlocks() {
@@ -23,7 +27,22 @@ export default class Wordle {
       new Block('i', 30, 10),
       new Block('j', 40, 10),
     ];
-    this.blocks.forEach((block) => this.wordleGroup.add(block.mesh));
+    this.blocks.forEach((block) => this.wordleGroup.add(block.blockGroup));
+  }
+
+  loadLetters() {
+    this.ttfLoader = new TTFLoader();
+    this.fontLoader = new FontLoader();
+    this.ttfLoader.load(
+      './fonts/JetBrainsMonoExtraBold.ttf',
+      (unparsedFont) => {
+        console.log('unparsed font');
+        this.parsedFont = this.fontLoader.parse(unparsedFont);
+        this.blocks.forEach((block) => {
+          block.addLetter(this.parsedFont);
+        });
+      }
+    );
   }
 
   updateColor(event) {
