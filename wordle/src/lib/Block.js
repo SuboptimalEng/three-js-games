@@ -18,9 +18,16 @@ export default class Block {
     this.parsedFont = parsedFont;
   }
 
+  checkLetter(letter) {
+    if (this.letter === letter) {
+      this.block.material.color.set('#f7df1e');
+    }
+  }
+
   addBlock() {
     const geometry = new RoundedBoxGeometry(8, 8, 8, 4, 1);
-    const material = new THREE.MeshNormalMaterial({
+    const material = new THREE.MeshStandardMaterial({
+      color: '#fafafa',
       transparent: true,
       opacity: 0.25,
     });
@@ -30,19 +37,22 @@ export default class Block {
 
   removeLetter() {
     this.blockGroup.remove(this.letterMesh);
+    this.block.material.opacity = 0.25;
   }
 
   addLetter(letter) {
+    this.letter = letter;
     const letterGeometry = new TextGeometry(letter, {
       font: this.parsedFont,
       size: 5,
       height: 2,
     });
-    const letterMaterial = new THREE.MeshNormalMaterial();
+    const letterMaterial = new THREE.MeshNormalMaterial({});
     this.letterMesh = new THREE.Mesh(letterGeometry, letterMaterial);
     this.letterMesh.position.x = -2;
     this.letterMesh.position.y = -2;
     this.letterMesh.position.z = -1;
     this.blockGroup.add(this.letterMesh);
+    this.block.material.opacity = 0.5;
   }
 }

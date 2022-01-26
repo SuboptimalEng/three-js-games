@@ -11,6 +11,7 @@ export default class Wordle {
     this.letters = [];
     this.letterIndex = 0;
     this.currentWord = '';
+    this.word = 'hello';
 
     this.wordleGroup = new THREE.Group();
     this.wordleGroup.position.x = -20;
@@ -57,7 +58,17 @@ export default class Wordle {
 
   addLetter(event) {
     if (event.key === 'Enter') {
-      console.log('check validity');
+      for (let i = 0; i < this.word.length; i++) {
+        const letter = this.word[i];
+        const block = this.blocks[i];
+        // console.log(letter, block);
+        block.checkLetter(letter);
+      }
+      // this.word.f((letter, i) => {
+      //   const block = this.blocks[i];
+      //   console.log(letter, block.letter);
+      //   block.checkLetter(letter);
+      // });
     } else if (event.key === 'Backspace') {
       this.letterIndex -= 1;
       const block = this.blocks[this.letterIndex];
