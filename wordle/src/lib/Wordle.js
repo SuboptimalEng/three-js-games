@@ -8,10 +8,10 @@ import { validKeys } from './Utils';
 
 export default class Wordle {
   constructor() {
-    this.letters = [];
+    this.level = 0;
     this.letterIndex = 0;
     this.currentWord = '';
-    this.word = 'hello';
+    this.word = 'world';
 
     this.wordleGroup = new THREE.Group();
     this.wordleGroup.position.x = -20;
@@ -58,26 +58,33 @@ export default class Wordle {
 
   addLetter(event) {
     if (event.key === 'Enter') {
-      for (let i = 0; i < this.word.length; i++) {
-        const letter = this.word[i];
-        const block = this.blocks[i];
-        // console.log(letter, block);
-        block.checkLetter(letter);
+      // NOTE: Only allow user to press 'Enter' if the
+      // word is 5 characters long.
+      if (this.currentWord.length === 5) {
+        for (let i = 0; i < 5; i++) {
+          const letter = this.word[i];
+          const block = this.blocks[i + this.level * 5];
+          block.checkLetter(this.word, letter);
+        }
+        this.level += 1;
+        this.currentWord = '';
       }
-      // this.word.f((letter, i) => {
-      //   const block = this.blocks[i];
-      //   console.log(letter, block.letter);
-      //   block.checkLetter(letter);
-      // });
     } else if (event.key === 'Backspace') {
       this.letterIndex -= 1;
+      this.currentWord = this.currentWord.slice(0, -1);
+
       const block = this.blocks[this.letterIndex];
       block.removeLetter();
     } else if (validKeys.includes(event.key)) {
+      if (this.currentWord.length === 5) {
+        return;
+      }
+
       const block = this.blocks[this.letterIndex];
       block.addLetter(event.key);
-      // this.currentWord += event.key;
+
       this.letterIndex += 1;
+      this.currentWord += event.key;
     }
   }
 

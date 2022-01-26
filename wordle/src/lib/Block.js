@@ -5,6 +5,7 @@ import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeom
 
 export default class Block {
   constructor(letter, xOffset, yOffset) {
+    this.animate = false;
     this.letter = letter;
     this.xOffset = xOffset;
     this.yOffset = yOffset;
@@ -12,24 +13,36 @@ export default class Block {
     this.blockGroup.position.x = xOffset;
     this.blockGroup.position.y = yOffset;
     this.addBlock();
+
+    const animate = (t) => {
+      if (this.animate) {
+        this.blockGroup.rotation.z =
+          (Math.sin(Date.now() * 0.01) * Math.PI) / 32;
+      }
+      requestAnimationFrame(animate);
+    };
+    animate();
   }
 
   setFont(parsedFont) {
     this.parsedFont = parsedFont;
   }
 
-  checkLetter(letter) {
+  checkLetter(word, letter, TWEEN) {
     if (this.letter === letter) {
+      this.block.material.color.set('#008000');
+      this.animate = true;
+    } else if (word.includes(this.letter)) {
       this.block.material.color.set('#f7df1e');
     }
   }
 
   addBlock() {
     const geometry = new RoundedBoxGeometry(8, 8, 8, 4, 1);
-    const material = new THREE.MeshStandardMaterial({
+    const material = new THREE.MeshPhongMaterial({
       color: '#fafafa',
       transparent: true,
-      opacity: 0.25,
+      opacity: 0.2,
     });
     this.block = new THREE.Mesh(geometry, material);
     this.blockGroup.add(this.block);
