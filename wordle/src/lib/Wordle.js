@@ -72,17 +72,14 @@ export default class Wordle {
     } else if (event.key === 'Backspace') {
       this.letterIndex -= 1;
       this.currentWord = this.currentWord.slice(0, -1);
-
       const block = this.blocks[this.letterIndex];
       block.removeLetter();
     } else if (validKeys.includes(event.key)) {
       if (this.currentWord.length === 5) {
         return;
       }
-
       const block = this.blocks[this.letterIndex];
       block.addLetter(event.key);
-
       this.letterIndex += 1;
       this.currentWord += event.key;
     }

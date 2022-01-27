@@ -42,7 +42,7 @@ export default class Block {
     const material = new THREE.MeshPhongMaterial({
       color: '#fafafa',
       transparent: true,
-      opacity: 0.2,
+      opacity: 0.25,
     });
     this.block = new THREE.Mesh(geometry, material);
     this.blockGroup.add(this.block);

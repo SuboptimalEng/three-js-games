@@ -30,11 +30,11 @@ export default class SceneInit {
     // this.scene.background = this.loader.load('./pics/space.jpeg');
 
     // NOTE: Declare uniforms to pass into glsl shaders.
-    this.uniforms = {
-      u_time: { type: 'f', value: 1.0 },
-      colorB: { type: 'vec3', value: new THREE.Color(0xfff000) },
-      colorA: { type: 'vec3', value: new THREE.Color(0xffffff) },
-    };
+    // this.uniforms = {
+    //   u_time: { type: 'f', value: 1.0 },
+    //   colorB: { type: 'vec3', value: new THREE.Color(0xfff000) },
+    //   colorA: { type: 'vec3', value: new THREE.Color(0xffffff) },
+    // };
 
     // specify a canvas which is already created in the HTML file and tagged by an id
     // aliasing enabled
@@ -78,7 +78,7 @@ export default class SceneInit {
 
   render() {
     // NOTE: Update uniform data on each render.
-    this.uniforms.u_time.value += this.clock.getDelta();
+    // this.uniforms.u_time.value += this.clock.getDelta();
     this.renderer.render(this.scene, this.camera);
   }
 
