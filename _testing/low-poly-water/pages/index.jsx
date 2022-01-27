@@ -90,7 +90,7 @@ export default function Home() {
         uniforms: test.uniforms,
         fragmentShader: fragmentShader(),
         vertexShader: vertexShader(),
-        // wireframe: true,
+        wireframe: true,
       });
 
       let mesh = new THREE.Mesh(geometry, material);
