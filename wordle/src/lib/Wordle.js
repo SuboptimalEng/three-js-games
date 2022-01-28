@@ -11,7 +11,7 @@ export default class Wordle {
     this.level = 0;
     this.letterIndex = 0;
     this.currentWord = '';
-    this.word = 'world';
+    this.word = 'debug';
 
     this.wordleGroup = new THREE.Group();
     this.wordleGroup.position.x = -20;
