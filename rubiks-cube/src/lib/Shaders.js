@@ -31,12 +31,14 @@ const fragmentShader = () => {
 
 		vec4 black = vec4(0.0, 0.0, 0.0, 1.0);
 
-		bool front = pos.z > 0.499;
-		bool back = pos.z < -0.499;
-		bool top = pos.y > 0.499;
-		bool bottom = pos.y < -0.499;
-		bool right = pos.x > 0.499;
-		bool left = pos.x < -0.499;
+		float scale = 0.499;
+
+		bool front = pos.z > scale;
+		bool back = pos.z < -1.0 * scale;
+		bool top = pos.y > scale;
+		bool bottom = pos.y < -1.0 * scale;
+		bool right = pos.x > scale;
+		bool left = pos.x < -1.0 * scale;
 
 		if (front) {
     		gl_FragColor = red;

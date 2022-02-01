@@ -7,6 +7,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "dat.gui": "^0.7.7",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "three": "^0.136.0"
