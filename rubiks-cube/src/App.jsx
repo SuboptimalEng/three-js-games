@@ -15,6 +15,14 @@ function App() {
     const r = new RubiksCube();
     test.scene.add(r.rubiksCubeGroup);
 
+    const onKeyDown = (event) => {
+      if (event.repeat) {
+        return;
+      }
+      r.rotateCube(event);
+    };
+    window.addEventListener('keydown', onKeyDown);
+
     // const lineEdges = new THREE.EdgesGeometry(mesh.geometry);
     // const lineMaterial = new THREE.LineBasicMaterial({ color: '#000000' });
     // const lineMesh = new THREE.LineSegments(lineEdges, lineMaterial);
