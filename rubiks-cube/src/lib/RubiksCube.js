@@ -3,7 +3,7 @@ import Cubelet from './Cubelet';
 
 export default class RubiksCube {
   constructor() {
-    this.scale = 8;
+    this.scale = 16;
     this.rubiksCubeGroup = new THREE.Group();
     this.rubiksCubeGroup.scale.x = this.scale;
     this.rubiksCubeGroup.scale.y = this.scale;
