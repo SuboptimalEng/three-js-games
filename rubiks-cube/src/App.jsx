@@ -12,21 +12,26 @@ function App() {
     test.animate();
 
     const scale = 32;
+    const group = new THREE.Group();
+    test.scene.add(group);
+    group.scale.x = scale;
+    group.scale.y = scale;
+    group.scale.z = scale;
+    group.rotateX(Math.PI / 8);
+    group.rotateY(-Math.PI / 4);
+
     const geometry = new THREE.BoxGeometry(1, 1, 1);
-    // const material = new THREE.MeshNormalMaterial();
     const material = new THREE.ShaderMaterial({
-      // wireframe: true,
       vertexShader: vertexShader(),
       fragmentShader: fragmentShader(),
     });
     const mesh = new THREE.Mesh(geometry, material);
-    mesh.scale.x = scale;
-    mesh.scale.y = scale;
-    mesh.scale.z = scale;
-    mesh.rotateX(Math.PI / 8);
-    mesh.rotateY(Math.PI / 4);
+    group.add(mesh);
 
-    test.scene.add(mesh);
+    const lineEdges = new THREE.EdgesGeometry(mesh.geometry);
+    const lineMaterial = new THREE.LineBasicMaterial({ color: '#000000' });
+    const lineMesh = new THREE.LineSegments(lineEdges, lineMaterial);
+    group.add(lineMesh);
   }, []);
   return (
     <div>
