@@ -19,14 +19,9 @@ function App() {
       if (event.repeat) {
         return;
       }
-      r.rotateCube(event);
+      r.onKeyDown(event);
     };
     window.addEventListener('keydown', onKeyDown);
-
-    // const lineEdges = new THREE.EdgesGeometry(mesh.geometry);
-    // const lineMaterial = new THREE.LineBasicMaterial({ color: '#000000' });
-    // const lineMesh = new THREE.LineSegments(lineEdges, lineMaterial);
-    // group.add(lineMesh);
 
     // const planeGeometry = new THREE.PlaneGeometry(2, 2);
     // const planeMaterial = new THREE.MeshPhongMaterial({ color: '#ff0000' });

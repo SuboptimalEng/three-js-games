@@ -21,12 +21,15 @@ export default class RubiksCube {
   }
 
   rotateAroundWorldAxis(cubeletGroup, axis) {
+    console.log(cubeletGroup);
+    // debugger;
+
     const start = { rotation: 0 };
     const prev = { rotation: 0 };
     const end = { rotation: Math.PI / 2 };
 
     const tween = new TWEEN.Tween(start)
-      .to(end, 250)
+      .to(end, 500)
       .easing(TWEEN.Easing.Quadratic.InOut)
       .onUpdate(({ rotation }) => {
         // NOTE: Move the position of a cubelet.
@@ -40,9 +43,39 @@ export default class RubiksCube {
         // NOTE: Keep track of the previous
         prev.rotation = rotation;
       });
+
     tween.start();
   }
 
+  onKeyDown(event) {
+    if (event.key === 'w') {
+      const axis = new THREE.Vector3(-1, 0, 0);
+      this.cubelets.forEach((cubelet) => {
+        if (cubelet.cubeletGroup.position.x < 5)
+          this.rotateAroundWorldAxis(cubelet.cubeletGroup, axis);
+      });
+    } else if (event.key === 'a') {
+      const axis = new THREE.Vector3(0, -1, 0);
+      this.cubelets.forEach((cubelet) => {
+        if (cubelet.cubeletGroup.position.y < 5)
+          this.rotateAroundWorldAxis(cubelet.cubeletGroup, axis);
+      });
+    } else if (event.key === 's') {
+      const axis = new THREE.Vector3(1, 0, 0);
+      this.cubelets.forEach((cubelet) => {
+        if (cubelet.cubeletGroup.position.x < 5)
+          this.rotateAroundWorldAxis(cubelet.cubeletGroup, axis);
+      });
+    } else if (event.key === 'd') {
+      const axis = new THREE.Vector3(0, 1, 0);
+      this.cubelets.forEach((cubelet) => {
+        if (cubelet.cubeletGroup.position.y < 5)
+          this.rotateAroundWorldAxis(cubelet.cubeletGroup, axis);
+      });
+    }
+  }
+
+  // NOTE: Test function to rotate the entire Rubik's cube.
   rotateCube(event) {
     if (event.key === 'a') {
       const axis = new THREE.Vector3(0, 1, 0);
@@ -54,16 +87,37 @@ export default class RubiksCube {
 
   initializeRubiksCube() {
     this.cubelets = [
-      // Front row.
+      // Front face.
       new Cubelet(-1, 1, 1),
+      new Cubelet(0, 1, 1),
       new Cubelet(1, 1, 1),
+      new Cubelet(-1, 0, 1),
+      new Cubelet(0, 0, 1),
+      new Cubelet(1, 0, 1),
       new Cubelet(-1, -1, 1),
+      new Cubelet(0, -1, 1),
       new Cubelet(1, -1, 1),
 
-      // Back row.
+      // Middle face.
+      new Cubelet(-1, 1, 0),
+      new Cubelet(0, 1, 0),
+      new Cubelet(1, 1, 0),
+      new Cubelet(-1, 0, 0),
+      new Cubelet(0, 0, 0),
+      new Cubelet(1, 0, 0),
+      new Cubelet(-1, -1, 0),
+      new Cubelet(0, -1, 0),
+      new Cubelet(1, -1, 0),
+
+      // Back face.
       new Cubelet(-1, 1, -1),
+      new Cubelet(0, 1, -1),
       new Cubelet(1, 1, -1),
+      new Cubelet(-1, 0, -1),
+      new Cubelet(0, 0, -1),
+      new Cubelet(1, 0, -1),
       new Cubelet(-1, -1, -1),
+      new Cubelet(0, -1, -1),
       new Cubelet(1, -1, -1),
     ];
 
