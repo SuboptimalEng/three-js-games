@@ -1,4 +1,6 @@
 import * as THREE from 'three';
+import * as TWEEN from '@tweenjs/tween.js';
+
 import Cubelet from './Cubelet';
 
 export default class RubiksCube {
@@ -9,33 +11,48 @@ export default class RubiksCube {
     this.rubiksCubeGroup.scale.y = this.scale;
     this.rubiksCubeGroup.scale.z = this.scale;
 
-    this.initCubelets();
+    this.initializeRubiksCube();
+
+    const anim = (t) => {
+      TWEEN.update(t);
+      requestAnimationFrame(anim);
+    };
+    anim();
   }
 
-  rotateAroundWorldAxis(cubelet, axis, theta, direction) {
-    // remove the offset
-    // cubelet.position.sub(point);
+  rotateAroundWorldAxis(cubeletGroup, axis) {
+    const start = { rotation: 0 };
+    const prev = { rotation: 0 };
+    const end = { rotation: Math.PI / 2 };
 
-    // rotate the POSITION
-    cubelet.position.applyAxisAngle(axis, theta * direction);
+    const tween = new TWEEN.Tween(start)
+      .to(end, 250)
+      .easing(TWEEN.Easing.Quadratic.InOut)
+      .onUpdate(({ rotation }) => {
+        // NOTE: Move the position of a cubelet.
+        // cubeletGroup.position.applyAxisAngle(axis, theta * direction);
+        cubeletGroup.position.applyAxisAngle(axis, rotation - prev.rotation);
 
-    // re-add the offset
-    // cubelet.position.add(point);
+        // NOTE: Rotate the cubelet on it's own axis.
+        // cubeletGroup.rotateOnAxis(axis, theta * direction);
+        cubeletGroup.rotateOnAxis(axis, rotation - prev.rotation);
 
-    // rotate the OBJECT
-    cubelet.rotateOnAxis(axis, theta * direction);
+        // NOTE: Keep track of the previous
+        prev.rotation = rotation;
+      });
+    tween.start();
   }
 
   rotateCube(event) {
     if (event.key === 'a') {
       const axis = new THREE.Vector3(0, 1, 0);
-      // const point = new THREE.Vector3(0, 0, 0);
-      this.cubelets.forEach((cubelet) => {
-        this.rotateAroundWorldAxis(cubelet.cubeletGroup, axis, Math.PI / 8, 1);
+      this.cubelets.forEach((cubelet, i) => {
+        this.rotateAroundWorldAxis(cubelet.cubeletGroup, axis);
       });
     }
   }
-  initCubelets() {
+
+  initializeRubiksCube() {
     this.cubelets = [
       // Front row.
       new Cubelet(-1, 1, 1),
@@ -49,8 +66,9 @@ export default class RubiksCube {
       new Cubelet(-1, -1, -1),
       new Cubelet(1, -1, -1),
     ];
-    this.cubelets.forEach((cubelet) =>
-      this.rubiksCubeGroup.add(cubelet.cubeletGroup)
-    );
+
+    this.cubelets.forEach((cubelet) => {
+      this.rubiksCubeGroup.add(cubelet.cubeletGroup);
+    });
   }
 }
