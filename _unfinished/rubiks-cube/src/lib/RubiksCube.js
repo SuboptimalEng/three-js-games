@@ -11,6 +11,9 @@ export default class RubiksCube {
     this.rubiksCubeGroup.scale.y = this.scale;
     this.rubiksCubeGroup.scale.z = this.scale;
 
+    this.rubiksCubeGroup.rotation.x = Math.PI / 8;
+    this.rubiksCubeGroup.rotation.y = -Math.PI / 4;
+
     this.initializeRubiksCube();
 
     const anim = (t) => {
