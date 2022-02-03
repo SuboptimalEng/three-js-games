@@ -7,6 +7,7 @@ export default class RubiksCube {
   constructor() {
     this.scale = 16;
     this.epsilon = 3.5;
+    this.showText = false;
     this.selectedCube = null;
     this.rubiksCubeGroup = new THREE.Group();
     this.rubiksCubeGroup.scale.x = this.scale;
@@ -37,24 +38,23 @@ export default class RubiksCube {
         // NOTE: Comment out each block to see different mistakes.
 
         // === 1 ===
-        // NOTE: Move the position of a cube.
-        // NOTE: Rotate the cube on the world axis.
-        // THIS IS CORRECT.
-        cubeGroup.position.applyAxisAngle(axis, rotation - prev.rotation);
-        cubeGroup.rotateOnWorldAxis(axis, rotation - prev.rotation);
+        // cubeGroup.position.applyAxisAngle(axis, rotation - prev.rotation);
 
         // === 2 ===
-        // NOTE: Move the position of a cube.
-        // cubeGroup.position.applyAxisAngle(axis, rotation - prev.rotation);
-
-        // === 3 ===
-        // NOTE: Rotate the cube on the world axis.
         // cubeGroup.rotateOnWorldAxis(axis, rotation - prev.rotation);
 
-        // === 4 ===
-        // NOTE: Rotate the cube on it's own axis.
+        // === 3 ===
+        // NOTE: DO NOT rotate the cube on it's own axis.
         // cubeGroup.position.applyAxisAngle(axis, rotation - prev.rotation);
         // cubeGroup.rotateOnAxis(axis, rotation - prev.rotation);
+
+        // === 4 ===
+        // NOTE: THIS IS CORRECT.
+        // NOTE: Move the position of a cube.
+        // NOTE: Rotate the cube on the world axis.
+        // this.showText = true;
+        // cubeGroup.position.applyAxisAngle(axis, rotation - prev.rotation);
+        // cubeGroup.rotateOnWorldAxis(axis, rotation - prev.rotation);
 
         // NOTE: Keep track of the previous rotation for tweening.
         prev.rotation = rotation;
@@ -84,8 +84,31 @@ export default class RubiksCube {
     );
   }
 
+  getText(key) {
+    return (
+      {
+        w: 'W: rotate up',
+        s: 'S: rotate down',
+        a: 'A: rotate left',
+        d: 'D: rotate right',
+        q: 'Q: rotate face left',
+        e: 'E: rotate face right',
+      }[key] || ''
+    );
+  }
+
+  displayKey(key) {
+    if (this.showText) {
+      console.log(
+        `%c ${this.getText(key)} `,
+        'background: #fafafa; color: #0a0a0a; font-size: 20px'
+      );
+    }
+  }
+
   onKeyDown(event) {
     if (event.key === 'w') {
+      this.displayKey(event.key);
       const axis = new THREE.Vector3(-1, 0, 0);
       this.cubes.forEach((cube) => {
         if (this.cubeInSameX(cube, this.selectedCube)) {
@@ -93,37 +116,40 @@ export default class RubiksCube {
         }
       });
     } else if (event.key === 'a') {
+      this.displayKey(event.key);
       const axis = new THREE.Vector3(0, -1, 0);
       this.cubes.forEach((cube) => {
         if (this.cubeInSameY(cube, this.selectedCube))
           this.rotateAroundWorldAxis(cube.cubeGroup, axis);
       });
     } else if (event.key === 's') {
+      this.displayKey(event.key);
       const axis = new THREE.Vector3(1, 0, 0);
       this.cubes.forEach((cube) => {
         if (this.cubeInSameX(cube, this.selectedCube))
           this.rotateAroundWorldAxis(cube.cubeGroup, axis);
       });
     } else if (event.key === 'd') {
+      this.displayKey(event.key);
       const axis = new THREE.Vector3(0, 1, 0);
       this.cubes.forEach((cube) => {
         if (this.cubeInSameY(cube, this.selectedCube))
           this.rotateAroundWorldAxis(cube.cubeGroup, axis);
       });
     } else if (event.key === 'q') {
+      this.displayKey(event.key);
       const axis = new THREE.Vector3(0, 0, 1);
       this.cubes.forEach((cube) => {
         if (this.cubeInSameZ(cube, this.selectedCube))
           this.rotateAroundWorldAxis(cube.cubeGroup, axis);
       });
     } else if (event.key === 'e') {
+      this.displayKey(event.key);
       const axis = new THREE.Vector3(0, 0, -1);
       this.cubes.forEach((cube) => {
         if (this.cubeInSameZ(cube, this.selectedCube))
           this.rotateAroundWorldAxis(cube.cubeGroup, axis);
       });
-    } else if (event.key === 'u') {
-      console.log('undo');
     }
   }
 
