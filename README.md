@@ -11,6 +11,12 @@ npm install
 npm run dev
 ```
 
+## Rubik's Cube - [Demo](https://twitter.com/SuboptimalEng/status/1489039924099796994?s=20&t=0tpf5oFjMqcWj6O-DB6txQ)
+
+<img src="/_demos/rubiks-cube-1.png">
+
+<img src="/_demos/rubiks-cube-2.png">
+
 ## Wordle - [Demo](https://twitter.com/SuboptimalEng/status/1486504856403824643?s=20&t=0tpf5oFjMqcWj6O-DB6txQ)
 
 <img src="/_demos/wordle.png">
