@@ -6,6 +6,8 @@ import Cube from './Cube';
 export default class RubiksCube {
   constructor() {
     this.scale = 16;
+    this.epsilon = 3.5;
+    this.selectedCube = null;
     this.rubiksCubeGroup = new THREE.Group();
     this.rubiksCubeGroup.scale.x = this.scale;
     this.rubiksCubeGroup.scale.y = this.scale;
@@ -32,15 +34,27 @@ export default class RubiksCube {
       .to(end, 500)
       .easing(TWEEN.Easing.Quadratic.InOut)
       .onUpdate(({ rotation }) => {
+        // NOTE: Comment out each block to see different mistakes.
+
+        // === 1 ===
         // NOTE: Move the position of a cube.
-        // cubeGroup.position.applyAxisAngle(axis, theta * direction);
+        // NOTE: Rotate the cube on the world axis.
+        // THIS IS CORRECT.
         cubeGroup.position.applyAxisAngle(axis, rotation - prev.rotation);
-
-        // NOTE: INCORRECT - Rotate the cube on it's own axis.
-        // cubeGroup.rotateOnAxis(axis, theta * direction);
-
-        // NOTE: CORRECT - Rotate the cube on the world axis.
         cubeGroup.rotateOnWorldAxis(axis, rotation - prev.rotation);
+
+        // === 2 ===
+        // NOTE: Move the position of a cube.
+        // cubeGroup.position.applyAxisAngle(axis, rotation - prev.rotation);
+
+        // === 3 ===
+        // NOTE: Rotate the cube on the world axis.
+        // cubeGroup.rotateOnWorldAxis(axis, rotation - prev.rotation);
+
+        // === 4 ===
+        // NOTE: Rotate the cube on it's own axis.
+        // cubeGroup.position.applyAxisAngle(axis, rotation - prev.rotation);
+        // cubeGroup.rotateOnAxis(axis, rotation - prev.rotation);
 
         // NOTE: Keep track of the previous rotation for tweening.
         prev.rotation = rotation;
@@ -49,61 +63,79 @@ export default class RubiksCube {
     tween.start();
   }
 
+  cubeInSameY(c1, c2) {
+    return (
+      c1.cubeGroup.position.y > c2.cubeGroup.position.y - this.epsilon &&
+      c1.cubeGroup.position.y < c2.cubeGroup.position.y + this.epsilon
+    );
+  }
+
+  cubeInSameX(c1, c2) {
+    return (
+      c1.cubeGroup.position.x > c2.cubeGroup.position.x - this.epsilon &&
+      c1.cubeGroup.position.x < c2.cubeGroup.position.x + this.epsilon
+    );
+  }
+
+  cubeInSameZ(c1, c2) {
+    return (
+      c1.cubeGroup.position.z > c2.cubeGroup.position.z - this.epsilon &&
+      c1.cubeGroup.position.z < c2.cubeGroup.position.z + this.epsilon
+    );
+  }
+
   onKeyDown(event) {
     if (event.key === 'w') {
       const axis = new THREE.Vector3(-1, 0, 0);
       this.cubes.forEach((cube) => {
-        if (cube.cubeGroup.position.x < 0.5)
+        if (this.cubeInSameX(cube, this.selectedCube)) {
           this.rotateAroundWorldAxis(cube.cubeGroup, axis);
+        }
       });
     } else if (event.key === 'a') {
       const axis = new THREE.Vector3(0, -1, 0);
       this.cubes.forEach((cube) => {
-        if (cube.cubeGroup.position.y < 0.5)
+        if (this.cubeInSameY(cube, this.selectedCube))
           this.rotateAroundWorldAxis(cube.cubeGroup, axis);
       });
     } else if (event.key === 's') {
       const axis = new THREE.Vector3(1, 0, 0);
       this.cubes.forEach((cube) => {
-        if (cube.cubeGroup.position.x < 0.5)
+        if (this.cubeInSameX(cube, this.selectedCube))
           this.rotateAroundWorldAxis(cube.cubeGroup, axis);
       });
     } else if (event.key === 'd') {
       const axis = new THREE.Vector3(0, 1, 0);
       this.cubes.forEach((cube) => {
-        if (cube.cubeGroup.position.y < 0.5)
+        if (this.cubeInSameY(cube, this.selectedCube))
           this.rotateAroundWorldAxis(cube.cubeGroup, axis);
       });
-    }
-  }
-
-  // NOTE: Test function to rotate the entire Rubik's cube.
-  rotateCube(event) {
-    if (event.key === 'a') {
-      const axis = new THREE.Vector3(0, 1, 0);
-      this.cubes.forEach((cube, i) => {
-        this.rotateAroundWorldAxis(cube.cubeGroup, axis);
+    } else if (event.key === 'q') {
+      const axis = new THREE.Vector3(0, 0, 1);
+      this.cubes.forEach((cube) => {
+        if (this.cubeInSameZ(cube, this.selectedCube))
+          this.rotateAroundWorldAxis(cube.cubeGroup, axis);
       });
+    } else if (event.key === 'e') {
+      const axis = new THREE.Vector3(0, 0, -1);
+      this.cubes.forEach((cube) => {
+        if (this.cubeInSameZ(cube, this.selectedCube))
+          this.rotateAroundWorldAxis(cube.cubeGroup, axis);
+      });
+    } else if (event.key === 'u') {
+      console.log('undo');
     }
   }
 
   highlightCubes(cubeToHighlight) {
-    const c = this.cubes.find((c) => c.cubeMesh.uuid === cubeToHighlight.uuid);
-    // console.log(this.cubes[0]);
-    console.log(c);
-    c.uniforms.opacity.value = 0.5;
-
-    // console.log(cubeToHighlight.material);
-    // console.log(cubeToHighlight);
-    // cubeToHighlight.uniforms.opacity.value = 0.5;
-    // cubeToHighlight.material.transparent = true;
-    // cubeToHighlight.material.opacity = 0.5;
-    // const v = this.cubes.find((c) => {
-    //   console.log(c);
-    //   // console.log(c.cubeMesh.uuid === intersectingCube.uuid);
-    //   // c.cubeGroup.uuid === intersectingCube.uuid;
-    // });
-    // v.highlight();
+    this.cubes.forEach((cube) => {
+      if (cube.cubeMesh.uuid === cubeToHighlight.uuid) {
+        this.selectedCube = cube;
+        cube.uniforms.opacity.value = 0.5;
+      } else {
+        cube.uniforms.opacity.value = 1.0;
+      }
+    });
   }
 
   initializeRubiksCube() {
@@ -157,5 +189,7 @@ export default class RubiksCube {
     this.cubes.forEach((cube) => {
       this.rubiksCubeGroup.add(cube.cubeGroup);
     });
+
+    this.selectedCube = this.cubes[0];
   }
 }

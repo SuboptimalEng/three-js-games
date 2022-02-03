@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-// import { GUI } from 'dat.gui';
+import { GUI } from 'dat.gui';
 import * as THREE from 'three';
 
 import SceneInit from './lib/SceneInit';
@@ -18,7 +18,7 @@ function App() {
     const mouse = new THREE.Vector2();
     const raycaster = new THREE.Raycaster();
 
-    function onMouseMove(event) {
+    function onMouseDown(event) {
       mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
       mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
       raycaster.setFromCamera(mouse, test.camera);
@@ -39,7 +39,7 @@ function App() {
     };
 
     window.addEventListener('keydown', onKeyDown);
-    window.addEventListener('mousemove', onMouseMove);
+    window.addEventListener('mousedown', onMouseDown);
 
     // const planeGeometry = new THREE.PlaneGeometry(2, 2);
     // const planeMaterial = new THREE.MeshPhongMaterial({ color: '#ff0000' });
@@ -47,11 +47,10 @@ function App() {
     // planeMesh.position.z = -2;
     // group.add(planeMesh);
 
-    // const gui = new GUI();
-    // const folder = gui.addFolder("Rubik's Cube");
-    // folder.add(mesh.material, 'opacity', 0.0, 1.0);
-    // folder.addColor(planeMaterial, 'color');
-    // folder.open();
+    const gui = new GUI();
+    const folder = gui.addFolder("Rubik's Cube");
+    folder.add(r, 'epsilon', 0.5, 3.5, 0.5);
+    folder.open();
   }, []);
   return (
     <div>
