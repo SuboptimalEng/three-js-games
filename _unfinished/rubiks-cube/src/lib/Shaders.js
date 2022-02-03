@@ -1,5 +1,7 @@
 const vertexShader = () => {
   return `
+	uniform float opacity;
+
     varying vec3 pos;
 
     void main() {
@@ -19,17 +21,19 @@ const vertexShader = () => {
 
 const fragmentShader = () => {
   return `
+	uniform float opacity;
+
     varying vec3 pos;
 
     void main() {
-		vec4 red = vec4(1.0, 0.0, 0.0, 1.0);
-		vec4 white = vec4(1.0, 1.0, 1.0, 1.0);
-		vec4 blue = vec4(0.0, 0.0, 1.0, 1.0);
-		vec4 yellow = vec4(1.0, 1.0, 0.0, 1.0);
-		vec4 green = vec4(0.0, 1.0, 0.0, 1.0);
-		vec4 orange = vec4(1.0, 0.65, 0.0, 1.0);
+		vec4 red = vec4(1.0, 0.0, 0.0, opacity);
+		vec4 white = vec4(1.0, 1.0, 1.0, opacity);
+		vec4 blue = vec4(0.0, 0.0, 1.0, opacity);
+		vec4 yellow = vec4(1.0, 1.0, 0.0, opacity);
+		vec4 green = vec4(0.0, 1.0, 0.0, opacity);
+		vec4 orange = vec4(1.0, 0.65, 0.0, opacity);
 
-		vec4 black = vec4(0.0, 0.0, 0.0, 1.0);
+		vec4 black = vec4(0.0, 0.0, 0.0, opacity);
 
 		float scale = 0.499;
 
