@@ -11,7 +11,7 @@ npm install
 npm run dev
 ```
 
-## Rubik's Cube - [Demo](https://twitter.com/SuboptimalEng/status/1489039924099796994?s=20&t=0tpf5oFjMqcWj6O-DB6txQ)
+## Rubik's Cube - [Demo](https://twitter.com/SuboptimalEng/status/1489659085238775817?s=20&t=0fMein5vltFc2_8Tso335g)
 
 <img src="/_demos/rubiks-cube-1.png">
 
