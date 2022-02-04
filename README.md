@@ -38,7 +38,7 @@ npm run dev
 <img src="/_demos/audio-waveform-1.png">
 <img src="/_demos/audio-waveform-2.png">
 
-## 3D Tic-Tac-Toe Cube - [Demo](https://twitter.com/SuboptimalEng/status/1463510451338321931?s=20&t=0tpf5oFjMqcWj6O-DB6txQ)
+## 3D Tic-Tac-Toe - [Demo](https://twitter.com/SuboptimalEng/status/1463510451338321931?s=20&t=0tpf5oFjMqcWj6O-DB6txQ)
 
 <img src="/_demos/tic-tac-toe-3d-1.png">
 <img src="/_demos/tic-tac-toe-3d-2.png">
