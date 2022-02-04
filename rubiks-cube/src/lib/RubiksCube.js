@@ -5,7 +5,7 @@ import Cube from './Cube';
 
 export default class RubiksCube {
   constructor() {
-    this.scale = 16;
+    this.scale = 20;
     this.epsilon = 3.5;
     this.showText = false;
     this.selectedCube = null;
@@ -38,7 +38,7 @@ export default class RubiksCube {
         // NOTE: Comment out each block to see different mistakes.
 
         // === 1 ===
-        // cubeGroup.position.applyAxisAngle(axis, rotation - prev.rotation);
+        cubeGroup.position.applyAxisAngle(axis, rotation - prev.rotation);
 
         // === 2 ===
         // cubeGroup.rotateOnWorldAxis(axis, rotation - prev.rotation);
