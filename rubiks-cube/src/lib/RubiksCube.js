@@ -6,8 +6,8 @@ import Cube from './Cube';
 export default class RubiksCube {
   constructor() {
     this.scale = 20;
-    this.epsilon = 3.5;
-    this.showText = false;
+    this.epsilon = 0.5;
+    this.consoleDebug = true;
     this.selectedCube = null;
     this.rubiksCubeGroup = new THREE.Group();
     this.rubiksCubeGroup.scale.x = this.scale;
@@ -38,7 +38,7 @@ export default class RubiksCube {
         // NOTE: Comment out each block to see different mistakes.
 
         // === 1 ===
-        cubeGroup.position.applyAxisAngle(axis, rotation - prev.rotation);
+        // cubeGroup.position.applyAxisAngle(axis, rotation - prev.rotation);
 
         // === 2 ===
         // cubeGroup.rotateOnWorldAxis(axis, rotation - prev.rotation);
@@ -52,9 +52,8 @@ export default class RubiksCube {
         // NOTE: THIS IS CORRECT.
         // NOTE: Move the position of a cube.
         // NOTE: Rotate the cube on the world axis.
-        // this.showText = true;
-        // cubeGroup.position.applyAxisAngle(axis, rotation - prev.rotation);
-        // cubeGroup.rotateOnWorldAxis(axis, rotation - prev.rotation);
+        cubeGroup.position.applyAxisAngle(axis, rotation - prev.rotation);
+        cubeGroup.rotateOnWorldAxis(axis, rotation - prev.rotation);
 
         // NOTE: Keep track of the previous rotation for tweening.
         prev.rotation = rotation;
