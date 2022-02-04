@@ -97,7 +97,7 @@ export default class RubiksCube {
   }
 
   displayKey(key) {
-    if (this.showText) {
+    if (this.consoleDebug) {
       console.log(
         `%c ${this.getText(key)} `,
         'background: #fafafa; color: #0a0a0a; font-size: 20px'
