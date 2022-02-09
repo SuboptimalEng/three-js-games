@@ -150,8 +150,8 @@ export default class SnakeGame {
 
   _newTileMesh(i, j) {
     const tileGeometry = new THREE.BoxGeometry(1, 1, 1);
-    const tileMaterial = new THREE.MeshNormalMaterial({
-      wireframe: true,
+    const tileMaterial = new THREE.MeshPhongMaterial({
+      // wireframe: true,
     });
     const tileMesh = new THREE.Mesh(tileGeometry, tileMaterial);
     tileMesh.position.x = j;
