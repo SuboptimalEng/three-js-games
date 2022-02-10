@@ -65,7 +65,6 @@ export default class SnakeGame {
   }
 
   pressKey(event) {
-    console.log(event);
     this.lastPressedKey = event.key;
   }
 
@@ -124,7 +123,7 @@ export default class SnakeGame {
       const material = new THREE.MeshNormalMaterial({ wireframe: false });
       const snakePart = new THREE.Mesh(geometry, material);
 
-      snakePart.position.x = i - this.snakeStarterLength / 2 - 0.5;
+      snakePart.position.x = this.snakeStarterLength / 2 - 0.5 - i;
       snakePart.position.y = -0.5;
       this.snakeGroup.add(snakePart);
     }
