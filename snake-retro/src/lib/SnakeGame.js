@@ -11,8 +11,8 @@ export default class SnakeGame {
 
     // NOTE: Game management constants.
     this.lastTimeStamp = 0;
-    this.loopTimeStep = 128;
-    this.tweenTimeStep = 128;
+    this.loopTimeStep = 500;
+    this.tweenTimeStep = 250;
     this.lastPressedKey = 'w';
 
     // NOTE: 'boardGroup' is a wrapper for the board tiles.

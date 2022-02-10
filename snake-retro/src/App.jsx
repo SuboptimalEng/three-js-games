@@ -28,7 +28,10 @@ function App() {
     };
 
     // NOTE: Add board gui.
-    // const gui = new GUI();
+    const gui = new GUI();
+    const gameDifficulty = gui.addFolder('Difficulty');
+    gameDifficulty.add(snakeGame, 'loopTimeStep', 128, 512);
+    gameDifficulty.add(snakeGame, 'tweenTimeStep', 128, 512);
     // const boardFolder = gui.addFolder('Board');
     // boardFolder
     //   .add(snakeGame, 'gameScale', 4, 6)
