@@ -12,7 +12,7 @@ function App() {
     test.animate();
 
     const snakeGame = new SnakeGame();
-    test.scene.add(snakeGame.sgg);
+    test.rtScene.add(snakeGame.sgg);
 
     const animate = (t) => {
       snakeGame.loop(t);

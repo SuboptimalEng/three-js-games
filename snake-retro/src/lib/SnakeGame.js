@@ -11,13 +11,14 @@ export default class SnakeGame {
 
     // NOTE: Game management constants.
     this.lastTimeStamp = 0;
-    this.loopTimeStep = 256;
-    this.tweenTimeStep = 192;
+    this.loopTimeStep = 128;
+    this.tweenTimeStep = 128;
     this.lastPressedKey = 'w';
 
     // NOTE: 'boardGroup' is a wrapper for the board tiles.
     // NOTE: It is helpful to use a groups to keep track of common structures.
     // NOTE: E.g. This group makes it easy to reset the board + change its scale.
+    // TODO: Remove board? I don't use it in the app.
     this.boardGroup = new THREE.Group();
 
     // NOTE: 'snakeGroup' contains all the snake parts.
@@ -28,7 +29,7 @@ export default class SnakeGame {
 
     // NOTE: This group 'snakeGameGroup' will contain the entire snake game.
     this.sgg = new THREE.Group();
-    this.sgg.add(this.boardGroup);
+    // this.sgg.add(this.boardGroup);
     this.sgg.add(this.snakeGroup);
     this.sgg.add(this.snackGroup);
     this.sgg.scale.set(this.gameScale, this.gameScale, this.gameScale);
