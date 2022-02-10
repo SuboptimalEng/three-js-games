@@ -17,15 +17,18 @@ function App() {
     // NOTE: Add board gui.
     const gui = new GUI();
     const boardFolder = gui.addFolder('Board');
+
     boardFolder
-      .add(snakeGame, 'boardScale', 4, 6)
-      .onChange(() => snakeGame.resetBoardScale());
+      .add(snakeGame, 'gameScale', 4, 6)
+      .onChange(() => snakeGame.updateScale());
+
     boardFolder
-      .add(snakeGame, 'boardSize', 8, 10)
-      .step(1)
+      .add(snakeGame, 'boardSize', 6, 12)
+      .step(2)
       .onChange(() => {
         snakeGame.resetBoard();
       });
+
     boardFolder.open();
   }, []);
   return (
