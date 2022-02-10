@@ -5,7 +5,7 @@ export default class SnakeGame {
   constructor() {
     // NOTE: Changeable game constants.
     this.gameScale = 4;
-    this.boardSize = 12;
+    this.boardSize = 6;
     this.snakeSpeed = 1;
     this.snakeStarterLength = 4;
 
@@ -15,22 +15,27 @@ export default class SnakeGame {
     this.tweenTimeStep = 250;
     this.lastPressedKey = 'w';
 
-    // NOTE: This 'boardGroup' is a wrapper for the board tiles.
+    // NOTE: 'boardGroup' is a wrapper for the board tiles.
     // NOTE: It is helpful to use a groups to keep track of common structures.
     // NOTE: E.g. This group makes it easy to reset the board + change its scale.
     this.boardGroup = new THREE.Group();
 
-    // NOTE: This 'snakeGroup' contains all the snake parts.
+    // NOTE: 'snakeGroup' contains all the snake parts.
     this.snakeGroup = new THREE.Group();
+
+    // NOTE: 'snackGroup' contains snacks to make the snake bigger.
+    this.snackGroup = new THREE.Group();
 
     // NOTE: This group 'snakeGameGroup' will contain the entire snake game.
     this.sgg = new THREE.Group();
     this.sgg.add(this.boardGroup);
     this.sgg.add(this.snakeGroup);
-    this.updateScale();
+    this.sgg.add(this.snackGroup);
+    this.sgg.scale.set(this.gameScale, this.gameScale, this.gameScale);
 
     this.resetBoard();
     this.resetSnake();
+    this.resetSnack();
   }
 
   loop(t) {
@@ -38,7 +43,6 @@ export default class SnakeGame {
     const timeStep = t - this.lastTimeStamp;
     if (timeStep > this.loopTimeStep) {
       this.moveSnake();
-      // this._updateSnack();
       this.lastTimeStamp = t;
     }
   }
@@ -70,6 +74,11 @@ export default class SnakeGame {
     this.lastPressedKey = event.key;
   }
 
+  almostEqual(a, b) {
+    const epsilon = 0.1;
+    return Math.abs(a - b) < epsilon;
+  }
+
   moveSnake() {
     const lastPressedKey = this.lastPressedKey;
 
@@ -91,39 +100,83 @@ export default class SnakeGame {
     const rightKeys = ['d', 'ArrowRight'];
 
     if (upKeys.includes(lastPressedKey)) {
-      newCoords.y += this.snakeSpeed;
-      this.animateSnakeMovement(oldCoords, newCoords);
+      newCoords.y = oldHeadYCoord + this.snakeSpeed;
     } else if (leftKeys.includes(lastPressedKey)) {
       newCoords.x = oldHeadXCoord - this.snakeSpeed;
-      this.animateSnakeMovement(oldCoords, newCoords);
     } else if (downKeys.includes(lastPressedKey)) {
       newCoords.y = oldHeadYCoord - this.snakeSpeed;
-      this.animateSnakeMovement(oldCoords, newCoords);
     } else if (rightKeys.includes(lastPressedKey)) {
       newCoords.x = oldHeadXCoord + this.snakeSpeed;
-      this.animateSnakeMovement(oldCoords, newCoords);
     }
-  }
 
-  clearSnakeGroup() {
-    this.snakeGroup.clear();
-  }
+    this.animateSnakeMovement(oldCoords, newCoords);
 
-  clearBoardGroup() {
-    this.boardGroup.clear();
+    const snack = this.snackGroup.children[0];
+
+    // Check if x, y coordinates of head of snake are super close to
+    // the snack's coordinates. If so, then the snack should be reset.
+    // TODO: Extend snake length.
+    if (
+      this.almostEqual(newCoords.x, snack.position.x) &&
+      this.almostEqual(newCoords.y, snack.position.y)
+    ) {
+      this.resetSnack();
+    }
   }
 
   updateScale() {
     this.sgg.scale.set(this.gameScale, this.gameScale, this.gameScale);
   }
 
+  getRandomXY() {
+    const x =
+      Math.ceil(Math.random() * this.boardSize) - 0.5 - this.boardSize / 2;
+    const y =
+      Math.ceil(Math.random() * this.boardSize) - 0.5 - this.boardSize / 2;
+
+    return { x, y };
+  }
+
+  snakePartsOnSnack(snakePartsXY, snackXY) {
+    return snakePartsXY.some((snakePartXY) => {
+      return snakePartXY.x === snackXY.x && snakePartXY.y === snackXY.y;
+    });
+  }
+
+  resetSnack() {
+    this.clearSnackGroup();
+
+    // Get a list of coordinates where the snake is already over
+    // to ensure that the new snack is not placed over the snake.
+    const snakePartsXY = [];
+    this.snakeGroup.children.forEach((snakePart) => {
+      snakePartsXY.push({
+        x: snakePart.position.x,
+        y: snakePart.position.y,
+      });
+    });
+
+    let snackXY = this.getRandomXY();
+    while (this.snakePartsOnSnack(snakePartsXY, snackXY)) {
+      snackXY = this.getRandomXY();
+    }
+
+    const geometry = new THREE.SphereGeometry(0.5);
+    const material = new THREE.MeshNormalMaterial();
+    const snack = new THREE.Mesh(geometry, material);
+    snack.position.x = snackXY.x;
+    snack.position.y = snackXY.y;
+
+    this.snackGroup.add(snack);
+  }
+
   resetSnake() {
     this.clearSnakeGroup();
 
     for (let i = 0; i < this.snakeStarterLength; i++) {
-      const geometry = new THREE.BoxGeometry(1, 1, 1);
-      const material = new THREE.MeshNormalMaterial({ wireframe: false });
-      const snakePart = new THREE.Mesh(geometry, material);
+      const snakePartGeometry = new THREE.BoxGeometry(1, 1, 1);
+      const snakePartMaterial = new THREE.MeshNormalMaterial();
+      const snakePart = new THREE.Mesh(snakePartGeometry, snakePartMaterial);
 
       snakePart.position.x = this.snakeStarterLength / 2 - 0.5 - i;
       snakePart.position.y = -0.5;
@@ -146,5 +199,17 @@ export default class SnakeGame {
         this.boardGroup.add(boardTile);
       }
     }
+  }
+
+  clearSnackGroup() {
+    this.snackGroup.clear();
+  }
+
+  clearSnakeGroup() {
+    this.snakeGroup.clear();
+  }
+
+  clearBoardGroup() {
+    this.boardGroup.clear();
   }
 }
