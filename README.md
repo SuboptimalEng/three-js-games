@@ -11,6 +11,12 @@ npm install
 npm run dev
 ```
 
+## Snake (Retro)
+
+#### 👉 ["CRT Monitor"](https://sketchfab.com/3d-models/crt-monitor-e2dd2887a8904e4fa3d5a32e2935adb9) by [James.Harness](https://sketchfab.com/James.Harness) is licensed under [CC Attribution](https://creativecommons.org/licenses/by/4.0/)
+
+<img src="/_demos/snake-retro-temp.png">
+
 ## Rubik's Cube - [Demo](https://twitter.com/SuboptimalEng/status/1489659085238775817?s=20&t=0fMein5vltFc2_8Tso335g)
 
 <img src="/_demos/rubiks-cube-1.png">
