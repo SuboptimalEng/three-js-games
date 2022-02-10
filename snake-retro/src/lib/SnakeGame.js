@@ -5,7 +5,7 @@ export default class SnakeGame {
   constructor() {
     // NOTE: Changeable game constants.
     this.gameScale = 4;
-    this.boardSize = 6;
+    this.boardSize = 8;
     this.snakeSpeed = 1;
     this.snakeStarterLength = 4;
 
