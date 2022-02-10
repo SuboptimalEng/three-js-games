@@ -1,16 +1,18 @@
 import * as THREE from 'three';
+import * as TWEEN from '@tweenjs/tween.js';
 
 export default class SnakeGame {
   constructor() {
     // NOTE: Changeable game constants.
     this.gameScale = 4;
     this.boardSize = 12;
+    this.snakeSpeed = 1;
     this.snakeStarterLength = 4;
 
     // NOTE: Game management constants.
-    this.snakeSpeed = 1;
     this.lastTimeStamp = 0;
     this.loopTimeStep = 500;
+    this.tweenTimeStep = 250;
     this.lastPressedKey = 'w';
 
     // NOTE: This 'boardGroup' is a wrapper for the board tiles.
@@ -32,7 +34,7 @@ export default class SnakeGame {
   }
 
   loop(t) {
-    // TWEEN.update(t);
+    TWEEN.update(t);
     const timeStep = t - this.lastTimeStamp;
     if (timeStep > this.loopTimeStep) {
       this.moveSnake();
@@ -43,7 +45,7 @@ export default class SnakeGame {
 
   animateSnakeMovement(oldCoords, newCoords) {
     for (let i = 0; i < this.snakeGroup.children.length; i++) {
-      // note: head of snake is pre-determined from user input
+      // NOTE: The head of snake is pre-determined from user input.
       if (i !== 0) {
         newCoords = { x: oldCoords.x, y: oldCoords.y };
         oldCoords = {
@@ -51,16 +53,16 @@ export default class SnakeGame {
           y: this.snakeGroup.children[i].position.y,
         };
       }
-      this.snakeGroup.children[i].position.x = newCoords.x;
-      this.snakeGroup.children[i].position.y = newCoords.y;
-      // const tween = new TWEEN.Tween(oldCoords)
-      //   .to(newCoords, this.tweenTimeStep)
-      //   .easing(TWEEN.Easing.Sinusoidal.Out)
-      //   .onUpdate(({ x, y }) => {
-      //     this.snake.children[i].position.x = x;
-      //     this.snake.children[i].position.y = y;
-      //   });
-      // tween.start();
+      // this.snakeGroup.children[i].position.x = newCoords.x;
+      // this.snakeGroup.children[i].position.y = newCoords.y;
+      const tween = new TWEEN.Tween(oldCoords)
+        .to(newCoords, this.tweenTimeStep)
+        .easing(TWEEN.Easing.Sinusoidal.Out)
+        .onUpdate(({ x, y }) => {
+          this.snakeGroup.children[i].position.x = x;
+          this.snakeGroup.children[i].position.y = y;
+        });
+      tween.start();
     }
   }
 
