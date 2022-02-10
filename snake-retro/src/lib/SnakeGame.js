@@ -11,8 +11,8 @@ export default class SnakeGame {
 
     // NOTE: Game management constants.
     this.lastTimeStamp = 0;
-    this.loopTimeStep = 500;
-    this.tweenTimeStep = 250;
+    this.loopTimeStep = 256;
+    this.tweenTimeStep = 192;
     this.lastPressedKey = 'w';
 
     // NOTE: 'boardGroup' is a wrapper for the board tiles.
@@ -159,7 +159,10 @@ export default class SnakeGame {
 
   snakePartsOnSnack(snakePartsXY, snackXY) {
     return snakePartsXY.some((snakePartXY) => {
-      return snakePartXY.x === snackXY.x && snakePartXY.y === snackXY.y;
+      return (
+        this.almostEqual(snakePartXY.x, snackXY.x) &&
+        this.almostEqual(snakePartXY.y, snackXY.y)
+      );
     });
   }
 

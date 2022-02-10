@@ -27,11 +27,6 @@ function App() {
       snakeGame.pressKey(event);
     };
 
-    window.addEventListener('keydown', onKeyDown);
-    return () => {
-      window.removeEventListener('keydown', onKeyDown);
-    };
-
     // NOTE: Add board gui.
     // const gui = new GUI();
     // const boardFolder = gui.addFolder('Board');
@@ -45,6 +40,11 @@ function App() {
     //     snakeGame.resetBoard();
     //   });
     // boardFolder.open();
+
+    window.addEventListener('keydown', onKeyDown);
+    return () => {
+      window.removeEventListener('keydown', onKeyDown);
+    };
   }, []);
   return (
     <div>
