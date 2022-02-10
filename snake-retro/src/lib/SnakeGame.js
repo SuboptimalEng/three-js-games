@@ -75,7 +75,7 @@ export default class SnakeGame {
   }
 
   almostEqual(a, b) {
-    const epsilon = 0.1;
+    const epsilon = 0.25;
     return Math.abs(a - b) < epsilon;
   }
 
@@ -92,6 +92,14 @@ export default class SnakeGame {
     const newCoords = {
       x: oldHeadXCoord,
       y: oldHeadYCoord,
+    };
+
+    // NOTE: Keep track of the last part of the snake
+    // incase we need to add an extra part at the end.
+    const lastChildIndex = this.snakeGroup.children.length - 1;
+    const lastSnakePartCoords = {
+      x: this.snakeGroup.children[lastChildIndex].position.x,
+      y: this.snakeGroup.children[lastChildIndex].position.y,
     };
 
     const upKeys = ['w', 'ArrowUp'];
@@ -122,7 +130,18 @@ export default class SnakeGame {
       this.almostEqual(newCoords.y, snack.position.y)
     ) {
       this.resetSnack();
+      this.extendSnake(lastSnakePartCoords);
     }
+  }
+
+  extendSnake(lastSnakePartCoords) {
+    const snakePartGeometry = new THREE.BoxGeometry(1, 1, 1);
+    const snakePartMaterial = new THREE.MeshNormalMaterial();
+    const snakePart = new THREE.Mesh(snakePartGeometry, snakePartMaterial);
+
+    snakePart.position.x = lastSnakePartCoords.x;
+    snakePart.position.y = lastSnakePartCoords.y;
+    this.snakeGroup.add(snakePart);
   }
 
   updateScale() {
