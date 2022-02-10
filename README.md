@@ -11,7 +11,7 @@ npm install
 npm run dev
 ```
 
-## Snake (Retro)
+## Retro Snake
 
 #### 👉 ["CRT Monitor"](https://sketchfab.com/3d-models/crt-monitor-e2dd2887a8904e4fa3d5a32e2935adb9) by [James.Harness](https://sketchfab.com/James.Harness) is licensed under [CC Attribution](https://creativecommons.org/licenses/by/4.0/)
 
@@ -49,7 +49,7 @@ npm run dev
 <img src="/_demos/tic-tac-toe-3d-1.png">
 <img src="/_demos/tic-tac-toe-3d-2.png">
 
-## "2D" Tic-Tac-Toe - [Demo](https://twitter.com/SuboptimalEng/status/1461358957935484945?s=20&t=0tpf5oFjMqcWj6O-DB6txQ)
+## Tic-Tac-Toe - [Demo](https://twitter.com/SuboptimalEng/status/1461358957935484945?s=20&t=0tpf5oFjMqcWj6O-DB6txQ)
 
 <img src="/_demos/tic-tac-toe-1.png">
 <img src="/_demos/tic-tac-toe-2.png">
