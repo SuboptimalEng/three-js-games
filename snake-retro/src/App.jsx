@@ -12,7 +12,7 @@ function App() {
     test.animate();
 
     const snakeGame = new SnakeGame();
-    test.scene.add(snakeGame.g);
+    test.scene.add(snakeGame.sgg);
 
     // NOTE: Add board gui.
     const gui = new GUI();

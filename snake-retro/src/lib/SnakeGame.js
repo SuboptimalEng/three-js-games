@@ -6,13 +6,14 @@ export default class SnakeGame {
     this.boardSize = 8;
     this.boardScale = 5;
 
-    // NOTE: This group 'g' will contain the entire snake game.
-    this.g = new THREE.Group();
-
     // NOTE: This 'boardGroup' is a wrapper for the board tiles.
     // NOTE: It is helpful to use a groups to keep track of common structures.
     // NOTE: E.g. This group makes it easy to reset the board + change its scale.
     this.boardGroup = new THREE.Group();
+
+    // NOTE: This group 'snakeGameGroup' will contain the entire snake game.
+    this.sgg = new THREE.Group();
+    this.sgg.add(this.boardGroup);
 
     this.resetBoard();
   }
