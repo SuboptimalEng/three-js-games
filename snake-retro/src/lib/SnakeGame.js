@@ -101,21 +101,22 @@ export default class SnakeGame {
 
     if (upKeys.includes(lastPressedKey)) {
       newCoords.y = oldHeadYCoord + this.snakeSpeed;
+      this.animateSnakeMovement(oldCoords, newCoords);
     } else if (leftKeys.includes(lastPressedKey)) {
       newCoords.x = oldHeadXCoord - this.snakeSpeed;
+      this.animateSnakeMovement(oldCoords, newCoords);
     } else if (downKeys.includes(lastPressedKey)) {
       newCoords.y = oldHeadYCoord - this.snakeSpeed;
+      this.animateSnakeMovement(oldCoords, newCoords);
     } else if (rightKeys.includes(lastPressedKey)) {
       newCoords.x = oldHeadXCoord + this.snakeSpeed;
+      this.animateSnakeMovement(oldCoords, newCoords);
     }
-
-    this.animateSnakeMovement(oldCoords, newCoords);
-
-    const snack = this.snackGroup.children[0];
 
     // Check if x, y coordinates of head of snake are super close to
     // the snack's coordinates. If so, then the snack should be reset.
     // TODO: Extend snake length.
+    const snack = this.snackGroup.children[0];
     if (
       this.almostEqual(newCoords.x, snack.position.x) &&
       this.almostEqual(newCoords.y, snack.position.y)
