@@ -7,6 +7,12 @@ export default class SnakeGame {
     this.boardSize = 12;
     this.snakeStarterLength = 4;
 
+    // NOTE: Game management constants.
+    this.snakeSpeed = 1;
+    this.lastTimeStamp = 0;
+    this.loopTimeStep = 500;
+    this.lastPressedKey = 'w';
+
     // NOTE: This 'boardGroup' is a wrapper for the board tiles.
     // NOTE: It is helpful to use a groups to keep track of common structures.
     // NOTE: E.g. This group makes it easy to reset the board + change its scale.
@@ -23,6 +29,79 @@ export default class SnakeGame {
 
     this.resetBoard();
     this.resetSnake();
+  }
+
+  loop(t) {
+    // TWEEN.update(t);
+    const timeStep = t - this.lastTimeStamp;
+    if (timeStep > this.loopTimeStep) {
+      this.moveSnake();
+      // this._updateSnack();
+      this.lastTimeStamp = t;
+    }
+  }
+
+  animateSnakeMovement(oldCoords, newCoords) {
+    for (let i = 0; i < this.snakeGroup.children.length; i++) {
+      // note: head of snake is pre-determined from user input
+      if (i !== 0) {
+        newCoords = { x: oldCoords.x, y: oldCoords.y };
+        oldCoords = {
+          x: this.snakeGroup.children[i].position.x,
+          y: this.snakeGroup.children[i].position.y,
+        };
+      }
+      this.snakeGroup.children[i].position.x = newCoords.x;
+      this.snakeGroup.children[i].position.y = newCoords.y;
+      // const tween = new TWEEN.Tween(oldCoords)
+      //   .to(newCoords, this.tweenTimeStep)
+      //   .easing(TWEEN.Easing.Sinusoidal.Out)
+      //   .onUpdate(({ x, y }) => {
+      //     this.snake.children[i].position.x = x;
+      //     this.snake.children[i].position.y = y;
+      //   });
+      // tween.start();
+    }
+  }
+
+  pressKey(event) {
+    console.log(event);
+    this.lastPressedKey = event.key;
+  }
+
+  moveSnake() {
+    const lastPressedKey = this.lastPressedKey;
+
+    const oldHeadXCoord = this.snakeGroup.children[0].position.x;
+    const oldHeadYCoord = this.snakeGroup.children[0].position.y;
+
+    const oldCoords = {
+      x: oldHeadXCoord,
+      y: oldHeadYCoord,
+    };
+    const newCoords = {
+      x: oldHeadXCoord,
+      y: oldHeadYCoord,
+    };
+
+    const upKeys = ['w', 'ArrowUp'];
+    const leftKeys = ['a', 'ArrowLeft'];
+    const downKeys = ['s', 'ArrowDown'];
+    const rightKeys = ['d', 'ArrowRight'];
+
+    if (upKeys.includes(lastPressedKey)) {
+      newCoords.y += this.snakeSpeed;
+      this.animateSnakeMovement(oldCoords, newCoords);
+    } else if (leftKeys.includes(lastPressedKey)) {
+      newCoords.x = oldHeadXCoord - this.snakeSpeed;
+      this.animateSnakeMovement(oldCoords, newCoords);
+    } else if (downKeys.includes(lastPressedKey)) {
+      newCoords.y = oldHeadYCoord - this.snakeSpeed;
+      this.animateSnakeMovement(oldCoords, newCoords);
+    } else if (rightKeys.includes(lastPressedKey)) {
+      newCoords.x = oldHeadXCoord + this.snakeSpeed;
+      this.animateSnakeMovement(oldCoords, newCoords);
+    }
   }
 
   clearSnakeGroup() {
