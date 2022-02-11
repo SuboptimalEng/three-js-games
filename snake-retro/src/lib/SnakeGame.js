@@ -58,8 +58,6 @@ export default class SnakeGame {
           y: this.snakeGroup.children[i].position.y,
         };
       }
-      // this.snakeGroup.children[i].position.x = newCoords.x;
-      // this.snakeGroup.children[i].position.y = newCoords.y;
       const tween = new TWEEN.Tween(oldCoords)
         .to(newCoords, this.tweenTimeStep)
         .easing(TWEEN.Easing.Sinusoidal.Out)
@@ -125,6 +123,7 @@ export default class SnakeGame {
     // Check if x, y coordinates of head of snake are super close to
     // the snack's coordinates. If so, then the snack should be reset.
     // TODO: Extend snake length.
+
     const snack = this.snackGroup.children[0];
     if (
       this.almostEqual(newCoords.x, snack.position.x) &&
