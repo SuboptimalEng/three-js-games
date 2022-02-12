@@ -11,7 +11,7 @@ npm install
 npm run dev
 ```
 
-## Retro Snake
+## Retro Snake - [Demo](https://twitter.com/SuboptimalEng/status/1492319950849155073?s=20&t=vPsvcyCzeLn53K8Ogi8E5Q)
 
 #### 👉 ["CRT Monitor"](https://sketchfab.com/3d-models/crt-monitor-e2dd2887a8904e4fa3d5a32e2935adb9) by [James.Harness](https://sketchfab.com/James.Harness) is licensed under [CC Attribution](https://creativecommons.org/licenses/by/4.0/)
 
