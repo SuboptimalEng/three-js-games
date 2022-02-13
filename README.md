@@ -13,6 +13,8 @@ npm run dev
 
 # ❤️ Most Loved
 
+<br />
+
 ## Rubik's Cube - [Demo](https://twitter.com/SuboptimalEng/status/1489659085238775817?s=20&t=0fMein5vltFc2_8Tso335g)
 
 <img src="/_most_loved/rubiks-cube.png">
@@ -23,12 +25,9 @@ npm run dev
 
 <img src="/_most_loved/snake-retro.png">
 
-<br />
-<br />
-<br />
-<br />
-
 # 🧪 Experiments
+
+<br />
 
 ## Retro Snake - [Demo](https://twitter.com/SuboptimalEng/status/1492319950849155073?s=20&t=vPsvcyCzeLn53K8Ogi8E5Q)
 
