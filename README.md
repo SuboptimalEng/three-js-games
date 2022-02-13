@@ -11,12 +11,12 @@ npm install
 npm run dev
 ```
 
-# ❤️ Most Loved
+## ❤️ Most Loved
 
 <img src="/_most_loved/rubiks-cube.png">
 <img src="/_most_loved/snake-retro.png">
 
-# 🧪 Game Dev Experiments
+<!-- # 🧪 Game Dev Experiments -->
 
 ## Retro Snake - [Demo](https://twitter.com/SuboptimalEng/status/1492319950849155073?s=20&t=vPsvcyCzeLn53K8Ogi8E5Q)
 
