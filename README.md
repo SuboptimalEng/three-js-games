@@ -1,5 +1,7 @@
 # 👾 Gamedex
 
+---
+
 Hello world! My internet name is Suboptimal and I am an Indian software engineer. Gamedex is the repo where I keep track of my game dev + computer graphics experiments. I also post the demos on 👉 [twitter](https://www.twitter.com/SuboptimalEng) so feel free to follow me there!
 
 All of these web-based experiments are built with React.js + Three.js so running them locally is super easy. Here's an example of how you can run the `solar-system` animation:
@@ -11,19 +13,23 @@ npm install
 npm run dev
 ```
 
-## ❤️ Most Loved
+# ❤️ Most Loved
 
-### Rubik's Cube - [Demo](https://twitter.com/SuboptimalEng/status/1489659085238775817?s=20&t=0fMein5vltFc2_8Tso335g)
+---
+
+## Rubik's Cube - [Demo](https://twitter.com/SuboptimalEng/status/1489659085238775817?s=20&t=0fMein5vltFc2_8Tso335g)
 
 <img src="/_most_loved/rubiks-cube.png">
 
-### Retro Snake - [Demo](https://twitter.com/SuboptimalEng/status/1492319950849155073?s=20&t=vPsvcyCzeLn53K8Ogi8E5Q)
+## Retro Snake - [Demo](https://twitter.com/SuboptimalEng/status/1492319950849155073?s=20&t=vPsvcyCzeLn53K8Ogi8E5Q)
 
 #### 👉 ["CRT Monitor"](https://sketchfab.com/3d-models/crt-monitor-e2dd2887a8904e4fa3d5a32e2935adb9) by [James.Harness](https://sketchfab.com/James.Harness) is licensed under [CC Attribution](https://creativecommons.org/licenses/by/4.0/)
 
 <img src="/_most_loved/snake-retro.png">
 
-## 🧪 Game Dev Experiments
+# 🧪 Game Dev Experiments
+
+---
 
 <!-- ## Retro Snake - [Demo](https://twitter.com/SuboptimalEng/status/1492319950849155073?s=20&t=vPsvcyCzeLn53K8Ogi8E5Q)
 #### 👉 ["CRT Monitor"](https://sketchfab.com/3d-models/crt-monitor-e2dd2887a8904e4fa3d5a32e2935adb9) by [James.Harness](https://sketchfab.com/James.Harness) is licensed under [CC Attribution](https://creativecommons.org/licenses/by/4.0/)
@@ -33,7 +39,7 @@ npm run dev
 <img src="/_demos/rubiks-cube-1.png">
 <img src="/_demos/rubiks-cube-2.png"> -->
 
-### Wordle - [Demo](https://twitter.com/SuboptimalEng/status/1486504856403824643?s=20&t=0tpf5oFjMqcWj6O-DB6txQ)
+## Wordle - [Demo](https://twitter.com/SuboptimalEng/status/1486504856403824643?s=20&t=0tpf5oFjMqcWj6O-DB6txQ)
 
 <img src="/_demos/wordle.png">
 
