@@ -1,4 +1,4 @@
-# 👾 Gamedex
+<h1>👾 Gamedex</h1>
 
 ---
 
