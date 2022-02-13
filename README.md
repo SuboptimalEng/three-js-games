@@ -1,6 +1,8 @@
+# 👾 Gamedex
+
 <p style="font-size: 32px; font-weight: bolder">👾 Gamedex</p>
 
----
+<!-- --- -->
 
 Hello world! My internet name is Suboptimal and I am an Indian software engineer. Gamedex is the repo where I keep track of my game dev + computer graphics experiments. I also post the demos on 👉 [twitter](https://www.twitter.com/SuboptimalEng) so feel free to follow me there!
 
@@ -19,7 +21,9 @@ npm run dev
 
 ## Rubik's Cube - [Demo](https://twitter.com/SuboptimalEng/status/1489659085238775817?s=20&t=0fMein5vltFc2_8Tso335g)
 
-<img src="/_most_loved/rubiks-cube.png">
+<!-- <img src="/_most_loved/rubiks-cube.png"> -->
+
+![]("/_most_loved/rubiks-cube.png")
 
 ## Retro Snake - [Demo](https://twitter.com/SuboptimalEng/status/1492319950849155073?s=20&t=vPsvcyCzeLn53K8Ogi8E5Q)
 
