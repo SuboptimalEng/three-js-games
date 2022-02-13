@@ -2,7 +2,7 @@
 
 Hello world! My internet name is Suboptimal and I am an Indian software engineer. Gamedex is the repo where I keep track of my game dev + computer graphics experiments. I also post the demos on 👉 [twitter](https://www.twitter.com/SuboptimalEng) so feel free to follow me there!
 
-All of the experiments are web-based and built with Next.js (or Vite.js) + Three.js + Tailwind CSS so running them locally is super easy. Here's an example of how you can run the `solar-system` animation:
+All of these web-based experiments are built with React.js + Three.js so running them locally is super easy. Here's an example of how you can run the `solar-system` animation:
 
 ```
 git clone https://github.com/SuboptimalEng/gamedex.git
@@ -33,7 +33,7 @@ npm run dev
 
 <img src="/_demos/piano.png">
 
-## Naruto Rasengan - [Demo](https://twitter.com/SuboptimalEng/status/1471878925584322562?s=20&t=0tpf5oFjMqcWj6O-DB6txQ)
+## Naruto's Rasengan - [Demo](https://twitter.com/SuboptimalEng/status/1471878925584322562?s=20&t=0tpf5oFjMqcWj6O-DB6txQ)
 
 #### 👉 ["Hand Anatomy"](https://sketchfab.com/3d-models/hand-anatomy-ada8498be9754e9f90b2eecc1b4ef8c5) by [Caterina Zamai](https://www.artstation.com/zaccate) is licensed under [CC Attribution](https://creativecommons.org/licenses/by/4.0/)
 
