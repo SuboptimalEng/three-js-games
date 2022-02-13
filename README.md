@@ -13,8 +13,8 @@ npm run dev
 
 # ❤️ Most Loved
 
-<img src="/_most_loved/rubiks-cube.png" width="50%">
-<img src="/_most_loved/snake-retro.png" width="50%">
+<img src="/_most_loved/rubiks-cube.png" width="48%">
+<img src="/_most_loved/snake-retro.png" width="48%">
 
 # 🧪 Game Dev Experiments
 
