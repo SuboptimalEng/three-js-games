@@ -11,8 +11,6 @@ npm install
 npm run dev
 ```
 
----
-
 # ❤️ Most Loved
 
 ## Rubik's Cube - [Demo](https://twitter.com/SuboptimalEng/status/1489659085238775817?s=20&t=0fMein5vltFc2_8Tso335g)
@@ -25,7 +23,10 @@ npm run dev
 
 <img src="/_most_loved/snake-retro.png">
 
----
+<br />
+<br />
+<br />
+<br />
 
 # 🧪 Experiments
 
