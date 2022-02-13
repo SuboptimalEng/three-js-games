@@ -2,7 +2,7 @@
 
 Hello world! My internet name is Suboptimal and I am an Indian software engineer. Gamedex is the repo where I keep track of my game dev + computer graphics experiments. I also post the demos on 👉 [twitter](https://www.twitter.com/SuboptimalEng) so feel free to follow me there!
 
-All of these web-based experiments are built with React.js + Three.js so running them locally is super easy. Here's an example of how you can run the `solar-system` animation:
+All of these experiments are built with React.js + Three.js so running them locally is super easy. Here's an example of how you can run the `solar-system` animation:
 
 ```
 git clone https://github.com/SuboptimalEng/gamedex.git
