@@ -1,4 +1,4 @@
-<h1>👾 Gamedex</h1>
+<p style="font-size: 32px; font-weight: bolder">👾 Gamedex</p>
 
 ---
 
