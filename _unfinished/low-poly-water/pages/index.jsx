@@ -71,9 +71,9 @@ export default function Home() {
             void main() {
               float rnd = random(vUv.xy);
               // vec2 uv = gl_FragCoord.xy / u_resolution;
-              gl_FragColor = vec4(1.0, 0.5, sin(z + PI), 1.0).rgba;
-
+              // gl_FragColor = vec4(1.0, 0.5, sin(z + PI), 1.0).rgba;
               // gl_FragColor = vec4(mix(colorA, colorB, vUv.x), 1.0);
+              gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
             }
         `;
       }
