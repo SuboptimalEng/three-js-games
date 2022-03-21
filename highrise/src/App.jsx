@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 
-import * as THREE from 'three';
-
+import Highrise from './lib/Highrise';
 import SceneInit from './lib/SceneInit';
 
 function App() {
@@ -10,11 +9,14 @@ function App() {
     test.initScene();
     test.animate();
 
-    const geometry = new THREE.BoxGeometry(16, 16, 16);
-    const material = new THREE.MeshNormalMaterial();
-    const mesh = new THREE.Mesh(geometry, material);
+    const highriseGame = new Highrise();
+    test.scene.add(highriseGame.group);
 
-    test.scene.add(mesh);
+    const animate = (t) => {
+      highriseGame.loop(t);
+      requestAnimationFrame(animate);
+    };
+    animate();
   }, []);
   return (
     <div>

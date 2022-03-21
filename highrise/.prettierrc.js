@@ -3,6 +3,6 @@ module.exports = {
   tabWidth: 2,
   printWidth: 80,
   singleQuote: true,
-  trailingComma: "es5",
-  arrowParens: "always",
+  trailingComma: 'es5',
+  arrowParens: 'always',
 };
