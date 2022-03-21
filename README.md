@@ -52,7 +52,7 @@ npm run dev
 
 <img src="/_demos/naruto-rasengan.png">
 
-## Audio Waveform - [Demo](https://twitter.com/SuboptimalEng/status/1466441813867302918?s=20&t=0tpf5oFjMqcWj6O-DB6txQ)
+## Audio Visualizer - [Demo](https://twitter.com/SuboptimalEng/status/1466441813867302918?s=20&t=0tpf5oFjMqcWj6O-DB6txQ)
 
 <img src="/_demos/audio-waveform-1.png">
 <img src="/_demos/audio-waveform-2.png">
