@@ -10,6 +10,8 @@ export default class Highrise {
     this.prevBlock = mesh;
 
     // TODO: What happens when this value is larger than int size?
+    // Need to reset time to 0, Jon Blow mentions this in "A Shader Trick".
+    // cos(freq * 1000 * 2 * pi) for shader fix.
     this.lastTimeStep = 0;
 
     this.group = new THREE.Group();
