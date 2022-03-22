@@ -25,6 +25,7 @@ export default class Highrise {
     mesh.position.x = this.phantomPosition.x;
     mesh.position.y = this.phantomPosition.y;
     mesh.position.z = this.phantomPosition.z;
+    this.prevBlock = mesh;
     this.group.add(mesh);
   }
 
