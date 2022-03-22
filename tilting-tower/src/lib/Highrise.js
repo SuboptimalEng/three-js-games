@@ -18,7 +18,32 @@ export default class Highrise {
     this.group.add(mesh);
   }
 
-  addPhantomBlock({ x, y, z }) {
+  _generateBlock() {
+    const geometry = new THREE.BoxGeometry(1, 1, 1);
+    const material = new THREE.MeshNormalMaterial();
+    const mesh = new THREE.Mesh(geometry, material);
+    mesh.position.x = this.phantomPosition.x;
+    mesh.position.y = this.phantomPosition.y;
+    mesh.position.z = this.phantomPosition.z;
+    this.group.add(mesh);
+  }
+
+  acceptPhantomBlock(currentTime) {
+    this.lastTimeStep = currentTime;
+
+    this._generateBlock();
+  }
+
+  loop(t) {
+    const dt = t - this.lastTimeStep;
+    if (dt > this.timeStep) {
+      this.lastTimeStep = t;
+      this.phantomPosition = this._generatePhantomBlockPosition();
+      this._displayPhantomBlock(this.phantomPosition);
+    }
+  }
+
+  _displayPhantomBlock({ x, y, z }) {
     this.group.remove(this.phantomBlock);
     const geometry = new THREE.BoxGeometry(1, 1, 1);
     const material = new THREE.MeshNormalMaterial({ wireframe: true });
@@ -30,7 +55,8 @@ export default class Highrise {
     this.group.add(this.phantomBlock);
   }
 
-  getPhantomBlockXYZ() {
+  // TODO: Always place the phantom block in a different position.
+  _generatePhantomBlockPosition() {
     let x = this.prevBlock.position.x;
     let y = this.prevBlock.position.y;
     let z = this.prevBlock.position.z;
@@ -41,38 +67,13 @@ export default class Highrise {
     const direction = Math.round(Math.random() * 2);
 
     if (axis === 0) {
-      if (direction === 0) {
-        x--;
-      } else {
-        x++;
-      }
+      x = direction === 0 ? x - 1 : x + 1;
     } else if (axis === 1) {
-      if (direction === 0) {
-        y--;
-      } else {
-        y++;
-      }
+      y = direction === 0 ? y - 1 : y + 1;
     } else {
-      if (direction === 0) {
-        z--;
-      } else {
-        z++;
-      }
+      z = direction === 0 ? z - 1 : z + 1;
     }
 
     return { x, y, z };
-  }
-
-  loop(t) {
-    const dt = t - this.lastTimeStep;
-    if (dt > this.timeStep) {
-      // remove old phantom block
-      this.lastTimeStep = t;
-      const position = this.getPhantomBlockXYZ();
-      this.addPhantomBlock(position);
-      // console.log(Math.round(t / 1000));
-      // console.log(this.lastTimeStep);
-      // create new phantom block
-    }
   }
 }
