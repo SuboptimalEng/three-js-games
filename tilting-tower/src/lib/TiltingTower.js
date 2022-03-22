@@ -6,6 +6,14 @@ export default class Highrise {
     const material = new THREE.MeshNormalMaterial();
     const mesh = new THREE.Mesh(geometry, material);
 
+    const baseGeometry = new THREE.BoxGeometry(3, 1, 3);
+    const baseMaterial = new THREE.MeshNormalMaterial({
+      opacity: 0.5,
+      transparent: true,
+    });
+    const baseMesh = new THREE.Mesh(baseGeometry, baseMaterial);
+    baseMesh.position.y = -1;
+
     this.timeStep = 500;
     this.prevBlock = mesh;
 
@@ -16,6 +24,7 @@ export default class Highrise {
 
     this.group = new THREE.Group();
     this.group.add(mesh);
+    this.group.add(baseMesh);
   }
 
   _generateBlock() {
