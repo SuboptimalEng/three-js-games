@@ -9,6 +9,8 @@ function App() {
     const test = new SceneInit('myThreeJsCanvas');
     test.initScene();
 
+    // so did this work?
+
     // const tiltingTowerGame = new TiltingTower();
     // test.scene.add(tiltingTowerGame.group);
     // const animate = (t) => {
