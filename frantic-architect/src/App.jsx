@@ -17,17 +17,25 @@ function App() {
     });
 
     // add ground
-    const groundBody = new CANNON.Body({
-      type: CANNON.Body.STATIC,
-      shape: new CANNON.Plane(),
-    });
-    groundBody.quaternion.setFromEuler(-Math.PI / 2, 0, 0); // make it face up
-    groundBody.position.set(0, -3, 0);
+    const groundMaterial = new CANNON.Material('ground');
+    groundMaterial.friction = 0.5;
+    const groundShape = new CANNON.Box(new CANNON.Vec3(1.5, 0.25, 1.5));
+    const groundBody = new CANNON.Body({ mass: 0, material: groundMaterial });
+    groundBody.addShape(groundShape);
+    groundBody.addShape(groundShape);
+    // const groundBody = new CANNON.Body({
+    //   type: CANNON.Body.STATIC,
+    //   shape: groundShape,
+    // });
+    groundBody.quaternion.setFromEuler(0, 0, 0);
+    groundBody.position.set(0, -2, 0);
     world.addBody(groundBody);
 
-    const size = 2;
+    const size = 1;
     const mass = 10;
-    const compoundBody = new CANNON.Body({ mass });
+    const slipperyMaterial = new CANNON.Material('slippery');
+    slipperyMaterial.friction = 0.01;
+    const compoundBody = new CANNON.Body({ mass, material: slipperyMaterial });
     compoundBody.position.set(0, 0, 0);
     compoundBody.quaternion.setFromEuler(0, 0, 0);
     const shape = new CANNON.Box(
@@ -36,17 +44,20 @@ function App() {
 
     compoundBody.addShape(shape, new CANNON.Vec3(0, 0, 0));
     compoundBody.addShape(shape, new CANNON.Vec3(-size, 0, 0));
-    compoundBody.addShape(shape, new CANNON.Vec3(-size, size, 0));
-    compoundBody.addShape(shape, new CANNON.Vec3(-2 * size, size, 0));
+    compoundBody.addShape(shape, new CANNON.Vec3(0, 0, -size));
+    compoundBody.addShape(shape, new CANNON.Vec3(0, 0, -2 * size));
+    compoundBody.addShape(shape, new CANNON.Vec3(0, 0, -3 * size));
+    compoundBody.addShape(shape, new CANNON.Vec3(0, 0, -4 * size));
+    // compoundBody.addShape(shape, new CANNON.Vec3(-2 * size, size, 0));
     // compoundBody.addShape(shape, new CANNON.Vec3(-3 * size, size, 0));
     // compoundBody.addShape(shape, new CANNON.Vec3(-3 * size, 2 * size, 0));
-    compoundBody.addShape(shape, new CANNON.Vec3(-2 * size, 2 * size, 0));
-    compoundBody.addShape(shape, new CANNON.Vec3(-1 * size, 2 * size, 0));
-    compoundBody.addShape(shape, new CANNON.Vec3(0 * size, 2 * size, 0));
+    // compoundBody.addShape(shape, new CANNON.Vec3(-2 * size, 2 * size, 0));
+    // compoundBody.addShape(shape, new CANNON.Vec3(-1 * size, 2 * size, 0));
+    // compoundBody.addShape(shape, new CANNON.Vec3(0 * size, 2 * size, 0));
     // compoundBody.addShape(shape, new CANNON.Vec3(0 * size, 2 * size, size));
     // compoundBody.addShape(shape, new CANNON.Vec3(0 * size, 2 * size, 2 * size));
     // compoundBody.addShape(shape, new CANNON.Vec3(0 * size, 2 * size, 3 * size));
-    compoundBody.addShape(shape, new CANNON.Vec3(size, 0, 0));
+    // compoundBody.addShape(shape, new CANNON.Vec3(size, 0, 0));
 
     world.addBody(compoundBody);
 
