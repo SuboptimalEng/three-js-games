@@ -141,10 +141,16 @@ function App() {
     //   test.scene.add(phantomBlock);
     // };
 
-    window.addEventListener('keydown', franticArchitect.onKeyDown);
+    const onKeyDown = (event) => {
+      if (event.code === 'Space') {
+        franticArchitect.acceptPhantomBlock();
+      }
+    };
+
+    window.addEventListener('keydown', onKeyDown);
 
     return () => {
-      window.removeEventListener('keydown', franticArchitect.onKeyDown);
+      window.removeEventListener('keydown', onKeyDown);
     };
   }, []);
 

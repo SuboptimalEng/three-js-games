@@ -16,7 +16,8 @@ export default class FranticArchitect {
     this.mass = 10;
 
     // game loop settings
-    this.currentTime = 0;
+    this.gameLoopLength = 0.5;
+    this.currentLoopLength = 0;
 
     this.world = new CANNON.World({ gravity: new CANNON.Vec3(0, -10, 0) });
     this._addGround();
@@ -28,11 +29,10 @@ export default class FranticArchitect {
 
   update(dt) {
     this.world.fixedStep();
-    this.currentTime += dt;
-    if (this.currentTime > 1) {
-      this.currentTime = 0;
+    this.currentLoopLength += dt;
+    if (this.currentLoopLength > this.gameLoopLength) {
+      this.currentLoopLength = 0;
       this._displayPhantomBlock();
-      // run update
     }
   }
 
@@ -119,9 +119,16 @@ export default class FranticArchitect {
     );
   }
 
-  _acceptPhantomBlock(x, y, z) {
-    this._addShapeToCompoundBody(x, y, z);
+  _updateXYZ() {
+    this.x = this.phantomX;
+    this.y = this.phantomY;
+    this.z = this.phantomZ;
+  }
+
+  acceptPhantomBlock() {
+    this._updateXYZ();
     this._updateCenterOfMass();
+    this.currentLoopLength = this.gameLoopLength + 1;
   }
 
   _addCompoundBody() {
@@ -151,6 +158,7 @@ export default class FranticArchitect {
   onKeyDown(event) {
     if (event.code === 'Space') {
       console.log('Space');
+      this._acceptPhantomBlock();
     }
   }
 
