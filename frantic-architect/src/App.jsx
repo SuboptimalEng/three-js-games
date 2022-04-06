@@ -1,7 +1,5 @@
 import { useEffect } from 'react';
 
-import * as THREE from 'three';
-import * as CANNON from 'cannon-es';
 import CannonDebugger from 'cannon-es-debugger';
 
 import SceneInit from './lib/SceneInit';
@@ -25,7 +23,7 @@ function App() {
       test.stats.update();
       test.controls.update();
       cannonDebugger.update();
-      franticArchitect.loop(dt);
+      franticArchitect.update(dt);
       requestAnimationFrame(animate);
     };
     animate();
@@ -92,17 +90,6 @@ function App() {
 
     // // updateCOM(compoundBody);
 
-    // const cannonDebugger = new CannonDebugger(test.scene, world);
-
-    // // let delta = test.clock.getDelta();
-    // // const animate = () => {
-    // //   // delta = test.clock.getDelta();
-    // //   world.fixedStep();
-    // //   cannonDebugger.update();
-    // //   requestAnimationFrame(animate);
-    // // };
-    // // animate();
-
     // let x = 0;
     // let y = 1;
     // let z = 1;
@@ -154,11 +141,11 @@ function App() {
     //   test.scene.add(phantomBlock);
     // };
 
-    // window.addEventListener('keydown', onKeyDown);
+    window.addEventListener('keydown', franticArchitect.onKeyDown);
 
-    // return () => {
-    //   window.removeEventListener('keydown', onKeyDown);
-    // };
+    return () => {
+      window.removeEventListener('keydown', franticArchitect.onKeyDown);
+    };
   }, []);
 
   return (
