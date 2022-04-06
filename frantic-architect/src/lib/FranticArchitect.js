@@ -1,17 +1,24 @@
 import * as Three from 'three';
 import * as CANNON from 'cannon-es';
-import CannonDebugger from 'cannon-es-debugger';
 
 export default class FranticArchitect {
-  constructor(scene) {
+  constructor() {
+    // cube coordinates
     this.x = 0;
     this.y = 0;
     this.z = 0;
-    this.scene = scene;
-    this.world = new CANNON.World({ gravity: new CANNON.Vec3(0, -10, 0) });
+    this.phantomX = 0;
+    this.phantomY = 0;
+    this.phantomZ = 0;
 
+    // compound body settings
+    this.size = 1;
+    this.mass = 10;
+
+    // game loop settings
     this.currentTime = 0;
 
+    this.world = new CANNON.World({ gravity: new CANNON.Vec3(0, -10, 0) });
     this._addGround();
     this._addCompoundBody();
 
@@ -23,6 +30,8 @@ export default class FranticArchitect {
     this.world.fixedStep();
     this.currentTime += dt;
     if (this.currentTime > 1) {
+      this.currentTime = 0;
+      this._displayPhantomBlock();
       // run update
     }
   }
@@ -38,38 +47,94 @@ export default class FranticArchitect {
     this.world.addBody(groundBody);
   }
 
-  _updateCenterOfMass(body) {
+  _updateCenterOfMass() {
     // first calculate the center of mass
     const com = new CANNON.Vec3();
     // console.log(com);
     // debugger;
-    body.shapeOffsets.forEach(function (offset) {
+    this.compoundBody.shapeOffsets.forEach(function (offset) {
       com.vadd(offset, com);
     });
     // console.log(com);
-    com.scale(1 / body.shapes.length, com);
+    com.scale(1 / this.compoundBody.shapes.length, com);
     // console.log(com);
     // move the shapes so the body origin is at the COM
-    body.shapeOffsets.forEach(function (offset) {
+    this.compoundBody.shapeOffsets.forEach(function (offset) {
       console.log(offset);
       offset.vsub(com, offset);
     });
     // now move the body so the shapes' net displacement is 0
     const worldCOM = new CANNON.Vec3();
-    body.vectorToWorldFrame(com, worldCOM);
-    body.position.vadd(worldCOM, body.position);
+    this.compoundBody.vectorToWorldFrame(com, worldCOM);
+    this.compoundBody.position.vadd(worldCOM, this.compoundBody.position);
+  }
+
+  _resetPhantomXYZ() {
+    this.phantomX = this.x;
+    this.phantomY = this.y;
+    this.phantomZ = this.z;
+  }
+
+  _setPhantomXYZ() {
+    this._resetPhantomXYZ();
+    const axis = Math.floor(Math.random() * 3);
+    const direction = Math.floor(Math.random() * 2);
+    const delta = direction === 0 ? 1 : -1;
+    if (axis === 0) {
+      this.phantomX += delta;
+    } else if (axis === 1) {
+      if (this.y <= 0.1) {
+        this.phantomY = 1;
+      } else {
+        this.phantomY += delta;
+      }
+    } else {
+      this.phantomZ += delta;
+    }
+  }
+
+  _displayPhantomBlock() {
+    this._setPhantomXYZ();
+    this._addShapeToCompoundBody();
+  }
+
+  _addShapeToCompoundBody() {
+    if (this.phantomShape) {
+      this.compoundBody.removeShape(this.phantomShape);
+      console.log(this.compoundBody);
+    }
+    this.phantomShape = new CANNON.Box(
+      new CANNON.Vec3(this.size * 0.5, this.size * 0.5, this.size * 0.5)
+    );
+    const xOffset = this.compoundBody.shapeOffsets[0].x;
+    const yOffset = this.compoundBody.shapeOffsets[0].y;
+    const zOffset = this.compoundBody.shapeOffsets[0].z;
+    this.compoundBody.addShape(
+      this.phantomShape,
+      new CANNON.Vec3(
+        this.phantomX * this.size + xOffset,
+        this.phantomY * this.size + yOffset,
+        this.phantomZ * this.size + zOffset
+      )
+    );
+  }
+
+  _acceptPhantomBlock(x, y, z) {
+    this._addShapeToCompoundBody(x, y, z);
+    this._updateCenterOfMass();
   }
 
   _addCompoundBody() {
-    const size = 1;
-    const mass = 10;
     const shape = new CANNON.Box(
-      new CANNON.Vec3(size * 0.5, size * 0.5, size * 0.5)
+      new CANNON.Vec3(this.size * 0.5, this.size * 0.5, this.size * 0.5)
     );
     const slipperyMaterial = new CANNON.Material('slippery');
     slipperyMaterial.friction = 0.01;
 
-    this.compoundBody = new CANNON.Body({ mass, material: slipperyMaterial });
+    this.compoundBody = new CANNON.Body({
+      mass: this.mass,
+      material: slipperyMaterial,
+    });
     this.compoundBody.position.set(0, 0, 0);
     this.compoundBody.quaternion.setFromEuler(0, 0, 0);
 
