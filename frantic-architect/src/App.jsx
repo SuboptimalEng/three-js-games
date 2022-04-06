@@ -12,6 +12,7 @@ function App() {
     test.initialize();
     test.animate();
 
+    // instantiate gravity
     const world = new CANNON.World({
       gravity: new CANNON.Vec3(0, -10, 0),
     });
@@ -22,11 +23,6 @@ function App() {
     const groundShape = new CANNON.Box(new CANNON.Vec3(1.5, 0.25, 1.5));
     const groundBody = new CANNON.Body({ mass: 0, material: groundMaterial });
     groundBody.addShape(groundShape);
-    groundBody.addShape(groundShape);
-    // const groundBody = new CANNON.Body({
-    //   type: CANNON.Body.STATIC,
-    //   shape: groundShape,
-    // });
     groundBody.quaternion.setFromEuler(0, 0, 0);
     groundBody.position.set(0, -2, 0);
     world.addBody(groundBody);
@@ -38,6 +34,7 @@ function App() {
     const compoundBody = new CANNON.Body({ mass, material: slipperyMaterial });
     compoundBody.position.set(0, 0, 0);
     compoundBody.quaternion.setFromEuler(0, 0, 0);
+
     const shape = new CANNON.Box(
       new CANNON.Vec3(size * 0.5, size * 0.5, size * 0.5)
     );
@@ -48,22 +45,12 @@ function App() {
     compoundBody.addShape(shape, new CANNON.Vec3(0, 0, -2 * size));
     compoundBody.addShape(shape, new CANNON.Vec3(0, 0, -3 * size));
     compoundBody.addShape(shape, new CANNON.Vec3(0, 0, -4 * size));
-    // compoundBody.addShape(shape, new CANNON.Vec3(-2 * size, size, 0));
-    // compoundBody.addShape(shape, new CANNON.Vec3(-3 * size, size, 0));
-    // compoundBody.addShape(shape, new CANNON.Vec3(-3 * size, 2 * size, 0));
-    // compoundBody.addShape(shape, new CANNON.Vec3(-2 * size, 2 * size, 0));
-    // compoundBody.addShape(shape, new CANNON.Vec3(-1 * size, 2 * size, 0));
-    // compoundBody.addShape(shape, new CANNON.Vec3(0 * size, 2 * size, 0));
-    // compoundBody.addShape(shape, new CANNON.Vec3(0 * size, 2 * size, size));
-    // compoundBody.addShape(shape, new CANNON.Vec3(0 * size, 2 * size, 2 * size));
-    // compoundBody.addShape(shape, new CANNON.Vec3(0 * size, 2 * size, 3 * size));
-    // compoundBody.addShape(shape, new CANNON.Vec3(size, 0, 0));
 
     world.addBody(compoundBody);
 
-    var updateCOM = function (body) {
+    const updateCOM = function (body) {
       // first calculate the center of mass
-      var com = new CANNON.Vec3();
+      const com = new CANNON.Vec3();
       // console.log(com);
       // debugger;
       body.shapeOffsets.forEach(function (offset) {
@@ -80,7 +67,7 @@ function App() {
       });
 
       // now move the body so the shapes' net displacement is 0
-      var worldCOM = new CANNON.Vec3();
+      const worldCOM = new CANNON.Vec3();
       body.vectorToWorldFrame(com, worldCOM);
       body.position.vadd(worldCOM, body.position);
     };
@@ -102,10 +89,22 @@ function App() {
     let x = 0;
     let y = 1;
     let z = 1;
+
+    const randomizePhantomBlock = () => {
+      const axis = Math.floor(Math.random() * 3);
+      const direction = Math.floor(Math.random() * 2) === 0 ? 1 : -1;
+      displayPhantomBlock(x, y, z);
+      if (axis === 0) {
+        x = x + direction;
+      } else if (axis === 1) {
+        y = y + direction;
+      } else {
+        z = z + direction;
+      }
+    };
+
     const onKeyDown = (event) => {
       if (event.code === 'Space') {
-        // displayPhantomBlock(x, y, z);
-        // world.removeBody(compoundBody);
         let xOffset = compoundBody.shapeOffsets[0].x;
         let yOffset = compoundBody.shapeOffsets[0].y;
         let zOffset = compoundBody.shapeOffsets[0].z;
@@ -117,29 +116,26 @@ function App() {
             z * size + zOffset
           )
         );
-        // compoundBody.addShape(shape, new CANNON.Vec3(0 * size, 2 * size, 0));
         updateCOM(compoundBody);
-        // world.addBody(compoundBody);
-        // y++;
-        z++;
+        randomizePhantomBlock(x, y, z);
       }
     };
 
-    // const geometry = new THREE.BoxGeometry(1, 1, 1);
-    // const material = new THREE.MeshNormalMaterial({ wireframe: true });
-    // const mesh = new THREE.Mesh(geometry, material);
-    // let phantomBlock = mesh;
-    // const displayPhantomBlock = (x, y, z) => {
-    //   test.scene.remove(phantomBlock);
-    //   const geometry = new THREE.BoxGeometry(1, 1, 1);
-    //   const material = new THREE.MeshNormalMaterial({ wireframe: true });
-    //   const mesh = new THREE.Mesh(geometry, material);
-    //   mesh.position.x = x;
-    //   mesh.position.y = y;
-    //   mesh.position.z = z;
-    //   phantomBlock = mesh;
-    //   test.scene.add(phantomBlock);
-    // };
+    const geometry = new THREE.BoxGeometry(1, 1, 1);
+    const material = new THREE.MeshNormalMaterial({ wireframe: true });
+    const mesh = new THREE.Mesh(geometry, material);
+    let phantomBlock = mesh;
+    const displayPhantomBlock = (x, y, z) => {
+      test.scene.remove(phantomBlock);
+      const geometry = new THREE.BoxGeometry(1, 1, 1);
+      const material = new THREE.MeshNormalMaterial();
+      const mesh = new THREE.Mesh(geometry, material);
+      mesh.position.x = x;
+      mesh.position.y = y - 1.25;
+      mesh.position.z = z;
+      phantomBlock = mesh;
+      test.scene.add(phantomBlock);
+    };
 
     window.addEventListener('keydown', onKeyDown);
 
