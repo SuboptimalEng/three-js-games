@@ -28,21 +28,6 @@ function App() {
     };
     animate();
 
-    // instantiate gravity
-    // const world = new CANNON.World({
-    //   gravity: new CANNON.Vec3(0, -10, 0),
-    // });
-
-    // add ground
-    // const groundMaterial = new CANNON.Material('ground');
-    // groundMaterial.friction = 0.5;
-    // const groundShape = new CANNON.Box(new CANNON.Vec3(1.5, 0.25, 1.5));
-    // const groundBody = new CANNON.Body({ mass: 0, material: groundMaterial });
-    // groundBody.addShape(groundShape);
-    // groundBody.quaternion.setFromEuler(0, 0, 0);
-    // groundBody.position.set(0, -2, 0);
-    // world.addBody(groundBody);
-
     // const size = 1;
     // const mass = 10;
     // const slipperyMaterial = new CANNON.Material('slippery');
@@ -89,7 +74,6 @@ function App() {
     // };
 
     // // updateCOM(compoundBody);
-
     // let x = 0;
     // let y = 1;
     // let z = 1;

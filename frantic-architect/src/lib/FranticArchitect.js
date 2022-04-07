@@ -21,7 +21,10 @@ export default class FranticArchitect {
     this.gameLoopLength = 0.5;
     this.currentLoopLength = 0;
 
-    this.world = new CANNON.World({ gravity: new CANNON.Vec3(0, -10, 0) });
+    this.phantomShape = undefined;
+    this.world = new CANNON.World({
+      gravity: new CANNON.Vec3(0, -10, 0),
+    });
     this._addGround();
     this._addCompoundBody();
 
@@ -38,15 +41,12 @@ export default class FranticArchitect {
     }
   }
 
-  _addGround() {
-    const groundMaterial = new CANNON.Material('ground');
-    groundMaterial.friction = 0.5;
-    const groundShape = new CANNON.Box(new CANNON.Vec3(1.5, 0.5, 1.5));
-    const groundBody = new CANNON.Body({ mass: 0, material: groundMaterial });
-    groundBody.addShape(groundShape);
-    groundBody.quaternion.setFromEuler(0, 0, 0);
-    groundBody.position.set(0, -1, 0);
-    this.world.addBody(groundBody);
+  acceptPhantomBlock() {
+    this._updateXYZ();
+    this._addExistingBlock();
+    this._updateCenterOfMass();
+    this.phantomBlockAccepted = true;
+    this.currentLoopLength = this.gameLoopLength + 1;
   }
 
   _updateCenterOfMass() {
@@ -62,7 +62,7 @@ export default class FranticArchitect {
     // console.log(com);
     // move the shapes so the body origin is at the COM
     this.compoundBody.shapeOffsets.forEach(function (offset) {
-      console.log(offset);
+      // console.log(offset);
       offset.vsub(com, offset);
     });
     // now move the body so the shapes' net displacement is 0
@@ -107,23 +107,28 @@ export default class FranticArchitect {
 
   _displayPhantomBlock() {
     this._randomizePhantomXYZ();
-    this._addShapeToCompoundBody();
-  }
 
-  _addShapeToCompoundBody() {
     if (this.phantomBlockAccepted) {
       this.phantomBlockAccepted = false;
-      console.log(this.existingBlocks);
+      // console.log(this.existingBlocks);
+      console.log(this.compoundBody.shapeOffsets);
     } else {
       // NOTE: This fails with a warning on the first run.
       this.compoundBody.removeShape(this.phantomShape);
     }
+
     this.phantomShape = new CANNON.Box(
       new CANNON.Vec3(this.size * 0.5, this.size * 0.5, this.size * 0.5)
     );
+
+    // NOTE: When we update the center of mass of the compound body,
+    // the shape offset of each child object changes. All of them have the
+    // same offset, so when we create the phantom block, we add this offset
+    // to the block as well.
     const xOffset = this.compoundBody.shapeOffsets[0].x;
     const yOffset = this.compoundBody.shapeOffsets[0].y;
     const zOffset = this.compoundBody.shapeOffsets[0].z;
+
     this.compoundBody.addShape(
       this.phantomShape,
       new CANNON.Vec3(
@@ -148,14 +153,6 @@ export default class FranticArchitect {
 
   _addExistingBlock() {
     this.existingBlocks.push({ x: this.x, y: this.y, z: this.z });
-  }
-
-  acceptPhantomBlock() {
-    this._updateXYZ();
-    this._addExistingBlock();
-    this._updateCenterOfMass();
-    this.phantomBlockAccepted = true;
-    this.currentLoopLength = this.gameLoopLength + 1;
   }
 
   _addCompoundBody() {
@@ -183,11 +180,15 @@ export default class FranticArchitect {
     this.world.addBody(this.compoundBody);
   }
 
-  onKeyDown(event) {
-    if (event.code === 'Space') {
-      console.log('Space');
-      this._acceptPhantomBlock();
-    }
+  _addGround() {
+    const groundMaterial = new CANNON.Material('ground');
+    groundMaterial.friction = 0.5;
+    const groundShape = new CANNON.Box(new CANNON.Vec3(1.5, 0.5, 1.5));
+    const groundBody = new CANNON.Body({ mass: 0, material: groundMaterial });
+    groundBody.addShape(groundShape);
+    groundBody.quaternion.setFromEuler(0, 0, 0);
+    groundBody.position.set(0, -1, 0);
+    this.world.addBody(groundBody);
   }
 
   _initGame() {
