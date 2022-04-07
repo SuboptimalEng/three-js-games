@@ -41,14 +41,6 @@ export default class FranticArchitect {
     }
   }
 
-  acceptPhantomBlock() {
-    this._updateXYZ();
-    this._addExistingBlock();
-    this._updateCenterOfMass();
-    this.phantomBlockAccepted = true;
-    this.currentLoopLength = this.gameLoopLength + 1;
-  }
-
   _updateCenterOfMass() {
     // first calculate the center of mass
     const com = new CANNON.Vec3();
@@ -149,6 +141,14 @@ export default class FranticArchitect {
     this.x = this.phantomX;
     this.y = this.phantomY;
     this.z = this.phantomZ;
+  }
+
+  acceptPhantomBlock() {
+    this._updateXYZ();
+    this._addExistingBlock();
+    this._updateCenterOfMass();
+    this.phantomBlockAccepted = true;
+    this.currentLoopLength = this.gameLoopLength + 1;
   }
 
   _addExistingBlock() {
