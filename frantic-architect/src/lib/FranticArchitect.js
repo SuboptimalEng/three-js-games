@@ -14,6 +14,7 @@ export default class FranticArchitect {
     // compound body settings
     this.size = 1;
     this.mass = 10;
+    this.phantomBlockAccepted = false;
 
     // game loop settings
     this.gameLoopLength = 0.5;
@@ -99,9 +100,11 @@ export default class FranticArchitect {
   }
 
   _addShapeToCompoundBody() {
-    if (this.phantomShape) {
+    if (this.phantomBlockAccepted) {
+      this.phantomBlockAccepted = false;
+    } else {
+      // NOTE: This fails with a warning on the first run.
       this.compoundBody.removeShape(this.phantomShape);
-      console.log(this.compoundBody);
     }
     this.phantomShape = new CANNON.Box(
       new CANNON.Vec3(this.size * 0.5, this.size * 0.5, this.size * 0.5)
@@ -128,6 +131,7 @@ export default class FranticArchitect {
   acceptPhantomBlock() {
     this._updateXYZ();
     this._updateCenterOfMass();
+    this.phantomBlockAccepted = true;
     this.currentLoopLength = this.gameLoopLength + 1;
   }
 
