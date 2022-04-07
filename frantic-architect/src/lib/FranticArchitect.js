@@ -14,6 +14,7 @@ export default class FranticArchitect {
     // compound body settings
     this.size = 1;
     this.mass = 10;
+    this.existingBlocks = [];
     this.phantomBlockAccepted = false;
 
     // game loop settings
@@ -70,38 +71,49 @@ export default class FranticArchitect {
     this.compoundBody.position.vadd(worldCOM, this.compoundBody.position);
   }
 
-  _resetPhantomXYZ() {
-    this.phantomX = this.x;
-    this.phantomY = this.y;
-    this.phantomZ = this.z;
-  }
-
-  _setPhantomXYZ() {
+  _randomizePhantomXYZ() {
     this._resetPhantomXYZ();
-    const axis = Math.floor(Math.random() * 3);
-    const direction = Math.floor(Math.random() * 2);
-    const delta = direction === 0 ? 1 : -1;
-    if (axis === 0) {
-      this.phantomX += delta;
-    } else if (axis === 1) {
-      if (this.y <= 0.1) {
-        this.phantomY = 1;
+    const r = () => {
+      const axis = Math.floor(Math.random() * 3);
+      const direction = Math.floor(Math.random() * 2);
+      const delta = direction === 0 ? 1 : -1;
+      if (axis === 0) {
+        this.phantomX += delta;
+      } else if (axis === 1) {
+        if (this.y <= 0.1) {
+          this.phantomY = 1;
+        } else {
+          this.phantomY += delta;
+        }
       } else {
-        this.phantomY += delta;
+        this.phantomZ += delta;
       }
-    } else {
-      this.phantomZ += delta;
+    };
+    r();
+    const blockAlreadyExists = () => {
+      return this.existingBlocks.some((block) => {
+        return (
+          block.x === this.phantomX &&
+          block.y === this.phantomY &&
+          block.z === this.phantomZ
+        );
+      });
+    };
+    while (blockAlreadyExists()) {
+      this._resetPhantomXYZ();
+      r();
     }
   }
 
   _displayPhantomBlock() {
-    this._setPhantomXYZ();
+    this._randomizePhantomXYZ();
     this._addShapeToCompoundBody();
   }
 
   _addShapeToCompoundBody() {
     if (this.phantomBlockAccepted) {
       this.phantomBlockAccepted = false;
+      console.log(this.existingBlocks);
     } else {
       // NOTE: This fails with a warning on the first run.
       this.compoundBody.removeShape(this.phantomShape);
@@ -122,14 +134,25 @@ export default class FranticArchitect {
     );
   }
 
+  _resetPhantomXYZ() {
+    this.phantomX = this.x;
+    this.phantomY = this.y;
+    this.phantomZ = this.z;
+  }
+
   _updateXYZ() {
     this.x = this.phantomX;
     this.y = this.phantomY;
     this.z = this.phantomZ;
   }
 
+  _addExistingBlock() {
+    this.existingBlocks.push({ x: this.x, y: this.y, z: this.z });
+  }
+
   acceptPhantomBlock() {
     this._updateXYZ();
+    this._addExistingBlock();
     this._updateCenterOfMass();
     this.phantomBlockAccepted = true;
     this.currentLoopLength = this.gameLoopLength + 1;
@@ -150,6 +173,7 @@ export default class FranticArchitect {
     this.compoundBody.quaternion.setFromEuler(0, 0, 0);
 
     this.compoundBody.addShape(shape, new CANNON.Vec3(this.x, this.y, this.z));
+    this._addExistingBlock();
     // this.compoundBody.addShape(shape, new CANNON.Vec3(-size, 0, 0));
     // this.compoundBody.addShape(shape, new CANNON.Vec3(0, 0, -size));
     // this.compoundBody.addShape(shape, new CANNON.Vec3(0, 0, -2 * size));
