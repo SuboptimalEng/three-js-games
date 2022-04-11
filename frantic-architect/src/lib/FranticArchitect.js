@@ -33,8 +33,9 @@ export default class FranticArchitect {
     this._addGround();
     this._addCompoundBody();
 
-    // this.gg = new THREE.Group();
-    // this._initGame();
+    this.gg = new THREE.Group();
+    this._initGame();
+    this._renderInitialBlock();
   }
 
   update(dt) {
@@ -102,12 +103,22 @@ export default class FranticArchitect {
     }
   }
 
+  addBlockToScene(x, y, z) {
+    const geometery = new THREE.BoxGeometry(1, 1, 1);
+    const material = new THREE.MeshPhongMaterial({ color: 0xfafafa });
+    const mesh = new THREE.Mesh(geometery, material);
+    mesh.position.x = x;
+    mesh.position.y = y;
+    mesh.position.z = z;
+    this.compoundShapeGroup.add(mesh);
+  }
+
   _displayPhantomBlock() {
     this._randomizePhantomXYZ();
 
     if (this.phantomBlockAccepted) {
       this.phantomBlockAccepted = false;
-      // console.log(this.existingBlocks);
+      this.addBlockToScene(this.x, this.y, this.z);
       console.log(this.compoundBody.shapeOffsets);
     } else {
       // NOTE: This fails with a warning on the first run.
@@ -160,6 +171,33 @@ export default class FranticArchitect {
     this.existingBlocks.push({ x: this.x, y: this.y, z: this.z });
   }
 
+  _renderInitialBlock() {
+    this.compoundShapeGroup = new THREE.Group();
+    const initialBlockGeometry = new THREE.BoxGeometry(1, 1, 1);
+    const initialBlockMaterial = new THREE.MeshPhongMaterial({
+      color: 0xfafafa,
+    });
+    const initialBlockMesh = new THREE.Mesh(
+      initialBlockGeometry,
+      initialBlockMaterial
+    );
+    this.compoundShapeGroup.add(initialBlockMesh);
+    this.gg.add(this.compoundShapeGroup);
+  }
+
+  animateCompoundShapeGroup() {
+    this.compoundShapeGroup.position.copy(this.compoundBody.position);
+    this.compoundShapeGroup.quaternion.copy(this.compoundBody.quaternion);
+
+    // NOTE: https://github.dev/pmndrs/cannon-es/blob/master/examples/compound.html
+    this.compoundShapeGroup.children.forEach((mesh, i) => {
+      const offset = this.compoundBody.shapeOffsets[i];
+      const orientation = this.compoundBody.shapeOrientations[i];
+      mesh.position.copy(offset);
+      mesh.quaternion.copy(orientation);
+    });
+  }
+
   _addCompoundBody() {
     const shape = new CANNON.Box(
       new CANNON.Vec3(this.size * 0.5, this.size * 0.5, this.size * 0.5)
@@ -197,9 +235,10 @@ export default class FranticArchitect {
   }
 
   _initGame() {
-    const boxGeometry = new THREE.BoxGeometry(16, 16, 16);
-    const boxMaterial = new THREE.MeshNormalMaterial();
+    const boxGeometry = new THREE.BoxGeometry(3, 1, 3);
+    const boxMaterial = new THREE.MeshPhongMaterial({ color: 0x218200 });
     const boxMesh = new THREE.Mesh(boxGeometry, boxMaterial);
+    boxMesh.position.y = -1;
     this.gg.add(boxMesh);
   }
 }

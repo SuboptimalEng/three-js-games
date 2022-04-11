@@ -9,10 +9,14 @@ import FranticArchitect from './lib/FranticArchitect';
 
 function App() {
   useEffect(() => {
+    const showGame = true;
     const test = new SceneInit('myThreeJsCanvas');
     test.initialize();
 
     const franticArchitect = new FranticArchitect();
+    if (showGame) {
+      test.scene.add(franticArchitect.gg);
+    }
     const cannonDebugger = new CannonDebugger(
       test.scene,
       franticArchitect.world
@@ -20,8 +24,8 @@ function App() {
 
     const gui = new GUI();
     gui
-      .add(test, 'cameraRotationDepth', 25, 100)
-      .name('Cam Distance')
+      .add(test, 'cameraRotationDepth', 5, 100)
+      .name('Camera Distance')
       .onChange((value) => {
         // TODO: Change camera position every 10 units.
         // const newY = Math.round((value / 10) % 5) + 5;
@@ -38,6 +42,7 @@ function App() {
       test.stats.update();
       cannonDebugger.update();
       franticArchitect.update(dt);
+      franticArchitect.animateCompoundShapeGroup();
 
       // NOTE: Don't allow user to control camera.
       // test.controls.update();

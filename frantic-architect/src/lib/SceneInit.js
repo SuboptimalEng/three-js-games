@@ -10,7 +10,7 @@ export default class SceneInit {
     this.scene = undefined;
     this.camera = undefined;
     this.renderer = undefined;
-    this.cameraRotationDepth = 25;
+    this.cameraRotationDepth = 20;
 
     // NOTE: Camera params;
     this.fov = 45;
@@ -39,7 +39,6 @@ export default class SceneInit {
       1000
     );
     this.camera.position.y = 4;
-    this.camera.position.z = 10;
 
     // NOTE: Specify a canvas which is already created in the HTML.
     const canvas = document.getElementById(this.canvasId);
@@ -107,8 +106,7 @@ export default class SceneInit {
     const cosZ = Math.cos(0.25 * this.clock.getElapsedTime());
     this.camera.position.x = this.cameraRotationDepth * sinX;
     this.camera.position.z = this.cameraRotationDepth * cosZ;
-    this.camera.position.y = 5;
-    this.camera.lookAt(new THREE.Vector3(0, 5, 0));
+    this.camera.lookAt(new THREE.Vector3(0, 2, 0));
   }
 
   onWindowResize() {
