@@ -10,6 +10,7 @@
   "dependencies": {
     "cannon-es": "^0.19.0",
     "cannon-es-debugger": "^1.0.0",
+    "dat.gui": "^0.7.9",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "three": "^0.138.3"

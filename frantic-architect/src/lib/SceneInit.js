@@ -10,6 +10,7 @@ export default class SceneInit {
     this.scene = undefined;
     this.camera = undefined;
     this.renderer = undefined;
+    this.cameraRotationDepth = 25;
 
     // NOTE: Camera params;
     this.fov = 45;
@@ -104,8 +105,8 @@ export default class SceneInit {
   udpateCameraPosition() {
     const sinX = Math.sin(0.25 * this.clock.getElapsedTime());
     const cosZ = Math.cos(0.25 * this.clock.getElapsedTime());
-    this.camera.position.x = 25 * sinX;
-    this.camera.position.z = 25 * cosZ;
+    this.camera.position.x = this.cameraRotationDepth * sinX;
+    this.camera.position.z = this.cameraRotationDepth * cosZ;
     this.camera.position.y = 5;
     this.camera.lookAt(new THREE.Vector3(0, 5, 0));
   }

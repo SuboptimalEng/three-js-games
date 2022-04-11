@@ -1,4 +1,4 @@
-import * as Three from 'three';
+import * as THREE from 'three';
 import * as CANNON from 'cannon-es';
 
 export default class FranticArchitect {
@@ -33,7 +33,7 @@ export default class FranticArchitect {
     this._addGround();
     this._addCompoundBody();
 
-    // this.gg = new Three.Group();
+    // this.gg = new THREE.Group();
     // this._initGame();
   }
 
@@ -74,17 +74,18 @@ export default class FranticArchitect {
       const axis = Math.floor(Math.random() * 3);
       const direction = Math.floor(Math.random() * 2);
       const delta = direction === 0 ? 1 : -1;
-      if (axis === 0) {
-        this.phantomX += delta;
-      } else if (axis === 1) {
-        if (this.y <= 0.1) {
-          this.phantomY = 1;
-        } else {
-          this.phantomY += delta;
-        }
-      } else {
-        this.phantomZ += delta;
-      }
+      // if (axis === 0) {
+      //   this.phantomX += delta;
+      // } else if (axis === 1) {
+      //   if (this.y <= 0.1) {
+      //     this.phantomY = 1;
+      //   } else {
+      //     this.phantomY += delta;
+      //   }
+      // } else {
+      //   this.phantomZ += delta;
+      // }
+      this.phantomY += 1;
     };
     r();
     const blockAlreadyExists = () => {
@@ -197,9 +198,9 @@ export default class FranticArchitect {
   }
 
   _initGame() {
-    const boxGeometry = new Three.BoxGeometry(16, 16, 16);
-    const boxMaterial = new Three.MeshNormalMaterial();
-    const boxMesh = new Three.Mesh(boxGeometry, boxMaterial);
+    const boxGeometry = new THREE.BoxGeometry(16, 16, 16);
+    const boxMaterial = new THREE.MeshNormalMaterial();
+    const boxMesh = new THREE.Mesh(boxGeometry, boxMaterial);
     this.gg.add(boxMesh);
   }
 }

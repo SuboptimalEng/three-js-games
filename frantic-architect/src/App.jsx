@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
 
+import { GUI } from 'dat.gui';
+import * as THREE from 'three';
 import CannonDebugger from 'cannon-es-debugger';
 
 import SceneInit from './lib/SceneInit';
@@ -15,6 +17,19 @@ function App() {
       test.scene,
       franticArchitect.world
     );
+
+    const gui = new GUI();
+    gui
+      .add(test, 'cameraRotationDepth', 25, 100)
+      .name('Camera Distance')
+      .onChange((value) => {
+        // TODO: Change camera position every 10 units.
+        // const newY = Math.round((value / 10) % 5) + 5;
+        // if (test.camera.position.y !== newY) {
+        //   test.camera.lookAt(new THREE.Vector3(0, newY, 0));
+        //   test.camera.position.y = newY;
+        // }
+      });
 
     const animate = () => {
       const dt = test.clock.getDelta();
