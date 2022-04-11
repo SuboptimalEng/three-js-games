@@ -21,7 +21,7 @@ function App() {
     const gui = new GUI();
     gui
       .add(test, 'cameraRotationDepth', 25, 100)
-      .name('Camera Distance')
+      .name('Cam Distance')
       .onChange((value) => {
         // TODO: Change camera position every 10 units.
         // const newY = Math.round((value / 10) % 5) + 5;
