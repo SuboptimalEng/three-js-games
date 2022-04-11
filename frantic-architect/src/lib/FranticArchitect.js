@@ -11,6 +11,11 @@ export default class FranticArchitect {
     this.phantomY = 0;
     this.phantomZ = 0;
 
+    // ground coordinates
+    this.groundX = 0;
+    this.groundY = -1;
+    this.groundZ = 0;
+
     // compound body settings
     this.size = 1;
     this.mass = 10;
@@ -64,7 +69,7 @@ export default class FranticArchitect {
   }
 
   _randomizePhantomXYZ() {
-    this._resetPhantomXYZ();
+    this._updatePhantomXYZ();
     const r = () => {
       const axis = Math.floor(Math.random() * 3);
       const direction = Math.floor(Math.random() * 2);
@@ -92,7 +97,7 @@ export default class FranticArchitect {
       });
     };
     while (blockAlreadyExists()) {
-      this._resetPhantomXYZ();
+      this._updatePhantomXYZ();
       r();
     }
   }
@@ -131,7 +136,7 @@ export default class FranticArchitect {
     );
   }
 
-  _resetPhantomXYZ() {
+  _updatePhantomXYZ() {
     this.phantomX = this.x;
     this.phantomY = this.y;
     this.phantomZ = this.z;
@@ -187,7 +192,7 @@ export default class FranticArchitect {
     const groundBody = new CANNON.Body({ mass: 0, material: groundMaterial });
     groundBody.addShape(groundShape);
     groundBody.quaternion.setFromEuler(0, 0, 0);
-    groundBody.position.set(0, -1, 0);
+    groundBody.position.set(this.groundX, this.groundY, this.groundZ);
     this.world.addBody(groundBody);
   }
 

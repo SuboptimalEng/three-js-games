@@ -1,6 +1,8 @@
 import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import Stats from 'three/examples/jsm/libs/stats.module';
+
+// NOTE: Don't allow user to control camera.
+// import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 export default class SceneInit {
   constructor(canvasId) {
@@ -18,7 +20,9 @@ export default class SceneInit {
     // NOTE: Additional components.
     this.clock = undefined;
     this.stats = undefined;
-    this.controls = undefined;
+
+    // NOTE: Don't allow user to control camera.
+    // this.controls = undefined;
 
     // NOTE: Lighting is basically required.
     this.ambientLight = undefined;
@@ -34,7 +38,7 @@ export default class SceneInit {
       1000
     );
     this.camera.position.y = 4;
-    this.camera.position.z = 16;
+    this.camera.position.z = 10;
 
     // NOTE: Specify a canvas which is already created in the HTML.
     const canvas = document.getElementById(this.canvasId);
@@ -48,9 +52,11 @@ export default class SceneInit {
     document.body.appendChild(this.renderer.domElement);
 
     this.clock = new THREE.Clock();
-    this.controls = new OrbitControls(this.camera, this.renderer.domElement);
     this.stats = Stats();
     document.body.appendChild(this.stats.dom);
+
+    // NOTE: Don't allow user to control camera.
+    // this.controls = new OrbitControls(this.camera, this.renderer.domElement);
 
     // ambient light which is for the whole scene
     this.ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
@@ -84,13 +90,24 @@ export default class SceneInit {
     window.requestAnimationFrame(this.animate.bind(this));
     this.render();
     this.stats.update();
-    this.controls.update();
+
+    // NOTE: Don't allow user to control camera.
+    // this.controls.update();
   }
 
   render() {
     // NOTE: Update uniform data on each render.
     // this.uniforms.u_time.value += this.clock.getDelta();
     this.renderer.render(this.scene, this.camera);
+  }
+
+  udpateCameraPosition() {
+    const sinX = Math.sin(0.25 * this.clock.getElapsedTime());
+    const cosZ = Math.cos(0.25 * this.clock.getElapsedTime());
+    this.camera.position.x = 25 * sinX;
+    this.camera.position.z = 25 * cosZ;
+    this.camera.position.y = 5;
+    this.camera.lookAt(new THREE.Vector3(0, 5, 0));
   }
 
   onWindowResize() {

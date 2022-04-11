@@ -21,9 +21,13 @@ function App() {
 
       test.render();
       test.stats.update();
-      test.controls.update();
       cannonDebugger.update();
       franticArchitect.update(dt);
+
+      // NOTE: Don't allow user to control camera.
+      // test.controls.update();
+      test.udpateCameraPosition();
+
       requestAnimationFrame(animate);
     };
     animate();
@@ -44,15 +48,21 @@ function App() {
     //   test.scene.add(phantomBlock);
     // };
 
+    const onClick = (event) => {
+      franticArchitect.acceptPhantomBlock();
+    };
+
     const onKeyDown = (event) => {
       if (event.code === 'Space') {
         franticArchitect.acceptPhantomBlock();
       }
     };
 
+    window.addEventListener('click', onClick);
     window.addEventListener('keydown', onKeyDown);
 
     return () => {
+      window.removeEventListener('click', onClick);
       window.removeEventListener('keydown', onKeyDown);
     };
   }, []);
