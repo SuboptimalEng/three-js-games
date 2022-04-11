@@ -74,18 +74,17 @@ export default class FranticArchitect {
       const axis = Math.floor(Math.random() * 3);
       const direction = Math.floor(Math.random() * 2);
       const delta = direction === 0 ? 1 : -1;
-      // if (axis === 0) {
-      //   this.phantomX += delta;
-      // } else if (axis === 1) {
-      //   if (this.y <= 0.1) {
-      //     this.phantomY = 1;
-      //   } else {
-      //     this.phantomY += delta;
-      //   }
-      // } else {
-      //   this.phantomZ += delta;
-      // }
-      this.phantomY += 1;
+      if (axis === 0) {
+        this.phantomX += delta;
+      } else if (axis === 1) {
+        if (this.y <= 0.1) {
+          this.phantomY = 1;
+        } else {
+          this.phantomY += delta;
+        }
+      } else {
+        this.phantomZ += delta;
+      }
     };
     r();
     const blockAlreadyExists = () => {
