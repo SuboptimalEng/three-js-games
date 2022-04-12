@@ -30,6 +30,7 @@ npm run dev
 👉 This is a clone of Frantic Architect - a mobile game made by [Will Kwan](https://twitter.com/_willkwan).
 
 <img src="/_demos/frantic-architect-2.png">
+<img src="/_demos/fa-debug-2.png">
 
 ## Retro Snake - [Demo](https://twitter.com/SuboptimalEng/status/1492319950849155073?s=20&t=vPsvcyCzeLn53K8Ogi8E5Q)
 

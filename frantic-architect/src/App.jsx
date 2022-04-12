@@ -40,7 +40,7 @@ function App() {
 
       test.render();
       test.stats.update();
-      // cannonDebugger.update();
+      cannonDebugger.update();
       franticArchitect.update(dt);
       franticArchitect.animatePhantomGroup();
       franticArchitect.animateCompoundShapeGroup();
