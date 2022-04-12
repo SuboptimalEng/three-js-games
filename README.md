@@ -27,7 +27,7 @@ npm run dev
 
 ## Frantic Architect - Demo
 
-👉 This is the clone of Frantic Architect, a mobile game made by [Will Kwan](https://twitter.com/_willkwan).
+👉 This is a clone of Frantic Architect - a mobile game made by [Will Kwan](https://twitter.com/_willkwan).
 
 <img src="/_demos/frantic-architect-2.png">
 
