@@ -9,14 +9,11 @@ import FranticArchitect from './lib/FranticArchitect';
 
 function App() {
   useEffect(() => {
-    const showGame = true;
     const test = new SceneInit('myThreeJsCanvas');
     test.initialize();
 
     const franticArchitect = new FranticArchitect();
-    if (showGame) {
-      test.scene.add(franticArchitect.gg);
-    }
+    test.scene.add(franticArchitect.gg);
     const cannonDebugger = new CannonDebugger(
       test.scene,
       franticArchitect.world
@@ -52,22 +49,6 @@ function App() {
       requestAnimationFrame(animate);
     };
     animate();
-
-    // const geometry = new THREE.BoxGeometry(1, 1, 1);
-    // const material = new THREE.MeshNormalMaterial({ wireframe: true });
-    // const mesh = new THREE.Mesh(geometry, material);
-    // let phantomBlock = mesh;
-    // const displayPhantomBlock = (x, y, z) => {
-    //   test.scene.remove(phantomBlock);
-    //   const geometry = new THREE.BoxGeometry(1, 1, 1);
-    //   const material = new THREE.MeshNormalMaterial();
-    //   const mesh = new THREE.Mesh(geometry, material);
-    //   mesh.position.x = x;
-    //   mesh.position.y = y - 1.25;
-    //   mesh.position.z = z;
-    //   phantomBlock = mesh;
-    //   test.scene.add(phantomBlock);
-    // };
 
     const onClick = (event) => {
       franticArchitect.acceptPhantomBlock();
