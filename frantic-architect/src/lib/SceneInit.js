@@ -10,7 +10,7 @@ export default class SceneInit {
     this.scene = undefined;
     this.camera = undefined;
     this.renderer = undefined;
-    this.cameraRotationDepth = 20;
+    this.cameraRotationDepth = 12;
 
     // NOTE: Camera params;
     this.fov = 45;

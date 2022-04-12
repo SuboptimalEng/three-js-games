@@ -36,6 +36,7 @@ export default class FranticArchitect {
     this.gg = new THREE.Group();
     this._initGame();
     this._renderInitialBlock();
+    this._renderPhantomBlock();
   }
 
   update(dt) {
@@ -113,6 +114,23 @@ export default class FranticArchitect {
     this.compoundShapeGroup.add(mesh);
   }
 
+  _addPhantomBlock(x, y, z) {
+    const geometery = new THREE.BoxGeometry(1, 1, 1);
+    const material = new THREE.MeshPhongMaterial({
+      color: 0x61dbfb,
+      transparent: true,
+      opacity: 0.5,
+    });
+    this.phantomMesh = new THREE.Mesh(geometery, material);
+    const xOffset = this.compoundBody.shapeOffsets[0].x;
+    const yOffset = this.compoundBody.shapeOffsets[0].y;
+    const zOffset = this.compoundBody.shapeOffsets[0].z;
+    this.phantomMesh.position.x = x + xOffset;
+    this.phantomMesh.position.y = y + yOffset;
+    this.phantomMesh.position.z = z + zOffset;
+    this.phantomGroup.add(this.phantomMesh);
+  }
+
   _displayPhantomBlock() {
     this._randomizePhantomXYZ();
 
@@ -145,6 +163,8 @@ export default class FranticArchitect {
         this.phantomZ * this.size + zOffset
       )
     );
+    this.phantomGroup.remove(this.phantomMesh);
+    this._addPhantomBlock(this.phantomX, this.phantomY, this.phantomZ);
   }
 
   _updatePhantomXYZ() {
@@ -171,6 +191,11 @@ export default class FranticArchitect {
     this.existingBlocks.push({ x: this.x, y: this.y, z: this.z });
   }
 
+  _renderPhantomBlock() {
+    this.phantomGroup = new THREE.Group();
+    this.gg.add(this.phantomGroup);
+  }
+
   _renderInitialBlock() {
     this.compoundShapeGroup = new THREE.Group();
     const initialBlockGeometry = new THREE.BoxGeometry(1, 1, 1);
@@ -183,6 +208,18 @@ export default class FranticArchitect {
     );
     this.compoundShapeGroup.add(initialBlockMesh);
     this.gg.add(this.compoundShapeGroup);
+  }
+
+  animatePhantomGroup() {
+    this.phantomGroup.position.copy(this.compoundBody.position);
+    this.phantomGroup.quaternion.copy(this.compoundBody.quaternion);
+    // this.phantomGroup.children.forEach((mesh, i) => {
+    //   const offset = this.compoundBody.shapeOffsets[i];
+    //   const orientation = this.compoundBody.shapeOrientations[i];
+    //   console.log(offset, orientation);
+    //   mesh.position.copy(offset);
+    //   mesh.quaternion.copy(orientation);
+    // });
   }
 
   animateCompoundShapeGroup() {
