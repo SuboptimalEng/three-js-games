@@ -25,7 +25,7 @@ npm run dev
 
 # 🧪 Experiments
 
-## Frantic Architect - Demo
+## Frantic Architect - [Demo](https://twitter.com/SuboptimalEng/status/1514638959439228932?s=20&t=RpkyLBOetRIdc2PSdgLzmQ)
 
 👉 This is a clone of Frantic Architect - a mobile game made by [Will Kwan](https://twitter.com/_willkwan).
 
