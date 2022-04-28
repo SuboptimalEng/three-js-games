@@ -42,18 +42,17 @@ npm run dev
 👉 Grand piano music by [Borja Morales (reality3d)](https://github.com/reality3d/3d-piano-player) is licensed under [MIT](https://github.com/reality3d/3d-piano-player/blob/master/LICENSE).
 
 <img src="/_reddit/piano.png">
-<img src="/_demos/piano.png">
 
 ## Naruto's Rasengan - [Demo](https://twitter.com/SuboptimalEng/status/1471878925584322562?s=20&t=0tpf5oFjMqcWj6O-DB6txQ)
 
 👉 ["Hand Anatomy"](https://sketchfab.com/3d-models/hand-anatomy-ada8498be9754e9f90b2eecc1b4ef8c5) by [Caterina Zamai](https://www.artstation.com/zaccate) is licensed under [CC Attribution](https://creativecommons.org/licenses/by/4.0/).
 
-<img src="/_demos/naruto-rasengan.png">
+<img src="/_reddit/narutos-rasengan.png">
 
 ## Audio Visualizer - [Demo](https://twitter.com/SuboptimalEng/status/1466441813867302918?s=20&t=0tpf5oFjMqcWj6O-DB6txQ)
 
-<img src="/_demos/audio-waveform-1.png">
-<img src="/_demos/audio-waveform-2.png">
+<img src="/_demos/audio-visualizer-1.png">
+<img src="/_demos/audio-visualizer-2.png">
 
 ## 3D Tic-Tac-Toe - [Demo](https://twitter.com/SuboptimalEng/status/1463510451338321931?s=20&t=0tpf5oFjMqcWj6O-DB6txQ)
 
@@ -64,7 +63,6 @@ npm run dev
 
 <img src="/_reddit/tic-tac-toe.png">
 <img src="/_demos/tic-tac-toe-1.png">
-<img src="/_demos/tic-tac-toe-2.png">
 
 ## Solar System - [Demo](https://twitter.com/SuboptimalEng/status/1458473664442142725?s=20&t=0tpf5oFjMqcWj6O-DB6txQ)
 
