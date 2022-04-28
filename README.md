@@ -62,9 +62,10 @@ npm run dev
 
 ## Tic-Tac-Toe - [Demo](https://twitter.com/SuboptimalEng/status/1461358957935484945?s=20&t=0tpf5oFjMqcWj6O-DB6txQ)
 
+<img src="/_reddit/tic-tac-toe.png">
 <img src="/_demos/tic-tac-toe-1.png">
 <img src="/_demos/tic-tac-toe-2.png">
 
 ## Solar System - [Demo](https://twitter.com/SuboptimalEng/status/1458473664442142725?s=20&t=0tpf5oFjMqcWj6O-DB6txQ)
 
-<img src="/_demos/solar-system.png">
+<img src="/_reddit/solar-system.png">
