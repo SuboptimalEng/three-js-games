@@ -11,6 +11,12 @@ npm install
 npm run dev
 ```
 
+## Snakes and Portals - [Demo](https://twitter.com/SuboptimalEng/status/1555563350423126017?s=20&t=6nL7HzevakKsCmC6ysqFPw)
+
+👉 Snakes and portals is playable on [suboptimaleng.github.io](https://suboptimaleng.github.io).
+
+<img src="/_demos/snakes-and-portals.png">
+
 ## Frantic Architect - [Demo](https://twitter.com/SuboptimalEng/status/1514638959439228932?s=20&t=RpkyLBOetRIdc2PSdgLzmQ)
 
 👉 This is a clone of Frantic Architect - a mobile game made by [Will Kwan](https://twitter.com/_willkwan).
