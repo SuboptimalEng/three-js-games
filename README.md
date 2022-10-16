@@ -13,7 +13,8 @@ npm run dev
 
 ## Snakes and Portals - [Demo](https://twitter.com/SuboptimalEng/status/1555563350423126017?s=20&t=6nL7HzevakKsCmC6ysqFPw)
 
-👉 Snakes and portals is playable on [suboptimaleng.github.io](https://suboptimaleng.github.io).
+👉 The code is available in this [repository](https://github.com/SuboptimalEng/suboptimaleng.github.io).
+👉 The game is playable on [suboptimaleng.github.io](https://suboptimaleng.github.io).
 
 <img src="/_demos/snakes-and-portals.png">
 
