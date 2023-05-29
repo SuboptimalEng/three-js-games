@@ -5,8 +5,8 @@ Hello world! My internet name is Suboptimal and I am an Indian software engineer
 All of these experiments are built with React.js + Three.js so running them locally is super easy. Here's an example of how you can run the `solar-system` animation:
 
 ```
-git clone https://github.com/SuboptimalEng/gamedex.git
-cd gamedex/solar-system/
+git clone https://github.com/SuboptimalEng/three-js-games.git
+cd three-js-games/solar-system/
 npm install
 npm run dev
 ```
