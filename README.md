@@ -1,6 +1,6 @@
-# 👾 Gamedex
+# 👾 Three.js Games
 
-Hello world! My internet name is Suboptimal and I am an Indian software engineer. Gamedex is the repo where I keep track of my Three.js game dev experiments. I also post the demos on 👉 [twitter](https://www.twitter.com/SuboptimalEng) so feel free to follow me there!
+Hello world! My internet name is Suboptimal and I am an Indian software engineer. This is the repo where I keep track of my Three.js game dev experiments. I also post the demos on 👉 [twitter](https://www.twitter.com/SuboptimalEng) so feel free to follow me there!
 
 All of these experiments are built with React.js + Three.js so running them locally is super easy. Here's an example of how you can run the `solar-system` animation:
 
