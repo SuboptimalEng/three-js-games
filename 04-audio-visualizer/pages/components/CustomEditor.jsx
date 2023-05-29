@@ -1,13 +1,10 @@
-import { useState } from "react";
-import CodeMirror from "@uiw/react-codemirror";
-import { javascript } from "@codemirror/lang-javascript";
+import { useState } from 'react';
+import CodeMirror from '@uiw/react-codemirror';
+import { javascript } from '@codemirror/lang-javascript';
 
 export default function CustomEditor() {
   const codeArray = [
     `
-// 🐦 twitter.com/SuboptimalEng
-// 💻 github.com/SuboptimalEng/Gamedex
-
 // setup next.js + tailwind css + three.js
 // npx create-next-app -e with-tailwindcss audio-waveform
 
@@ -35,9 +32,6 @@ planeMesh.position.y = 8;
 test.scene.add(planeMesh);
   `,
     `
-// 🐦 twitter.com/SuboptimalEng
-// 💻 github.com/SuboptimalEng/Gamedex
-
 <div className="absolute bottom-2 right-2">
   <audio
     id="myAudio"
@@ -71,8 +65,6 @@ const render = () => {
 render();
   `,
     `
-// 🐦 twitter.com/SuboptimalEng
-// 💻 github.com/SuboptimalEng/Gamedex
 
 // const planeGeometry = new THREE.PlaneGeometry(64, 64, 64, 64);
 // const planeMaterial = new THREE.MeshNormalMaterial({ wireframe: true });
@@ -89,9 +81,6 @@ const planeCustomMaterial = new THREE.ShaderMaterial({
 const planeMesh = new THREE.Mesh(planeGeometry, planeCustomMaterial);
   `,
     `
-// 🐦 twitter.com/SuboptimalEng
-// 💻 github.com/SuboptimalEng/Gamedex
-
 // vertex shader 1
 // void main() {
 //   gl_Position = projectionMatrix
@@ -124,9 +113,6 @@ void main() {
 }
   `,
     `
-// 🐦 twitter.com/SuboptimalEng
-// 💻 github.com/SuboptimalEng/Gamedex
-
 // vertex shader
 varying float x;
 varying float y;
@@ -155,9 +141,6 @@ void main() {
 }
   `,
     `
-// 🐦 twitter.com/SuboptimalEng
-// 💻 github.com/SuboptimalEng/Gamedex
-
 // fragment shader 1
 void main() {
   // red color
@@ -180,9 +163,6 @@ void main() {
 }
   `,
     `
-// 🐦 twitter.com/SuboptimalEng
-// 💻 github.com/SuboptimalEng/Gamedex
-
 // fragment shader
 varying float x;
 varying float y;
