@@ -1,6 +1,6 @@
 # 👾 Three.js Games
 
-Hello world! My internet name is Suboptimal and I am an Indian software engineer. This is the repo where I keep track of my Three.js game dev experiments. I also post the demos on 👉 [twitter](https://www.twitter.com/SuboptimalEng) so feel free to follow me there!
+Hello world! My internet name is Suboptimal and I am an Indian software engineer. This is the repo where I keep track of my Three.js game dev experiments. I also post the demos on [twitter](https://www.twitter.com/SuboptimalEng) so feel free to follow me there!
 
 All of these experiments are built with React.js + Three.js so running them locally is super easy. Here's an example of how you can run the `solar-system` animation:
 
@@ -13,22 +13,21 @@ npm run dev
 
 ## Snakes and Portals - [Demo](https://twitter.com/SuboptimalEng/status/1555563350423126017?s=20&t=6nL7HzevakKsCmC6ysqFPw)
 
-👉 The game is playable on my [website](https://suboptimaleng.github.io).
-
-👉 The code is available in this [repository](https://github.com/SuboptimalEng/suboptimaleng.github.io).
+- The game is playable on my [website](https://suboptimaleng.github.io).
+- The code is available in this [repository](https://github.com/SuboptimalEng/suboptimaleng.github.io).
 
 <img src="/_demos/snakes-and-portals.png">
 
 ## Frantic Architect - [Demo](https://twitter.com/SuboptimalEng/status/1514638959439228932?s=20&t=RpkyLBOetRIdc2PSdgLzmQ)
 
-👉 This is a clone of Frantic Architect - a mobile game made by [Will Kwan](https://twitter.com/_willkwan).
+- This is a clone of Frantic Architect - a mobile game made by [Will Kwan](https://twitter.com/_willkwan).
 
 <img src="/_demos/frantic-architect-2.png">
 <img src="/_demos/fa-debug-2.png">
 
 ## Retro Snake - [Demo](https://twitter.com/SuboptimalEng/status/1492319950849155073?s=20&t=vPsvcyCzeLn53K8Ogi8E5Q)
 
-👉 ["CRT Monitor"](https://sketchfab.com/3d-models/crt-monitor-e2dd2887a8904e4fa3d5a32e2935adb9) by [James.Harness](https://sketchfab.com/James.Harness) is licensed under [CC Attribution](https://creativecommons.org/licenses/by/4.0/).
+- ["CRT Monitor"](https://sketchfab.com/3d-models/crt-monitor-e2dd2887a8904e4fa3d5a32e2935adb9) by [James.Harness](https://sketchfab.com/James.Harness) is licensed under [CC Attribution](https://creativecommons.org/licenses/by/4.0/).
 
 <img src="/_reddit/snake-retro.png">
 <img src="/_demos/snake-retro-2.png">
@@ -45,13 +44,13 @@ npm run dev
 
 ## Piano - [Demo](https://twitter.com/SuboptimalEng/status/1484201522951032833?s=20&t=0tpf5oFjMqcWj6O-DB6txQ)
 
-👉 Grand piano music by [Borja Morales (reality3d)](https://github.com/reality3d/3d-piano-player) is licensed under [MIT](https://github.com/reality3d/3d-piano-player/blob/master/LICENSE).
+- Grand piano music by [Borja Morales (reality3d)](https://github.com/reality3d/3d-piano-player) is licensed under [MIT](https://github.com/reality3d/3d-piano-player/blob/master/LICENSE).
 
 <img src="/_reddit/piano.png">
 
 ## Naruto's Rasengan - [Demo](https://twitter.com/SuboptimalEng/status/1471878925584322562?s=20&t=0tpf5oFjMqcWj6O-DB6txQ)
 
-👉 ["Hand Anatomy"](https://sketchfab.com/3d-models/hand-anatomy-ada8498be9754e9f90b2eecc1b4ef8c5) by [Caterina Zamai](https://www.artstation.com/zaccate) is licensed under [CC Attribution](https://creativecommons.org/licenses/by/4.0/).
+- ["Hand Anatomy"](https://sketchfab.com/3d-models/hand-anatomy-ada8498be9754e9f90b2eecc1b4ef8c5) by [Caterina Zamai](https://www.artstation.com/zaccate) is licensed under [CC Attribution](https://creativecommons.org/licenses/by/4.0/).
 
 <img src="/_reddit/narutos-rasengan.png">
 
